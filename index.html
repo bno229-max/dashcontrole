@@ -166,7 +166,6 @@
 
         <div class="content-container" id="pdfContent">
             
-            <!-- ABA 1: DASHBOARD -->
             <div id="view-dashboard" class="view-section active">
                 <div class="card" style="display: flex; gap: 10px; align-items: center; justify-content: center; padding: 10px 15px; margin-bottom: 5px;">
                     <span style="font-weight: 600; font-size: 0.85rem;"><i class="fas fa-filter text-accent"></i> Período Analisado</span>
@@ -177,15 +176,15 @@
                 </div>
 
                 <div class="kpi-grid">
-                    <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Faturamento <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiFaturamento">R$ 0,00</div><div class="sub-value">Bruto Total</div><div class="kpi-details" id="detFaturamento"></div></div>
+                    <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Faturamento <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiFaturamento" style="color: var(--accent);">R$ 0,00</div><div class="sub-value">Bruto Total</div><div class="kpi-details" id="detFaturamento"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Receita Líq. <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiReceita" style="color: #10b981;">R$ 0,00</div><div class="sub-value">Global</div><div class="kpi-details" id="detReceita"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Taxa Média <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiTaxa" style="color: #ef4444;">0%</div><div class="sub-value">Retenção Plataf.</div><div class="kpi-details" id="detTaxa"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Ticket Médio <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiTicket">R$ 0,00</div><div class="sub-value">Por Pedido</div><div class="kpi-details" id="detTicket"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Pedidos <i class="fas fa-chevron-down"></i></h3><div class="value" id="kpiPedidos">0</div><div class="sub-value">Volume Total</div><div class="kpi-details" id="detPedidos"></div></div>
-                    <div class="card kpi-card"><h3>Despesas</h3><div class="value" id="kpiDespesas" style="color: #f59e0b;">R$ 0,00</div><div class="sub-value">Operacionais</div></div>
-                    <div class="card kpi-card" style="border-bottom: 2px solid var(--accent);"><h3>Lucro Líquido</h3><div class="value" id="kpiLucroLiq" style="color: var(--accent);">R$ 0,00</div><div class="sub-value">Receita - Desp.</div></div>
-                    <div class="card kpi-card" style="border-bottom: 2px solid var(--accent);"><h3>Margem Líq.</h3><div class="value" id="kpiMargem" style="color: var(--accent);">0%</div><div class="sub-value">Sobre Faturam.</div></div>
-                    <div class="card kpi-card" style="border-bottom: 2px solid #8b5cf6;"><h3>Estoque Atual</h3><div class="value" id="kpiEstoque" style="color: #8b5cf6;">R$ 0,00</div><div class="sub-value">Valor de Custo</div></div>
+                    <div class="card kpi-card"><h3>Despesas</h3><div class="value" id="kpiDespesas" style="color: #ef4444;">R$ 0,00</div><div class="sub-value">Operacionais</div></div>
+                    <div class="card kpi-card" style="border-bottom: 2px solid var(--accent);"><h3>Lucro Líquido</h3><div class="value" id="kpiLucroLiq" style="color: #10b981;">R$ 0,00</div><div class="sub-value">Receita - Desp.</div></div>
+                    <div class="card kpi-card" style="border-bottom: 2px solid var(--accent);"><h3>Margem Líq.</h3><div class="value" id="kpiMargem">0%</div><div class="sub-value">Sobre Faturam.</div></div>
+                    <div class="card kpi-card" style="border-bottom: 2px solid #8b5cf6;"><h3>Estoque Atual</h3><div class="value" id="kpiEstoque">R$ 0,00</div><div class="sub-value">Valor de Custo</div></div>
                 </div>
 
                 <div class="charts-grid">
@@ -196,10 +195,9 @@
                 </div>
             </div>
 
-            <!-- ABA VENDAS -->
             <div id="view-vendas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-dollar-sign text-accent"></i> Registrar Nova Venda</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-dollar-sign text-accent"></i> Lançamento de Vendas</h2>
                     <form id="formVendas">
                         <div class="form-grid">
                             <div class="form-group"><label>Data</label><input type="date" id="dataVenda" required></div>
@@ -230,7 +228,7 @@
                     </form>
                 </div>
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top: 10px;">
-                    <h3 style="font-size: 0.9rem; margin-bottom: 10px;">Histórico de Lançamentos de Vendas</h3>
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Lançamentos de Vendas</h3>
                     <div style="overflow-x: auto; max-height: 300px; overflow-y: auto;">
                         <table id="tableVendasGeral">
                             <thead><tr><th>Data</th><th>Canal</th><th>Faturamento</th><th>Líquido</th><th>Ações</th></tr></thead>
@@ -240,16 +238,34 @@
                 </div>
             </div>
 
-            <!-- ABA DESPESAS -->
             <div id="view-despesas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-file-invoice-dollar text-accent"></i> Registrar Despesa</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-file-invoice-dollar text-accent"></i> Despesas Operacionais</h2>
                     <form id="formDespesas">
                         <div class="form-grid">
                             <div class="form-group"><label>Data</label><input type="date" id="dataDespesa" required></div>
                             <div class="form-group"><label>Categoria</label>
                                 <select id="categoriaDespesa" required>
-                                    <option value="Boletos Fornecedores">Boletos</option><option value="Luz">Luz</option><option value="Condomínio">Condomínio</option><option value="Gás">Gás</option><option value="Internet">Internet</option><option value="Outras Despesas">Outras</option>
+                                    <option value="Aluguel do imóvel">Aluguel do imóvel</option>
+                                    <option value="Condomínio">Condomínio</option>
+                                    <option value="Energia elétrica">Energia elétrica</option>
+                                    <option value="Internet">Internet</option>
+                                    <option value="Telefonia fixa e móvel">Telefonia fixa e móvel</option>
+                                    <option value="Salários administrativos">Salários administrativos</option>
+                                    <option value="Pró-labore dos sócios">Pró-labore dos sócios</option>
+                                    <option value="Encargos trabalhistas (INSS, FGTS, etc.)">Encargos trabalhistas (INSS, FGTS, etc.)</option>
+                                    <option value="Honorários contábeis">Honorários contábeis</option>
+                                    <option value="Sistemas de gestão (ERP)">Sistemas de gestão (ERP)</option>
+                                    <option value="Assinaturas de softwares (CRM, BI, automação)">Assinaturas de softwares (CRM, BI, automação)</option>
+                                    <option value="Hospedagem de site e domínio">Hospedagem de site e domínio</option>
+                                    <option value="Seguros empresariais">Seguros empresariais</option>
+                                    <option value="Licenças e alvarás recorrentes">Licenças e alvarás recorrentes</option>
+                                    <option value="Monitoramento e segurança">Monitoramento e segurança</option>
+                                    <option value="Serviços de limpeza terceirizados">Serviços de limpeza terceirizados</option>
+                                    <option value="Manutenção preventiva de equipamentos">Manutenção preventiva de equipamentos</option>
+                                    <option value="Mensalidade de associações ou sindicatos">Mensalidade de associações ou sindicatos</option>
+                                    <option value="Financiamentos e empréstimos (parcelas fixas)">Financiamentos e empréstimos (parcelas fixas)</option>
+                                    <option value="Serviços jurídicos contratados mensalmente">Serviços jurídicos contratados mensalmente</option>
                                 </select>
                             </div>
                             <div class="form-group"><label>Valor (R$)</label><input type="number" id="valorDespesa" step="0.01" required></div>
@@ -259,17 +275,16 @@
                     </form>
                 </div>
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top:10px;">
-                    <h3 style="font-size: 0.9rem; margin-bottom: 10px;">Histórico de Despesas</h3>
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Despesas</h3>
                     <div style="overflow-x: auto; max-height: 300px; overflow-y: auto;">
                         <table id="tableDespesas"><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th><th>Ações</th></tr></thead><tbody></tbody></table>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA RECEITAS EXTRAS -->
             <div id="view-receitas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-hand-holding-usd text-accent"></i> Registrar Receita Avulsa</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-hand-holding-usd text-accent"></i> Receitas Avulsas</h2>
                     <form id="formReceitasAvulsas">
                         <div class="form-grid">
                             <div class="form-group"><label>Data</label><input type="date" id="dataReceitaAvulsa" required></div>
@@ -280,17 +295,16 @@
                     </form>
                 </div>
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top:10px;">
-                    <h3 style="font-size: 0.9rem; margin-bottom: 10px;">Histórico de Receitas Extras</h3>
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Receitas Extras</h3>
                     <div style="overflow-x: auto; max-height: 300px; overflow-y: auto;">
-                        <table id="tableReceitasAvulsas"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th>Ações</th></tr></thead><tbody></tbody></table>
+                        <table id="tableReceitasAvulsas"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th>Ação</th></tr></thead><tbody></tbody></table>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA CADASTRAR PRODUTOS -->
             <div id="view-produtos" class="view-section">
                 <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos e Estoque</h2>
                     <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
                         <input type="text" id="novoProdutoNome" placeholder="Nome do Produto" style="flex: 2; min-width: 200px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
                         <input type="number" id="novoProdutoCusto" placeholder="Preço Custo (R$)" step="0.01" style="flex: 1; min-width: 120px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
@@ -301,10 +315,9 @@
                 </div>
             </div>
 
-            <!-- ABA PAGAMENTO MOTOBOY COM CPF E RECIBO -->
             <div id="view-motoboy" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-helmet-safety text-accent"></i> Lançamento Pagamento Motoboy</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-helmet-safety text-accent"></i> Pagamento de Motoboys</h2>
                     <form id="formMotoboy">
                         <div class="form-grid">
                             <div class="form-group"><label>Data</label><input type="date" id="dataMotoboy" required></div>
@@ -324,7 +337,7 @@
                     </form>
                 </div>
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top:10px;">
-                    <h3 style="font-size: 0.9rem; margin-bottom: 10px;">Histórico de Motoboys</h3>
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Motoboys</h3>
                     <div style="overflow-x: auto;">
                         <table id="tableMotoboys">
                             <thead><tr><th>Data</th><th>Entregador</th><th>Entregas</th><th>Total a Pagar</th><th>Status</th><th>Ações</th></tr></thead>
@@ -334,10 +347,9 @@
                 </div>
             </div>
 
-            <!-- ABA SIMULAÇÃO DE PRECIFICAÇÃO -->
             <div id="view-precificacao" class="view-section">
                 <div class="card" style="max-width: 600px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-calculator text-accent"></i> Simulação de Precificação</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-calculator text-accent"></i> Simulador de Precificação</h2>
                     <div class="form-grid">
                         <div class="form-group"><label>Custo do Produto (Insumos) R$</label><input type="number" id="simCusto" step="0.01" value="0" oninput="calcularPrecificacao()"></div>
                         <div class="form-group"><label>Custo de Embalagem R$</label><input type="number" id="simEmbalagem" step="0.01" value="0" oninput="calcularPrecificacao()"></div>
@@ -352,28 +364,24 @@
                 </div>
             </div>
 
-            <!-- ABA INVENTÁRIO -->
             <div id="view-inventario" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;"><i class="fas fa-clipboard-check text-accent"></i> Realizar Inventário</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Atualize a quantidade física encontrada para cada produto. O sistema calculará a diferença e salvará o histórico.</p>
-                    
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-clipboard-check text-accent"></i> Inventário e Divergências</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: center;">Atualize a quantidade física encontrada para cada produto. O sistema calculará a diferença e salvará o histórico.</p>
                     <div style="max-height: 400px; overflow-y: auto; margin-bottom: 15px;">
                         <table id="tableRealizarInventario">
                             <thead><tr><th>Produto</th><th>Estoque Sistema</th><th>Qtde. Encontrada (Física)</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
-                    
                     <div class="form-group" style="margin-bottom: 15px;">
                         <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:4px;">Responsável pelo Inventário</label>
                         <input type="text" id="respInventario" placeholder="Ex: Carlos Gerente" style="width:100%; padding:10px; border-radius:var(--radius-md); border:1px solid var(--panel-border); background:var(--input-bg); color:var(--text-main);" required>
                     </div>
-
                     <button class="btn btn-primary" onclick="salvarInventario()" style="width: 100%;"><i class="fas fa-save"></i> Processar e Salvar Inventário</button>
                 </div>
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top: 10px;">
-                    <h3 style="font-size: 0.9rem; margin-bottom: 10px;">Histórico de Inventários</h3>
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Inventários</h3>
                     <table id="tableHistoricoInventario">
                         <thead><tr><th>Data / Hora</th><th>Divergência Total (R$)</th><th>Visualizar Detalhes</th><th>Relatório (PDF)</th></tr></thead>
                         <tbody></tbody>
@@ -381,10 +389,9 @@
                 </div>
             </div>
 
-            <!-- ABA ADMIN -->
             <div id="view-admin" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; color:#f59e0b;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; color:#f59e0b; text-align: center;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
                     <table id="tableAdminUsuarios">
                         <thead><tr><th>E-mail Corporativo</th><th>UID da Loja</th><th>Status</th><th>Ações de Acesso</th></tr></thead>
                         <tbody></tbody>
@@ -395,7 +402,6 @@
         </div> 
     </div>
 
-    <!-- MODAL PERFIL -->
     <div id="modalPerfil" class="modal-overlay">
         <div class="modal-content card">
             <h3 style="margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-user-cog text-accent"></i> Configurações da Conta</h3>
@@ -410,7 +416,6 @@
         </div>
     </div>
 
-    <!-- MODAL INVENTÁRIO -->
     <div id="modalInventario" class="modal-overlay">
         <div class="modal-content card" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
             <h3 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;">Detalhes do Inventário</h3>
@@ -424,7 +429,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth(); const db = firebase.firestore();
 
-        // COLOQUE SEU EMAIL DE ADMIN AQUI
         const MEU_EMAIL_ADMIN = "bno229@gmail.com"; 
 
         let currentUser = null;
@@ -442,7 +446,6 @@
         document.getElementById('dataReceitaAvulsa').valueAsDate = new Date();
         document.getElementById('dataMotoboy').valueAsDate = new Date();
 
-        // FUNÇÃO MATEMÁTICA SEGURA
         function formatarMoeda(v) { const val = Number(v) || 0; return `R$ ${val.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits:2})}`; }
 
         auth.onAuthStateChanged(user => {
@@ -451,6 +454,7 @@
                 db.collection('usuarios').doc(user.uid).get().then(doc => { 
                     if(!doc.exists) db.collection('usuarios').doc(user.uid).set({ email: user.email, nome: "Nova Loja Cadastrada", statusAcesso: "ativo" }); 
                 });
+                
                 db.collection('usuarios').doc(user.uid).onSnapshot(doc => {
                     if (doc.exists) {
                         perfilDados = doc.data();
@@ -462,7 +466,13 @@
                         }
                     }
                 });
-                if (user.email === MEU_EMAIL_ADMIN) { document.getElementById('nav-admin').style.display = 'flex'; } else { document.getElementById('nav-admin').style.display = 'none'; if(document.getElementById('view-admin').classList.contains('active')) document.querySelectorAll('.nav-item')[0].click(); }
+
+                if (user.email === MEU_EMAIL_ADMIN) {
+                    document.getElementById('nav-admin').style.display = 'flex';
+                } else {
+                    document.getElementById('nav-admin').style.display = 'none';
+                    if(document.getElementById('view-admin').classList.contains('active')) document.querySelectorAll('.nav-item')[0].click();
+                }
                 applyTheme();
             } else {
                 currentUser = null; document.getElementById('block-wrapper').style.display = 'none'; document.getElementById('login-wrapper').style.display = 'flex'; document.getElementById('sidebar').style.display = 'none'; document.getElementById('mainWrapper').style.display = 'none'; document.getElementById('nav-admin').style.display = 'none';
@@ -494,7 +504,7 @@
             if(currentUser.email !== MEU_EMAIL_ADMIN) return;
             try { const snapshot = await db.collection('usuarios').get(); const tbody = document.querySelector('#tableAdminUsuarios tbody'); tbody.innerHTML = ''; if(snapshot.empty) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Nenhum cliente encontrado.</td></tr>`; return; } snapshot.forEach(doc => { const u = doc.data(); const corStatus = u.statusAcesso === 'ativo' ? '#10b981' : '#ef4444'; tbody.innerHTML += `<tr><td><b>${u.email}</b></td><td><small>${doc.id}</small></td><td style="color:${corStatus}; font-weight:700;">${u.statusAcesso ? u.statusAcesso.toUpperCase() : 'ATIVO'}</td><td><button class="btn btn-outline" style="padding:4px 8px; border-color:#10b981; color:#10b981;" onclick="alterarStatusConta('${doc.id}', 'ativo')"><i class="fas fa-check"></i> Ativar</button> <button class="btn btn-outline" style="padding:4px 8px; border-color:#ef4444; color:#ef4444;" onclick="alterarStatusConta('${doc.id}', 'bloqueado')"><i class="fas fa-ban"></i> Bloquear</button></td></tr>`; }); } catch(e) { document.querySelector('#tableAdminUsuarios tbody').innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">Erro de Permissão: Verifique as regras do Firebase.</td></tr>`; }
         }
-        function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status atualizado!'); carregarListaUsuariosAdmin(); }); }
+        function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status updated!'); carregarListaUsuariosAdmin(); }); }
 
         function cadastrarProdutoBase() { const n = document.getElementById('novoProdutoNome').value; const c = parseFloat(document.getElementById('novoProdutoCusto').value)||0; const q = parseInt(document.getElementById('novoProdutoQtd').value)||0; if(n) { db.collection('produtos').add({ nome:n, custo:c, estoque:q, userId: currentUser.uid }); document.getElementById('novoProdutoNome').value=''; document.getElementById('novoProdutoCusto').value=''; document.getElementById('novoProdutoQtd').value=''; } }
         function deletarProdutoBase(id) { if(confirm("Apagar produto?")) db.collection('produtos').doc(id).delete(); }
@@ -519,18 +529,12 @@
         function editarReceitaAvulsa(id) { const item = bdReceitasAvulsas.find(x => x.id === id); if(!item) return; document.getElementById('dataReceitaAvulsa').value = item.data; document.getElementById('descReceitaAvulsa').value = item.descricao; document.getElementById('valorReceitaAvulsa').value = item.valor; editandoIdReceita = id; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Receita'; window.scrollTo(0,0); }
         function renderizarTabelaReceitasAvulsas() { const tbody = document.querySelector('#tableReceitasAvulsas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdReceitasAvulsas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(r => { const dataFormatada = r.data ? r.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${r.descricao}</td><td style="color:#10b981;">${formatarMoeda(r.valor)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarReceitaAvulsa('${r.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarReceitaAvulsa('${r.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
-        // ==========================================
-        // MOTOBOYS (Com CPF, Edição e PDF Restritos)
-        // ==========================================
         document.getElementById('formMotoboy').addEventListener('submit', function(e) {
             e.preventDefault();
             const diaria = parseFloat(document.getElementById('diariaMotoboy').value) || 0; const extra = parseFloat(document.getElementById('extraMotoboy').value) || 0; const qtd = parseInt(document.getElementById('qtdEntregasMotoboy').value) || 0; const totalPago = diaria + (qtd * extra);
-            
             const mb = { data: document.getElementById('dataMotoboy').value, nome: document.getElementById('nomeMotoboy').value, cpf: document.getElementById('cpfMotoboy').value, qtdEntregas: qtd, diaria: diaria, extra: extra, total: totalPago, status: document.getElementById('statusMotoboy').value, userId: currentUser.uid };
-            
             if(editandoIdMotoboy) { db.collection('motoboys').doc(editandoIdMotoboy).update(mb); editandoIdMotoboy = null; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-plus"></i> Salvar Lançamento'; } 
             else { db.collection('motoboys').add(mb); }
-            
             document.getElementById('formMotoboy').reset(); document.getElementById('dataMotoboy').valueAsDate = new Date(); document.getElementById('statusMotoboy').value = "Pendente";
         });
 
@@ -541,89 +545,39 @@
             editandoIdMotoboy = id; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-edit"></i> Atualizar Lançamento'; window.scrollTo(0,0);
         }
         function alternarStatusMotoboy(id, statusAtual) { const novoStatus = statusAtual === 'Pago' ? 'Pendente' : 'Pago'; db.collection('motoboys').doc(id).update({ status: novoStatus }); }
-        
         function renderizarHistoricoMotoboys() {
             const tbody = document.querySelector('#tableMotoboys tbody'); tbody.innerHTML = '';
             const ord = [...bdMotoboys].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0));
             ord.forEach(m => {
                 const corStatus = m.status === 'Pago' ? '#10b981' : '#f59e0b'; const dataFormatada = m.data ? m.data.split('-').reverse().join('/') : '';
-                tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><b>${m.nome}</b><br><small style="color:var(--text-muted)">${m.cpf || ''}</small></td><td>${m.qtdEntregas}</td><td><b>${formatarMoeda(m.total)}</b></td><td><span style="color: ${corStatus}; font-weight: bold; cursor: pointer;" onclick="alternarStatusMotoboy('${m.id}', '${m.status}')">${m.status}</span></td>
-                <td style="white-space: nowrap;">
-                    <button class="btn btn-outline" style="padding: 2px 6px; font-size:0.75rem;" onclick="editarMotoboy('${m.id}')"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-outline" style="padding: 2px 6px; color: red; border-color: red; font-size:0.75rem;" onclick="deletarMotoboy('${m.id}')"><i class="fas fa-trash"></i></button>
-                    <button class="btn btn-primary" style="padding: 2px 6px; font-size:0.75rem;" onclick="gerarPDFMotoboy('${m.id}')"><i class="fas fa-file-pdf"></i> PDF</button>
-                </td></tr>`;
+                tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><b>${m.nome}</b><br><small style="color:var(--text-muted)">${m.cpf || ''}</small></td><td>${m.qtdEntregas}</td><td><b>${formatarMoeda(m.total)}</b></td><td><span style="color: ${corStatus}; font-weight: bold; cursor: pointer;" onclick="alternarStatusMotoboy('${m.id}', '${m.status}')">${m.status}</span></td><td style="white-space: nowrap;"><button class="btn btn-outline" style="padding: 2px 6px; font-size:0.75rem;" onclick="editarMotoboy('${m.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding: 2px 6px; color: red; border-color: red; font-size:0.75rem;" onclick="deletarMotoboy('${m.id}')"><i class="fas fa-trash"></i></button> <button class="btn btn-primary" style="padding: 2px 6px; font-size:0.75rem;" onclick="generarPDFMotoboy('${m.id}')"><i class="fas fa-file-pdf"></i> PDF</button></td></tr>`;
             });
         }
 
-        function gerarPDFMotoboy(id) {
-            const m = bdMotoboys.find(x => x.id === id); if(!m) return;
-            const dataF = m.data.split('-').reverse().join('/');
-            const div = document.createElement('div');
-            div.style.cssText = "padding:30px; font-family:sans-serif; color:#000; background:#fff; width:100%;";
-            div.innerHTML = `
-                <div style="text-align:center; margin-bottom:20px;">
-                    <h2 style="margin:0;">RECIBO DE PAGAMENTO DE PRESTAÇÃO DE SERVIÇOS</h2>
-                    <p style="margin:5px 0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p>
-                </div>
-                <hr style="border:1px solid #ccc; margin-bottom:20px;">
-                <p style="font-size:14px; line-height:1.6;">Recebi(emos) de <b>${perfilDados.nome || 'Delivery BI'}</b> a quantia de <b>${formatarMoeda(m.total)}</b>, referente à prestação de serviços de entregas na data de <b>${dataF}</b>.</p>
-                
-                <table style="width:100%; margin-top:20px; border-collapse:collapse; font-size:14px;">
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9; width:40%;"><b>Nome do Entregador:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.nome}</td></tr>
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>CPF:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.cpf || 'Não informado'}</td></tr>
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Qtd. de Entregas:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.qtdEntregas}</td></tr>
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor da Diária:</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.diaria)}</td></tr>
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor Adicional (Por Entrega):</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.extra)}</td></tr>
-                    <tr><td style="padding:8px; border:1px solid #ddd; background:#eee; font-weight:bold;"><b>Total Geral:</b></td><td style="padding:8px; border:1px solid #ddd; font-weight:bold;">${formatarMoeda(m.total)}</td></tr>
-                </table>
-                <p style="font-size:12px; margin-top:15px; color:#555;">Por ser verdade, firmo o presente recibo.</p>
-                
-                <div style="display:flex; justify-content:space-between; margin-top:80px; text-align:center; font-size:13px;">
-                    <div style="width:45%; border-top:1px solid #000; padding-top:10px;">
-                        <b>Responsável pelo Pagamento</b><br>${perfilDados.nome || 'Delivery BI'}
-                    </div>
-                    <div style="width:45%; border-top:1px solid #000; padding-top:10px;">
-                        <b>${m.nome}</b><br>CPF: ${m.cpf || 'Não informado'}
-                    </div>
-                </div>
-            `;
+        function generarPDFMotoboy(id) {
+            const m = bdMotoboys.find(x => x.id === id); if(!m) return; const dataF = m.data.split('-').reverse().join('/'); const div = document.createElement('div'); div.style.cssText = "padding:30px; font-family:sans-serif; color:#000; background:#fff; width:100%;";
+            div.innerHTML = `<div style="text-align:center; margin-bottom:20px;"><h2 style="margin:0;">RECIBO DE PAGAMENTO DE PRESTAÇÃO DE SERVIÇOS</h2><p style="margin:5px 0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="border:1px solid #ccc; margin-bottom:20px;"><p style="font-size:14px; line-height:1.6;">Recebi(emos) de <b>${perfilDados.nome || 'Delivery BI'}</b> a quantia de <b>${formatarMoeda(m.total)}</b>, referente à prestação de serviços de entregas na data de <b>${dataF}</b>.</p><table style="width:100%; margin-top:20px; border-collapse:collapse; font-size:14px;"><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9; width:40%;"><b>Nome do Entregador:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.nome}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>CPF:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.cpf || 'Não informado'}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Qtd. de Entregas:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.qtdEntregas}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor da Diária:</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.diaria)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor Adicional (Por Entrega):</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.extra)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#eee; font-weight:bold;"><b>Total Geral:</b></td><td style="padding:8px; border:1px solid #ddd; font-weight:bold;">${formatarMoeda(m.total)}</td></tr></table><p style="font-size:12px; margin-top:15px; color:#555;">Por ser verdade, firmo o presente recibo.</p><div style="display:flex; justify-content:space-between; margin-top:80px; text-align:center; font-size:13px;"><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>Responsável pelo Pagamento</b><br>${perfilDados.nome || 'Delivery BI'}</div><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>${m.nome}</b><br>CPF: ${m.cpf || 'Não informado'}</div></div>`;
             html2pdf().set({ margin:10, filename: `Recibo_${m.nome.replace(/\s+/g,'_')}_${dataF.replace(/\//g,'-')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save();
         }
 
-        // ==========================================
-        // PRECIFICAÇÃO
-        // ==========================================
         function calcularPrecificacao() {
-            const custo = parseFloat(document.getElementById('simCusto').value) || 0; const embalagem = parseFloat(document.getElementById('simEmbalagem').value) || 0; const taxa = parseFloat(document.getElementById('simTaxa').value) || 0; const margem = parseFloat(document.getElementById('simMargem').value) || 0;
-            const aviso = document.getElementById('simAviso'); const res = document.getElementById('simResultado');
-            const somaPercentuais = (taxa + margem) / 100;
+            const custo = parseFloat(document.getElementById('simCusto').value) || 0; const embalagem = parseFloat(document.getElementById('simEmbalagem').value) || 0; const taxa = parseFloat(document.getElementById('simTaxa').value) || 0; const margem = parseFloat(document.getElementById('simMargem').value) || 0; const aviso = document.getElementById('simAviso'); const res = document.getElementById('simResultado'); const somaPercentuais = (taxa + margem) / 100;
             if (somaPercentuais >= 1) { aviso.style.display = 'block'; res.innerText = "R$ 0,00"; return; }
-            aviso.style.display = 'none'; const precoVenda = (custo + embalagem) / (1 - somaPercentuais);
-            res.innerText = formatarMoeda(precoVenda);
+            aviso.style.display = 'none'; const precoVenda = (custo + embalagem) / (1 - somaPercentuais); res.innerText = formatarMoeda(precoVenda);
         }
 
-        // ==========================================
-        // INVENTÁRIO (Com PDF)
-        // ==========================================
         function renderizarTabelaInventario() {
             const tbody = document.querySelector('#tableRealizarInventario tbody'); tbody.innerHTML = '';
             bdProdutos.forEach(p => { tbody.innerHTML += `<tr><td><b>${p.nome}</b></td><td>${p.estoque} un.</td><td><input type="number" class="input-inventario" data-id="${p.id}" data-nome="${p.nome}" data-custo="${p.custo}" data-atual="${p.estoque}" value="${p.estoque}" style="width: 80px; padding: 4px; text-align: center; border-radius: 4px; border: 1px solid var(--panel-border); background: var(--bg-color); color: var(--text-main);"></td></tr>`; });
         }
 
         function salvarInventario() {
-            const resp = document.getElementById('respInventario').value.trim();
-            if(!resp) return alert("Por favor, preencha o nome do responsável pelo inventário.");
-            const itens = []; let divergenciaTotalR = 0; const promises = [];
-            
+            const resp = document.getElementById('respInventario').value.trim(); if(!resp) return alert("Por favor, preencha o nome do responsável pelo inventário."); const itens = []; let divergenciaTotalR = 0; const promises = [];
             document.querySelectorAll('.input-inventario').forEach(input => {
                 const id = input.getAttribute('data-id'); const nome = input.getAttribute('data-nome'); const custo = parseFloat(input.getAttribute('data-custo'))||0; const atual = parseInt(input.getAttribute('data-atual'))||0; const encontrado = parseInt(input.value)||0;
                 if (atual !== encontrado) { const divQtd = encontrado - atual; const divR = divQtd * custo; divergenciaTotalR += divR; itens.push({ id, nome, atual, encontrado, divQtd, divR }); promises.push(db.collection('produtos').doc(id).update({ estoque: encontrado })); }
             });
-            
-            if (itens.length > 0) { 
-                promises.push(db.collection('inventarios').add({ dataHora: new Date().toLocaleString('pt-BR'), responsavel: resp, divergenciaTotalR, itens, userId: currentUser.uid })); 
-                Promise.all(promises).then(() => { alert("Inventário salvo e estoques atualizados na base de produtos!"); document.getElementById('respInventario').value = ''; });
+            if (itens.length > 0) { promises.push(db.collection('inventarios').add({ dataHora: new Date().toLocaleString('pt-BR'), responsavel: resp, divergenciaTotalR, itens, userId: currentUser.uid })); Promise.all(promises).then(() => { alert("Inventário salvo e estoques atualizados na base de produtos!"); document.getElementById('respInventario').value = ''; });
             } else { alert("Nenhuma divergência foi detectada. O estoque foi mantido."); document.getElementById('respInventario').value = ''; }
         }
 
@@ -632,9 +586,7 @@
             const ord = [...bdInventarios].sort((a,b) => b.dataHora.localeCompare(a.dataHora));
             ord.forEach(inv => {
                 const cor = inv.divergenciaTotalR < 0 ? '#ef4444' : (inv.divergenciaTotalR > 0 ? '#10b981' : 'var(--text-muted)'); const sinal = inv.divergenciaTotalR > 0 ? '+' : '';
-                tbody.innerHTML += `<tr><td>${inv.dataHora}</td><td style="color: ${cor}; font-weight: bold;">${sinal} ${formatarMoeda(inv.divergenciaTotalR)}</td>
-                <td><button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem;" onclick='abrirModalInventario(${JSON.stringify(inv)})'><i class="fas fa-eye"></i> Detalhes</button></td>
-                <td><button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="gerarPDFInventario('${inv.id}')"><i class="fas fa-file-pdf"></i> Gerar Relatório</button></td></tr>`;
+                tbody.innerHTML += `<tr><td>${inv.dataHora}</td><td style="color: ${cor}; font-weight: bold;">${sinal} ${formatarMoeda(inv.divergenciaTotalR)}</td><td><button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem;" onclick='abrirModalInventario(${JSON.stringify(inv)})'><i class="fas fa-eye"></i> Detalhes</button></td><td><button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="gerarPDFInventario('${inv.id}')"><i class="fas fa-file-pdf"></i> Gerar Relatório</button></td></tr>`;
             });
         }
 
@@ -646,59 +598,15 @@
         function fecharModalInventario() { document.getElementById('modalInventario').classList.remove('active'); }
 
         function gerarPDFInventario(id) {
-            const inv = bdInventarios.find(x => x.id === id); if(!inv) return;
-            const div = document.createElement('div');
-            div.style.cssText = "padding:20px; font-family:sans-serif; color:#000; background:#fff; width:100%; font-size:12px;";
-            
-            let htmlTable = `<table style="width:100%; border-collapse:collapse; text-align:left; margin-top:20px; border:1px solid #000;">
-                <thead><tr style="background:#eee; border-bottom:1px solid #000;">
-                    <th style="padding:6px; border-right:1px solid #000;">Produto</th>
-                    <th style="padding:6px; border-right:1px solid #000;">Estoque Sistema</th>
-                    <th style="padding:6px; border-right:1px solid #000;">Qtd. Encontrada</th>
-                    <th style="padding:6px; border-right:1px solid #000;">Div. (Qtd)</th>
-                    <th style="padding:6px;">Div. (R$)</th>
-                </tr></thead><tbody>`;
-                
-            inv.itens.forEach(i => {
-                htmlTable += `<tr style="border-bottom:1px solid #ccc;">
-                    <td style="padding:6px; border-right:1px solid #000;">${i.nome}</td>
-                    <td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.atual}</td>
-                    <td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.encontrado}</td>
-                    <td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.divQtd > 0 ? '+'+i.divQtd : i.divQtd}</td>
-                    <td style="padding:6px;">${formatarMoeda(i.divR)}</td>
-                </tr>`;
-            });
-            htmlTable += `</tbody></table>`;
-
-            div.innerHTML = `
-                <div style="text-align:center;">
-                    <h2 style="margin-bottom:5px;">RELATÓRIO DE INVENTÁRIO (DIVERGÊNCIAS)</h2>
-                    <p style="margin:0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p>
-                </div>
-                <hr style="margin:15px 0;">
-                <p><b>Data e Hora da Auditoria:</b> ${inv.dataHora}</p>
-                <p><b>Responsável pela Contagem:</b> ${inv.responsavel || 'Não informado'}</p>
-                
-                ${htmlTable}
-                
-                <h3 style="text-align:right; margin-top:20px;">Divergência Total Acumulada: ${formatarMoeda(inv.divergenciaTotalR)}</h3>
-                
-                <div style="margin-top:60px; text-align:center;">
-                    <div style="width:50%; margin:0 auto; border-top:1px solid #000; padding-top:10px;">
-                        <b>${inv.responsavel || 'Responsável'}</b><br>Assinatura
-                    </div>
-                </div>
-            `;
+            const inv = bdInventarios.find(x => x.id === id); if(!inv) return; const div = document.createElement('div'); div.style.cssText = "padding:20px; font-family:sans-serif; color:#000; background:#fff; width:100%; font-size:12px;";
+            let htmlTable = `<table style="width:100%; border-collapse:collapse; text-align:left; margin-top:20px; border:1px solid #000;"><thead><tr style="background:#eee; border-bottom:1px solid #000;"><th style="padding:6px; border-right:1px solid #000;">Produto</th><th style="padding:6px; border-right:1px solid #000;">Estoque Sistema</th><th style="padding:6px; border-right:1px solid #000;">Qtd. Encontrada</th><th style="padding:6px; border-right:1px solid #000;">Div. (Qtd)</th><th style="padding:6px;">Div. (R$)</th></tr></thead><tbody>`;
+            inv.itens.forEach(i => { htmlTable += `<tr style="border-bottom:1px solid #ccc;"><td style="padding:6px; border-right:1px solid #000;">${i.nome}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.atual}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.encontrado}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.divQtd > 0 ? '+'+i.divQtd : i.divQtd}</td><td style="padding:6px;">${formatarMoeda(i.divR)}</td></tr>`; }); htmlTable += `</tbody></table>`;
+            div.innerHTML = `<div style="text-align:center;"><h2 style="margin-bottom:5px;">RELATÓRIO DE INVENTÁRIO (DIVERGÊNCIAS)</h2><p style="margin:0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="margin:15px 0;"><p><b>Data e Hora da Auditoria:</b> ${inv.dataHora}</p><p><b>Responsável pela Contagem:</b> ${inv.responsavel || 'Não informado'}</p>${htmlTable}<h3 style="text-align:right; margin-top:20px;">Divergência Total Acumulada: ${formatarMoeda(inv.divergenciaTotalR)}</h3><div style="margin-top:60px; text-align:center;"><div style="width:50%; margin:0 auto; border-top:1px solid #000; padding-top:10px;"><b>${inv.responsavel || 'Responsável'}</b><br>Assinatura</div></div>`;
             html2pdf().set({ margin:10, filename: `Inventario_${inv.dataHora.replace(/[\/\s:]/g,'_')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save();
         }
 
-        // ==========================================
-        // GESTÃO DE TELAS E DASHBOARD
-        // ==========================================
         function switchTab(tabId, element) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + tabId).classList.add('active'); element.classList.add('active');
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); document.getElementById('view-' + tabId).classList.add('active'); element.classList.add('active');
             const titulos = { 'dashboard': 'Visão Geral (Dashboard)', 'vendas': 'Lançamento de Vendas', 'despesas': 'Despesas Operacionais', 'receitas': 'Receitas Avulsas', 'produtos': 'Cadastrar Produtos e Estoque', 'motoboy': 'Pagamento de Motoboys', 'precificacao': 'Simulador de Precificação', 'inventario': 'Inventário e Divergências', 'admin': 'Gestão SaaS Admin' };
             document.getElementById('pageTitle').innerText = titulos[tabId] || 'Painel';
             if(tabId === 'admin') carregarListaUsuariosAdmin(); if(tabId === 'dashboard') atualizarDashboard(); if(tabId === 'motoboy') renderizarHistoricoMotoboys(); if(tabId === 'inventario') { renderizarTabelaInventario(); renderizarHistoricoInventarios(); }
@@ -720,6 +628,10 @@
             let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'Whatsapp': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
             let dadosPorDia = { 'Segunda-feira':0, 'Terça-feira':0, 'Quarta-feira':0, 'Quinta-feira':0, 'Sexta-feira':0, 'Sábado':0, 'Domingo':0 };
             let contagemProdutos = {};
+
+            const tbodyVDash = document.querySelector('#historyTableDashboard tbody'); tbodyVDash.innerHTML = '';
+            const ordV = [...vFiltradas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)).slice(0, 5); 
+            ordV.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbodyVDash.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal]}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td>${v.qtdPedidos}</td></tr>`; });
 
             vFiltradas.forEach(v => {
                 totalFatVendas += v.faturamento || 0; totalRecVendas += v.receitaLiquida || 0; totalPed += v.qtdPedidos || 0;
