@@ -17,7 +17,7 @@
 
     <style>
         :root {
-            --ifood: #ef4444; --keeta: #10b981; --99foods: #f59e0b; --outras: #64748b;     
+            --ifood: #ef4444; --keeta: #10b981; --99foods: #f59e0b; --whatsapp: #25D366; --outras: #64748b;     
             --bg-color: #f8fafc; --panel-bg: #ffffff; --panel-border: #e2e8f0; --text-main: #1e293b;
             --text-muted: #64748b; --accent: #3b82f6; --accent-hover: #2563eb;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -67,12 +67,15 @@
         .form-group input:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
         
         .main-wrapper { flex: 1; display: none; flex-direction: column; overflow: hidden; position: relative; z-index: 1;}
-        .top-navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); z-index: 5; }
+        .top-navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); z-index: 5; position: relative;}
         body.dark-mode .top-navbar { backdrop-filter: blur(16px); }
         .toggle-btn { background: var(--input-bg); border: 1px solid var(--panel-border); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .user-profile { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-left: 1px solid var(--panel-border); margin-left: 8px; cursor: pointer; transition: 0.2s; border-radius: var(--radius-md); }
         .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; overflow: hidden; }
         
+        #pageTitle { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.05rem; font-weight: 600; margin: 0; white-space: nowrap; }
+        @media (max-width: 768px) { #pageTitle { position: static; transform: none; margin-left: 15px; } }
+
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .modal-content { width: 100%; max-width: 400px; padding: 25px; }
@@ -92,13 +95,6 @@
         
         .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px; }
         .chart-container { position: relative; height: 160px; width: 100%; margin-top: 5px;}
-        
-        .history-container { margin-top: 5px; flex: 1; display: flex; flex-direction: column; }
-        .history-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-muted); transition: color 0.2s; padding-bottom: 5px; }
-        .history-header h3 { font-size: 0.85rem; margin: 0; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
-        .history-content { display: none; margin-top: 5px; overflow-y: auto; max-height: 200px; }
-        .history-container.expanded .history-content { display: block; animation: fadeIn 0.3s ease; }
-        .history-container.expanded .fa-chevron-down { transform: rotate(180deg); }
 
         table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
@@ -126,7 +122,7 @@
     <div id="login-wrapper">
         <div class="login-box card">
             <h1><i class="fas fa-chart-pie"></i> Delivery BI</h1>
-            <p>Acesse o seu SaaS Financeiro na nuvem</p>
+            <p>Acesse o seu Controle Financeiro</p>
             <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
             <form id="formLogin">
                 <div class="form-group"><label>E-mail</label><input type="email" id="authEmail" required></div>
@@ -157,8 +153,10 @@
         <div class="top-navbar">
             <div class="navbar-left">
                 <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <h2 id="pageTitle" style="font-size: 1.05rem; font-weight: 600;">Visão Geral (Dashboard)</h2>
             </div>
+            
+            <h2 id="pageTitle">Visão Geral (Dashboard)</h2>
+
             <div style="display: flex; align-items: center; gap: 8px;">
                 <button class="toggle-btn" onclick="toggleTheme()" title="Modo Escuro"><i class="fas fa-moon" id="themeIcon"></i></button>
                 <div class="user-profile" onclick="abrirModalPerfil()"><div class="avatar" id="avatarUsuario">U</div><span id="nomeUsuario" style="font-size: 0.85rem;">Usuário</span></div>
@@ -170,7 +168,7 @@
             
             <!-- ABA 1: DASHBOARD -->
             <div id="view-dashboard" class="view-section active">
-                <div class="card" style="display: flex; gap: 10px; align-items: center; padding: 10px 15px; margin-bottom: 5px;">
+                <div class="card" style="display: flex; gap: 10px; align-items: center; justify-content: center; padding: 10px 15px; margin-bottom: 5px;">
                     <span style="font-weight: 600; font-size: 0.85rem;"><i class="fas fa-filter text-accent"></i> Período Analisado</span>
                     <input type="date" id="filterStart" onchange="atualizarDashboard()" style="background:var(--input-bg); border:1px solid var(--panel-border); border-radius:var(--radius-md); padding:4px 8px; color:var(--text-main);">
                     <span style="color: var(--text-muted); font-size: 0.8rem;">até</span>
@@ -196,19 +194,6 @@
                     <div class="card"><h3>Top 10 Itens Mais Vendidos</h3><div class="chart-container"><canvas id="topProductsChart"></canvas></div></div>
                     <div class="card"><h3>Pedidos por Canal</h3><div class="chart-container"><canvas id="donutChart"></canvas></div></div>
                 </div>
-
-                <div class="card history-container" data-html2canvas-ignore="true">
-                    <div class="history-header" onclick="this.parentElement.classList.toggle('expanded')">
-                        <h3 style="color: var(--text-main);"><i class="fas fa-list text-accent"></i> Últimos Lançamentos (Vendas)</h3>
-                        <i class="fas fa-chevron-down" style="transition: transform 0.3s;"></i>
-                    </div>
-                    <div class="history-content">
-                        <table id="historyTableDashboard">
-                            <thead><tr><th>Data</th><th>Canal</th><th>Faturamento</th><th>Líquido</th><th>Pedidos</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
 
             <!-- ABA VENDAS -->
@@ -225,7 +210,7 @@
                             </div>
                             <div class="form-group"><label>Canal</label>
                                 <select id="canalVenda" required>
-                                    <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="Outras Receitas">Outras Receitas</option>
+                                    <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="Whatsapp">Whatsapp</option><option value="Outras Receitas">Outras Receitas</option>
                                 </select>
                             </div>
                             <div class="form-group"><label>Qtd. Pedidos</label><input type="number" id="qtdPedidosVenda" required min="1"></div>
@@ -450,7 +435,7 @@
         let produtosTempVenda = []; let graficosInstancias = {};
         let editandoIdVenda = null; let editandoIdDespesa = null; let editandoIdReceita = null; let editandoIdMotoboy = null;
 
-        const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'Outras Receitas': '#64748b' };
+        const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'Whatsapp': '#25D366', 'Outras Receitas': '#64748b' };
 
         document.getElementById('dataVenda').valueAsDate = new Date();
         document.getElementById('dataDespesa').valueAsDate = new Date();
@@ -732,13 +717,9 @@
             let rFiltradas = bdReceitasAvulsas.filter(r => (!fStart || r.data >= fStart) && (!fEnd || r.data <= fEnd));
             
             let totalFatVendas = 0, totalRecVendas = 0, totalPed = 0, totalDesp = 0, totalRecAvulsas = 0;
-            let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
+            let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'Whatsapp': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
             let dadosPorDia = { 'Segunda-feira':0, 'Terça-feira':0, 'Quarta-feira':0, 'Quinta-feira':0, 'Sexta-feira':0, 'Sábado':0, 'Domingo':0 };
             let contagemProdutos = {};
-
-            const tbodyVDash = document.querySelector('#historyTableDashboard tbody'); tbodyVDash.innerHTML = '';
-            const ordV = [...vFiltradas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)).slice(0, 5); 
-            ordV.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbodyVDash.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal]}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td>${v.qtdPedidos}</td></tr>`; });
 
             vFiltradas.forEach(v => {
                 totalFatVendas += v.faturamento || 0; totalRecVendas += v.receitaLiquida || 0; totalPed += v.qtdPedidos || 0;
