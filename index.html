@@ -225,7 +225,7 @@
                     <div class="card kpi-card"><h3>Estoque Atual</h3><div class="value text-branco" id="kpiEstoque">R$ 0,00</div><div class="sub-value">Valor de Custo</div></div>
                 </div>
 
-                <!-- GRÁFICOS EXPANSIVOS ONE-PAGE -->
+                <!-- GRÁFICOS EXPANSIVOS ONE-PAGE (Preenchem a tela inteira sem rolagem) -->
                 <div class="charts-grid">
                     <div class="card"><h3>Faturamento vs Líquido</h3><div class="chart-container"><canvas id="barChart"></canvas></div></div>
                     <div class="card"><h3>Vendas por Dia da Semana</h3><div class="chart-container"><canvas id="diaSemanaChart"></canvas></div></div>
@@ -248,7 +248,7 @@
                             </div>
                             <div class="form-group"><label>Canal</label>
                                 <select id="canalVenda" required>
-                                    <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="WhatsApp">WhatsApp</option><option value="Outras Receitas">Outras Receitas</option>
+                                    <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="WhatsApp">WhatsApp</option><option value="Site">Site</option><option value="Balcão">Balcão</option><option value="Instagram">Instagram</option><option value="Outras Receitas">Outras Receitas</option>
                                 </select>
                             </div>
                             <div class="form-group"><label>Qtd. Pedidos</label><input type="number" id="qtdPedidosVenda" required min="1"></div>
@@ -490,7 +490,7 @@
         let produtosTempVenda = []; let graficosInstancias = {};
         let editandoIdVenda = null; let editandoIdDespesa = null; let editandoIdReceita = null; let editandoIdMotoboy = null;
 
-        const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'WhatsApp': '#25D366', 'Outras Receitas': '#64748b' };
+        const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'WhatsApp': '#25D366', 'Site': '#8b5cf6', 'Balcão': '#0ea5e9', 'Instagram': '#ec4899', 'Outras Receitas': '#64748b' };
 
         document.getElementById('dataVenda').valueAsDate = new Date();
         document.getElementById('dataDespesa').valueAsDate = new Date();
@@ -594,7 +594,7 @@
         document.getElementById('formVendas').addEventListener('submit', function(e) { e.preventDefault(); const venda = { data: document.getElementById('dataVenda').value, diaSemana: document.getElementById('diaSemanaVenda').value, canal: document.getElementById('canalVenda').value, qtdPedidos: parseInt(document.getElementById('qtdPedidosVenda').value)||0, qtdItens: parseInt(document.getElementById('qtdItensVenda').value)||0, faturamento: parseFloat(document.getElementById('faturamentoVenda').value)||0, receitaLiquida: parseFloat(document.getElementById('liquidoVenda').value)||0, produtos: [...produtosTempVenda], userId: currentUser.uid }; if(editandoIdVenda) { db.collection('vendas').doc(editandoIdVenda).update(venda); editandoIdVenda = null; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-save"></i> Salvar Venda'; } else { db.collection('vendas').add(venda); } document.getElementById('formVendas').reset(); produtosTempVenda = []; renderizarChipsVenda(); });
         function deletarVenda(id) { if(confirm("Excluir venda?")) db.collection('vendas').doc(id).delete(); }
         function editarLancamentoVenda(id) { const item = bdVendas.find(x => x.id === id); if(!item) return; document.getElementById('dataVenda').value = item.data; document.getElementById('diaSemanaVenda').value = item.diaSemana; document.getElementById('canalVenda').value = item.canal; document.getElementById('qtdPedidosVenda').value = item.qtdPedidos; document.getElementById('qtdItensVenda').value = item.qtdItens; document.getElementById('faturamentoVenda').value = item.faturamento; document.getElementById('liquidoVenda').value = item.receitaLiquida; produtosTempVenda = [...(item.produtos || [])]; renderizarChipsVenda(); editandoIdVenda = id; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-edit"></i> Atualizar Venda'; window.scrollTo(0,0); }
-        function renderizarTabelaVendas() { const tbody = document.querySelector('#tableVendasGeral tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdVendas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal]}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarLancamentoVenda('${v.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarVenda('${v.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
+        function renderizarTabelaVendas() { const tbody = document.querySelector('#tableVendasGeral tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdVendas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal] || '#64748b'}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarLancamentoVenda('${v.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarVenda('${v.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
         document.getElementById('formDespesas').addEventListener('submit', function(e) { e.preventDefault(); const despesa = { data: document.getElementById('dataDespesa').value, categoria: document.getElementById('categoriaDespesa').value, valor: parseFloat(document.getElementById('valorDespesa').value)||0, descricao: document.getElementById('descDespesa').value, userId: currentUser.uid }; if(editandoIdDespesa) { db.collection('despesas').doc(editandoIdDespesa).update(despesa); editandoIdDespesa = null; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-plus"></i> Lançar Despesa'; } else { db.collection('despesas').add(despesa); } document.getElementById('formDespesas').reset(); });
         function deletarDespesa(id) { if(confirm("Excluir despesa?")) db.collection('despesas').doc(id).delete(); }
@@ -702,7 +702,7 @@
             let rFiltradas = bdReceitasAvulsas.filter(r => (!fStart || r.data >= fStart) && (!fEnd || r.data <= fEnd));
             
             let totalFatVendas = 0, totalRecVendas = 0, totalPed = 0, totalDesp = 0, totalRecAvulsas = 0;
-            let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'WhatsApp': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
+            let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'WhatsApp': {fat:0, rec:0, ped:0}, 'Site': {fat:0, rec:0, ped:0}, 'Balcão': {fat:0, rec:0, ped:0}, 'Instagram': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
             let dadosPorDia = { 'Segunda-feira':0, 'Terça-feira':0, 'Quarta-feira':0, 'Quinta-feira':0, 'Sexta-feira':0, 'Sábado':0, 'Domingo':0 };
             let contagemProdutos = {};
 
@@ -722,21 +722,21 @@
             Object.keys(dadosPorCanal).forEach(c => {
                 const d = dadosPorCanal[c]; const tk = d.ped > 0 ? d.fat / d.ped : 0; const tx = d.fat > 0 ? ((d.fat - d.rec) / d.fat) * 100 : 0;
                 if(d.fat > 0 || d.ped > 0) {
-                    htmlFat += `<div class="detail-row"><span style="color:${coresCanais[c]}">●</span> ${c}: <b>${formatarMoeda(d.fat)}</b></div>`;
-                    htmlRec += `<div class="detail-row"><span style="color:${coresCanais[c]}">●</span> ${c}: <b>${formatarMoeda(d.rec)}</b></div>`;
-                    htmlTicket += `<div class="detail-row"><span style="color:${coresCanais[c]}">●</span> ${c}: <b>${formatarMoeda(tk)}</b></div>`;
-                    htmlTaxa += `<div class="detail-row"><span style="color:${coresCanais[c]}">●</span> ${c}: <b>${tx.toFixed(1)}%</b></div>`;
-                    htmlPedidos += `<div class="detail-row"><span style="color:${coresCanais[c]}">●</span> ${c}: <b>${d.ped}</b></div>`;
+                    htmlFat += `<div class="detail-row"><span style="color:${coresCanais[c] || '#64748b'}">●</span> ${c}: <b>${formatarMoeda(d.fat)}</b></div>`;
+                    htmlRec += `<div class="detail-row"><span style="color:${coresCanais[c] || '#64748b'}">●</span> ${c}: <b>${formatarMoeda(d.rec)}</b></div>`;
+                    htmlTicket += `<div class="detail-row"><span style="color:${coresCanais[c] || '#64748b'}">●</span> ${c}: <b>${formatarMoeda(tk)}</b></div>`;
+                    htmlTaxa += `<div class="detail-row"><span style="color:${coresCanais[c] || '#64748b'}">●</span> ${c}: <b>${tx.toFixed(1)}%</b></div>`;
+                    htmlPedidos += `<div class="detail-row"><span style="color:${coresCanais[c] || '#64748b'}">●</span> ${c}: <b>${d.ped}</b></div>`;
                 }
             });
             if(totalRecAvulsas > 0) { htmlFat += `<div class="detail-row" style="border-top:1px dashed var(--panel-border); margin-top:4px; padding-top:4px;"><span style="color:var(--accent)">●</span> Extras: <b>${formatarMoeda(totalRecAvulsas)}</b></div>`; htmlRec += `<div class="detail-row" style="border-top:1px dashed var(--panel-border); margin-top:4px; padding-top:4px;"><span style="color:var(--accent)">●</span> Extras: <b>${formatarMoeda(totalRecAvulsas)}</b></div>`; }
             const detFat = document.getElementById('detFaturamento'); if(detFat) detFat.innerHTML = htmlFat; const detRec = document.getElementById('detReceita'); if(detRec) detRec.innerHTML = htmlRec; const detTk = document.getElementById('detTicket'); if(detTk) detTk.innerHTML = htmlTicket; const detTx = document.getElementById('detTaxa'); if(detTx) detTx.innerHTML = htmlTaxa; const detPed = document.getElementById('detPedidos'); if(detPed) detPed.innerHTML = htmlPedidos;
 
             const gridColor = document.body.classList.contains('dark-mode') ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'; const labelsCanal = Object.keys(dadosPorCanal);
-            if(graficosInstancias['barChart']) graficosInstancias['barChart'].destroy(); graficosInstancias['barChart'] = new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: labelsCanal, datasets: [ { label: 'Fat. Bruto', data: labelsCanal.map(l => dadosPorCanal[l].fat), backgroundColor: labelsCanal.map(l => coresCanais[l]) }, { label: 'Rec. Líq.', data: labelsCanal.map(l => dadosPorCanal[l].rec), backgroundColor: 'rgba(100, 116, 139, 0.3)' } ]}, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+            if(graficosInstancias['barChart']) graficosInstancias['barChart'].destroy(); graficosInstancias['barChart'] = new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: labelsCanal, datasets: [ { label: 'Fat. Bruto', data: labelsCanal.map(l => dadosPorCanal[l].fat), backgroundColor: labelsCanal.map(l => coresCanais[l] || '#64748b') }, { label: 'Rec. Líq.', data: labelsCanal.map(l => dadosPorCanal[l].rec), backgroundColor: 'rgba(100, 116, 139, 0.3)' } ]}, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
             if(graficosInstancias['diaSemanaChart']) graficosInstancias['diaSemanaChart'].destroy(); graficosInstancias['diaSemanaChart'] = new Chart(document.getElementById('diaSemanaChart').getContext('2d'), { type: 'bar', data: { labels: Object.keys(dadosPorDia).map(d => d.substring(0,3)), datasets: [{ data: Object.values(dadosPorDia), backgroundColor: '#3b82f6' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } } });
             if(graficosInstancias['topProductsChart']) graficosInstancias['topProductsChart'].destroy(); let arrayProd = Object.entries(contagemProdutos).sort((a,b) => b[1] - a[1]).slice(0, 10); graficosInstancias['topProductsChart'] = new Chart(document.getElementById('topProductsChart').getContext('2d'), { type: 'bar', data: { labels: arrayProd.map(p => p[0]), datasets: [{ data: arrayProd.map(p => p[1]), backgroundColor: '#10b981' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } } });
-            if(graficosInstancias['donutChart']) graficosInstancias['donutChart'].destroy(); graficosInstancias['donutChart'] = new Chart(document.getElementById('donutChart').getContext('2d'), { type: 'doughnut', data: { labels: labelsCanal, datasets: [{ data: labelsCanal.map(l => dadosPorCanal[l].ped), backgroundColor: labelsCanal.map(l => coresCanais[l]), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } } });
+            if(graficosInstancias['donutChart']) graficosInstancias['donutChart'].destroy(); graficosInstancias['donutChart'] = new Chart(document.getElementById('donutChart').getContext('2d'), { type: 'doughnut', data: { labels: labelsCanal, datasets: [{ data: labelsCanal.map(l => dadosPorCanal[l].ped), backgroundColor: labelsCanal.map(l => coresCanais[l] || '#64748b'), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } } });
         }
         function gerarExcel() { const ws = XLSX.utils.json_to_sheet(bdVendas); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Financeiro"); XLSX.writeFile(wb, "Relatorio_SaaS.xlsx"); }
         function gerarPDF() { html2pdf().set({ margin:5, filename: 'Relatorio_BI.pdf', html2canvas:{scale:2}, jsPDF:{format:'a4', orientation:'landscape'} }).from(document.getElementById('pdfContent')).save(); }
