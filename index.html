@@ -61,7 +61,7 @@
         .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; margin-bottom: 6px; border-radius: var(--radius-md); cursor: pointer; color: var(--text-muted); transition: 0.2s; white-space: nowrap; overflow: hidden; font-size: 0.85rem; }
         .nav-item:hover { background: var(--input-bg); color: var(--accent); }
         .nav-item.active { background: var(--accent); color: white; box-shadow: var(--shadow-sm); }
-        .nav-item i { font-size: 1.1rem; width: 20px; text-align: center; }
+        .nav-item i, .nav-item img { font-size: 1.1rem; width: 20px; text-align: center; }
         .sidebar.collapsed .nav-item span { display: none; }
         
         #sidebar-footer { margin-top: auto; padding: 15px 5px; text-align: center; border-top: 1px solid var(--panel-border); transition: opacity 0.2s; flex-shrink: 0; }
@@ -77,7 +77,7 @@
         .top-navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); z-index: 5; position: relative;}
         body.dark-mode .top-navbar { backdrop-filter: blur(16px); }
         .toggle-btn { background: var(--input-bg); border: 1px solid var(--panel-border); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .user-profile { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-left: 1px solid var(--panel-border); margin-left: 8px; cursor: pointer; transition: 0.2s; border-radius: var(--radius-md); }
+        .user-profile { display: flex; align-items: center; gap: 8px; padding: 4px 12px; cursor: pointer; transition: 0.2s; border-radius: var(--radius-md); border-left: none; margin-left: 0; }
         .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; overflow: hidden; }
         
         #pageTitle { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.05rem; font-weight: 600; margin: 0; white-space: nowrap; }
@@ -87,17 +87,17 @@
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .modal-content { width: 100%; max-width: 400px; padding: 25px; }
         
-        /* RESTAURAÇÃO DO LAYOUT COM ROLAGEM NORMAL E GRÁFICOS GRANDES */
+        /* RESTAURAÇÃO DO LAYOUT COM ROLAGEM NORMAL E GRÁFICOS AJUSTADOS (ONE-PAGE) */
         .content-container { flex: 1; padding: 15px 20px; overflow-y: auto; background: var(--bg-color); }
         
-        .kpi-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 8px; margin-bottom: 15px; }
-        .kpi-card { padding: 12px 8px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; transition: transform 0.2s; min-height: 95px;}
+        .kpi-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; margin-bottom: 10px; }
+        .kpi-card { padding: 10px 6px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; transition: transform 0.2s; min-height: 85px;}
         .kpi-card:hover { transform: translateY(-2px); }
-        .kpi-card h3 { font-size: 0.60rem; color: var(--text-muted); text-transform: uppercase; display: flex; justify-content: space-between; align-items: center;}
-        .kpi-card .value { font-size: 1.15rem; font-weight: 700; margin: 6px 0; }
-        .kpi-card .sub-value { font-size: 0.55rem; color: var(--text-muted); }
+        .kpi-card h3 { font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; display: flex; justify-content: space-between; align-items: center;}
+        .kpi-card .value { font-size: 1.1rem; font-weight: 700; margin: 4px 0; }
+        .kpi-card .sub-value { font-size: 0.50rem; color: var(--text-muted); }
         
-        .kpi-details { display: none; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--panel-border); font-size: 0.55rem; }
+        .kpi-details { display: none; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--panel-border); font-size: 0.50rem; }
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 2px; color: var(--text-main); }
         .kpi-card.expanded .kpi-details { display: block; animation: fadeIn 0.3s ease; }
         .kpi-card.expanded .fa-chevron-down { transform: rotate(180deg); }
@@ -108,9 +108,9 @@
         .text-branco { color: #ffffff; }
         body:not(.dark-mode) .text-branco { color: #1e293b; }
 
-        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .charts-grid .card { display: flex; flex-direction: column; }
-        .chart-container { position: relative; height: 220px; width: 100%; margin-top: 10px; }
+        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .charts-grid .card { display: flex; flex-direction: column; padding: 10px; }
+        .chart-container { position: relative; height: 145px; width: 100%; margin-top: 5px; }
 
         @media (max-width: 1024px) {
             .kpi-grid { grid-template-columns: repeat(3, 1fr); }
@@ -135,7 +135,6 @@
 </head>
 <body class="dark-mode">
 
-    <!-- TELA DE BLOQUEIO -->
     <div id="block-wrapper" style="display: none;">
         <div class="login-box card" style="border-top: 4px solid #ef4444;">
             <h1 style="color: #ef4444;"><i class="fas fa-lock"></i> Acesso Suspenso</h1>
@@ -149,7 +148,6 @@
         </div>
     </div>
 
-    <!-- TELA DE LOGIN -->
     <div id="login-wrapper">
         <div class="login-box card">
             <h1><i class="fas fa-chart-pie"></i> Delivery BI</h1>
@@ -167,44 +165,48 @@
         </div>
     </div>
 
-    <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar" style="display: none;">
         <div class="sidebar-logo"><i class="fas fa-chart-pie"></i><span>Delivery BI</span></div>
         <div class="nav-item active" onclick="switchTab('dashboard', this)"><i class="fas fa-home"></i><span>Visão Geral</span></div>
         <div class="nav-item" onclick="switchTab('vendas', this)"><i class="fas fa-dollar-sign"></i><span>Lançar Vendas</span></div>
         <div class="nav-item" onclick="switchTab('despesas', this)"><i class="fas fa-file-invoice-dollar"></i><span>Despesas Op.</span></div>
         <div class="nav-item" onclick="switchTab('receitas', this)"><i class="fas fa-hand-holding-usd"></i><span>Receitas Avulsas</span></div>
-        <div class="nav-item" onclick="switchTab('produtos', this)"><i class="fas fa-box-open"></i><span>Cadastrar Produtos</span></div>
         <div class="nav-item" onclick="switchTab('motoboy', this)"><i class="fas fa-helmet-safety"></i><span>Pagamento Motoboy</span></div>
+        <div class="nav-item" onclick="switchTab('produtos', this)"><i class="fas fa-box-open"></i><span>Cadastrar Produtos</span></div>
+        <div class="nav-item" onclick="switchTab('fornecedores', this)"><i class="fas fa-truck"></i><span>Cad. Fornecedores</span></div>
         <div class="nav-item" onclick="switchTab('precificacao', this)"><i class="fas fa-calculator"></i><span>Simulador de Preço</span></div>
         <div class="nav-item" onclick="switchTab('fichatecnica', this)"><i class="fas fa-receipt"></i><span>Ficha Técnica</span></div>
-        <div class="nav-item" onclick="switchTab('embalagens', this)"><i class="fas fa-box"></i><span>Cadastrar Embalagens</span></div>
+        <div class="nav-item" onclick="switchTab('embalagens', this)"><i class="fas fa-box"></i><span>Cad. Embalagens</span></div>
         <div class="nav-item" onclick="switchTab('inventario', this)"><i class="fas fa-clipboard-check"></i><span>Inventário</span></div>
         <div class="nav-item" onclick="switchTab('dre', this)"><i class="fas fa-table"></i><span>D.R.E. Gerencial</span></div>
+        <div class="nav-item" onclick="switchTab('suporte', this)"><i class="fas fa-headset"></i><span>Suporte</span></div>
         <div class="nav-item" id="nav-admin" style="display: none; background: rgba(245, 158, 11, 0.1); color: #f59e0b;" onclick="switchTab('admin', this)"><i class="fas fa-user-shield"></i><span>Gestão SaaS Admin</span></div>
         
         <div id="sidebar-footer"></div>
     </div>
 
-    <!-- MAIN APP -->
     <div class="main-wrapper" id="mainWrapper">
         <div class="top-navbar">
-            <div class="navbar-left">
+            <div class="navbar-left" style="display: flex; align-items: center; gap: 15px;">
                 <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="user-profile" onclick="abrirModalPerfil()" style="padding: 0; margin: 0; border: none;">
+                    <div class="avatar" id="avatarUsuario">U</div>
+                    <span id="nomeUsuario" style="font-size: 0.85rem;">Usuário</span>
+                </div>
             </div>
+            
             <h2 id="pageTitle">Visão Geral (Dashboard)</h2>
+
             <div style="display: flex; align-items: center; gap: 8px;">
                 <button class="toggle-btn" onclick="toggleTheme()" title="Modo Escuro"><i class="fas fa-moon" id="themeIcon"></i></button>
-                <div class="user-profile" onclick="abrirModalPerfil()"><div class="avatar" id="avatarUsuario">U</div><span id="nomeUsuario" style="font-size: 0.85rem;">Usuário</span></div>
                 <button class="btn btn-outline" onclick="fazerLogout()" style="border: none; color: #ef4444;"><i class="fas fa-power-off"></i></button>
             </div>
         </div>
 
         <div class="content-container" id="pdfContent">
             
-            <!-- ABA 1: DASHBOARD -->
             <div id="view-dashboard" class="view-section active">
-                <div class="card" style="display: flex; gap: 10px; align-items: center; justify-content: center; margin-bottom: 5px;">
+                <div class="card" style="display: flex; gap: 10px; align-items: center; justify-content: center; padding: 8px 15px; margin-bottom: 5px;">
                     <span style="font-weight: 600; font-size: 0.85rem;"><i class="fas fa-filter text-accent"></i> Período Analisado</span>
                     <input type="date" id="filterStart" onchange="atualizarDashboard()" style="background:var(--input-bg); border:1px solid var(--panel-border); border-radius:var(--radius-md); padding:4px 8px; color:var(--text-main);">
                     <span style="color: var(--text-muted); font-size: 0.8rem;">até</span>
@@ -234,7 +236,6 @@
                 </div>
             </div>
 
-            <!-- ABA VENDAS -->
             <div id="view-vendas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-dollar-sign text-accent"></i> Lançamento de Vendas</h2>
@@ -251,13 +252,11 @@
                                     <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="WhatsApp">WhatsApp</option><option value="Site">Site</option><option value="Balcão">Balcão</option><option value="Instagram">Instagram</option><option value="Outras Receitas">Outras Receitas</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label>Qtd. Pedidos</label><input type="number" id="qtdPedidosVenda" required min="1"></div>
                             <div class="form-group"><label>Qtd. Itens</label><input type="number" id="qtdItensVenda" required min="1"></div>
                             <div class="form-group"><label>Faturamento (R$)</label><input type="number" id="faturamentoVenda" step="0.01" required></div>
                             <div class="form-group"><label>Líquido (R$)</label><input type="number" id="liquidoVenda" step="0.01" required></div>
                         </div>
                         
-                        <!-- SELEÇÃO DE EMBALAGEM VINCULADA À VENDA -->
                         <div class="form-grid" style="margin-top: 10px; border-top: 1px dashed var(--panel-border); padding-top: 10px;">
                             <div class="form-group">
                                 <label style="color: var(--accent);">Embalagem Utilizada</label>
@@ -291,7 +290,6 @@
                 </div>
             </div>
 
-            <!-- ABA DESPESAS -->
             <div id="view-despesas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-file-invoice-dollar text-accent"></i> Despesas Operacionais</h2>
@@ -338,7 +336,6 @@
                 </div>
             </div>
 
-            <!-- ABA RECEITAS EXTRAS -->
             <div id="view-receitas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-hand-holding-usd text-accent"></i> Receitas Avulsas</h2>
@@ -359,21 +356,6 @@
                 </div>
             </div>
 
-            <!-- ABA CADASTRAR PRODUTOS -->
-            <div id="view-produtos" class="view-section">
-                <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos e Estoque</h2>
-                    <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
-                        <input type="text" id="novoProdutoNome" placeholder="Nome do Produto" style="flex: 2; min-width: 200px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
-                        <input type="number" id="novoProdutoCusto" placeholder="Preço Custo (R$)" step="0.01" style="flex: 1; min-width: 120px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
-                        <input type="number" id="novoProdutoQtd" placeholder="Estoque Inicial" style="flex: 1; min-width: 120px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
-                        <button class="btn btn-primary" onclick="cadastrarProdutoBase()"><i class="fas fa-save"></i> Salvar</button>
-                    </div>
-                    <ul id="listaBaseProdutos" style="list-style: none; padding: 0;"></ul>
-                </div>
-            </div>
-
-            <!-- ABA PAGAMENTO MOTOBOY -->
             <div id="view-motoboy" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-helmet-safety text-accent"></i> Pagamento de Motoboys</h2>
@@ -406,7 +388,46 @@
                 </div>
             </div>
 
-            <!-- ABA SIMULAÇÃO DE PRECIFICAÇÃO -->
+            <div id="view-produtos" class="view-section">
+                <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%;">
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos e Estoque</h2>
+                    <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <input type="text" id="novoProdutoNome" placeholder="Nome do Produto" style="flex: 2; min-width: 150px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                        <input type="number" id="novoProdutoCusto" placeholder="Custo (R$)" step="0.01" style="flex: 1; min-width: 90px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                        <input type="number" id="novoProdutoQtd" placeholder="Estoque Inicial" style="flex: 1; min-width: 90px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                        <select id="novoProdutoFornecedor" style="flex: 2; min-width: 150px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                            <option value="">-- Fornecedor (Opcional) --</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="cadastrarProdutoBase()"><i class="fas fa-save"></i> Salvar</button>
+                    </div>
+                    <ul id="listaBaseProdutos" style="list-style: none; padding: 0;"></ul>
+                </div>
+            </div>
+
+            <div id="view-fornecedores" class="view-section">
+                <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-truck text-accent"></i> Cadastrar Fornecedores</h2>
+                    <form id="formFornecedor">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Nome do Fornecedor</label><input type="text" id="nomeFornecedor" placeholder="Ex: Frigorífico Boi Gordo" required></div>
+                            <div class="form-group"><label>CNPJ (Opcional)</label><input type="text" id="cnpjFornecedor" placeholder="00.000.000/0000-00"></div>
+                            <div class="form-group"><label>Nome do Vendedor (Opcional)</label><input type="text" id="vendedorFornecedor" placeholder="Ex: João"></div>
+                            <div class="form-group"><label>Telefone do Vendedor (Opcional)</label><input type="text" id="telFornecedor" placeholder="(00) 00000-0000"></div>
+                        </div>
+                        <button type="submit" id="btnSalvarFornecedor" class="btn btn-primary" style="width:100%; margin-top:5px;"><i class="fas fa-save"></i> Salvar Fornecedor</button>
+                    </form>
+                </div>
+                <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top: 10px;">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Lista de Fornecedores</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="tableFornecedores">
+                            <thead><tr><th>Fornecedor</th><th>CNPJ</th><th>Vendedor</th><th>Telefone</th><th>Ações</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div id="view-precificacao" class="view-section">
                 <div class="card" style="max-width: 600px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-calculator text-accent"></i> Simulador de Precificação</h2>
@@ -424,7 +445,6 @@
                 </div>
             </div>
 
-            <!-- ABA FICHA TÉCNICA -->
             <div id="view-fichatecnica" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-receipt text-accent"></i> Engenharia de Cardápio (Ficha Técnica)</h2>
@@ -454,7 +474,6 @@
                 </div>
             </div>
 
-            <!-- NOVA ABA: CADASTRO DE EMBALAGENS -->
             <div id="view-embalagens" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box text-accent"></i> Cadastrar Embalagens</h2>
@@ -477,11 +496,10 @@
                 </div>
             </div>
 
-            <!-- ABA INVENTÁRIO -->
             <div id="view-inventario" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-clipboard-check text-accent"></i> Inventário e Divergências</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: center;">Atualize a quantidade física encontrada para cada produto. O sistema calculará a diferença e salvará o histórico.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: center;">Atualize a quantidade física encontrada para cada produto. O sistema gerará o relatório da auditoria.</p>
                     <div style="max-height: 400px; overflow-y: auto; margin-bottom: 15px;">
                         <table id="tableRealizarInventario">
                             <thead><tr><th>Produto</th><th>Estoque Sistema</th><th>Qtde. Encontrada (Física)</th></tr></thead>
@@ -503,7 +521,6 @@
                 </div>
             </div>
 
-            <!-- NOVA ABA: D.R.E. GERENCIAL VISUAL VERTICAL -->
             <div id="view-dre" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; text-align: center; flex-shrink: 0;">
                     <span style="font-weight: 600; font-size: 0.85rem; margin-right: 10px;"><i class="fas fa-calendar-alt text-accent"></i> Competência Operacional:</span>
@@ -522,29 +539,68 @@
                         <p style="font-size: 0.85rem; color: var(--text-muted);">Análise Gerencial de Performance Operacional</p>
                     </div>
                     <table class="dre-table">
+                        <thead>
+                            <tr>
+                                <th style="background:transparent; border-bottom:1px solid var(--panel-border);">Descrição das Contas</th>
+                                <th style="text-align:right; background:transparent; border-bottom:1px solid var(--panel-border); width:130px;">Valor (R$)</th>
+                                <th style="text-align:right; background:transparent; border-bottom:1px solid var(--panel-border); width:80px;">AV (%)</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr class="dre-total"><td>1. FATURAMENTO BRUTO (RECEITA OPERACIONAL BRUTA)</td><td class="dre-value" id="dreFaturamentoBruto">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Deduções de Plataformas / Comissões de Apps</td><td class="dre-value text-vermelho" id="dreTaxasPlataformas">R$ 0,00</td></tr>
-                            <tr class="dre-subtotal"><td>(=) RECEITA OPERACIONAL LÍQUIDA</td><td class="dre-value" id="dreReceitaLiquida">R$ 0,00</td></tr>
+                            <tr class="dre-total"><td>1. FATURAMENTO BRUTO (RECEITA OPERACIONAL BRUTA)</td><td class="dre-value" id="dreFaturamentoBruto">R$ 0,00</td><td class="dre-value" id="dreFaturamentoBrutoPerc">100,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Deduções de Plataformas / Comissões de Apps</td><td class="dre-value text-vermelho" id="dreTaxasPlataformas">R$ 0,00</td><td class="dre-value text-vermelho" id="dreTaxasPlataformasPerc">0,0%</td></tr>
+                            <tr class="dre-subtotal"><td>(=) RECEITA OPERACIONAL LÍQUIDA</td><td class="dre-value" id="dreReceitaLiquida">R$ 0,00</td><td class="dre-value" id="dreReceitaLiquidaPerc">0,0%</td></tr>
                             
-                            <tr class="dre-total"><td>2. CUSTO DE MERCADORIA VENDIDA (CMV COMBINADO)</td><td class="dre-value text-vermelho" id="dreCmvTotal">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Custo Insumos e Ingredientes (Produtos)</td><td class="dre-value" id="dreCustoInsumos">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Custo Integrado de Embalagens Utilizadas</td><td class="dre-value" id="dreCustoEmbalagens">R$ 0,00</td></tr>
+                            <tr class="dre-total"><td>2. CUSTO DE MERCADORIA VENDIDA (CMV COMBINADO)</td><td class="dre-value text-vermelho" id="dreCmvTotal">R$ 0,00</td><td class="dre-value text-vermelho" id="dreCmvTotalPerc">0,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Custo Insumos e Ingredientes (Produtos)</td><td class="dre-value" id="dreCustoInsumos">R$ 0,00</td><td class="dre-value" id="dreCustoInsumosPerc">0,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Custo Integrado de Embalagens Utilizadas</td><td class="dre-value" id="dreCustoEmbalagens">R$ 0,00</td><td class="dre-value" id="dreCustoEmbalagensPerc">0,0%</td></tr>
                             
-                            <tr class="dre-subtotal"><td>(=) LUCRO OPERACIONAL BRUTO</td><td class="dre-value text-verde" id="dreLucroBruto">R$ 0,00</td></tr>
+                            <tr class="dre-subtotal"><td>(=) LUCRO OPERACIONAL BRUTO</td><td class="dre-value text-verde" id="dreLucroBruto">R$ 0,00</td><td class="dre-value text-verde" id="dreLucroBrutoPerc">0,0%</td></tr>
                             
-                            <tr class="dre-total"><td>3. DESPESAS OPERACIONAIS FIXAS E VARIÁVEIS (OPEX)</td><td class="dre-value text-vermelho" id="dreDespesasOpTotal">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Despesas com Funcionários / Pró-Labore</td><td class="dre-value" id="dreDespesasFuncionarios">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Despesas com Impostos Declarados</td><td class="dre-value" id="dreDespesasImpostos">R$ 0,00</td></tr>
-                            <tr><td class="dre-indent">(-) Outros Custos e Contas Estruturais</td><td class="dre-value" id="dreDespesasEstruturais">R$ 0,00</td></tr>
+                            <tr class="dre-total"><td>3. DESPESAS OPERACIONAIS FIXAS E VARIÁVEIS (OPEX)</td><td class="dre-value text-vermelho" id="dreDespesasOpTotal">R$ 0,00</td><td class="dre-value text-vermelho" id="dreDespesasOpTotalPerc">0,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Despesas c/ Funcionários e Logística (Motoboys)</td><td class="dre-value" id="dreDespesasFuncionarios">R$ 0,00</td><td class="dre-value" id="dreDespesasFuncionariosPerc">0,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Despesas com Impostos Declarados</td><td class="dre-value" id="dreDespesasImpostos">R$ 0,00</td><td class="dre-value" id="dreDespesasImpostosPerc">0,0%</td></tr>
+                            <tr><td class="dre-indent">(-) Outros Custos e Contas Estruturais</td><td class="dre-value" id="dreDespesasEstruturais">R$ 0,00</td><td class="dre-value" id="dreDespesasEstruturaisPerc">0,0%</td></tr>
                             
-                            <tr class="dre-subtotal" style="background: rgba(16, 185, 129, 0.15); font-weight: 700; border-top: 2px solid var(--panel-border);"><td>(=) LUCRO LÍQUIDO DO EXERCÍCIO (RESULTADO LÍQUIDO)</td><td class="dre-value text-verde" style="font-size: 1.1rem;" id="dreLucroLiquidoFinal">R$ 0,00</td></tr>
+                            <tr class="dre-subtotal" style="background: rgba(16, 185, 129, 0.15); font-weight: 700; border-top: 2px solid var(--panel-border);"><td>(=) LUCRO LÍQUIDO DO EXERCÍCIO (RESULTADO LÍQUIDO)</td><td class="dre-value text-verde" style="font-size: 1.1rem;" id="dreLucroLiquidoFinal">R$ 0,00</td><td class="dre-value text-verde" style="font-size: 1.1rem;" id="dreLucroLiquidoFinalPerc">0,0%</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- ABA ADMIN -->
+            <div id="view-suporte" class="view-section">
+                <div class="card" style="max-width: 600px; margin: 40px auto; width: 100%; text-align: center; padding: 40px 20px;">
+                    <h2 style="margin-bottom: 20px; font-size: 1.5rem; color: var(--accent);"><i class="fas fa-headset"></i> Central de Suporte</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 30px;">Precisa de ajuda? Entre em contato com a nossa equipe através dos canais abaixo:</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                        <div style="background: var(--input-bg); padding: 15px 25px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); width: 100%; max-width: 400px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-envelope" style="font-size: 1.5rem; color: var(--accent);"></i>
+                            <div style="text-align: left;">
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">E-mail</span>
+                                <span style="font-weight: 600; color: var(--text-main);">Deliverybi.app@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--input-bg); padding: 15px 25px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); width: 100%; max-width: 400px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fab fa-whatsapp" style="font-size: 1.5rem; color: #25D366;"></i>
+                            <div style="text-align: left;">
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">WhatsApp</span>
+                                <span style="font-weight: 600; color: var(--text-main);">(11) 9 1320-7227</span>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--input-bg); padding: 15px 25px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); width: 100%; max-width: 400px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-clock" style="font-size: 1.5rem; color: var(--accent);"></i>
+                            <div style="text-align: left;">
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Horário de Atendimento</span>
+                                <span style="font-weight: 600; color: var(--text-main);">09:00 às 17:00<br><small style="font-weight: 400;">Segunda a Sexta-feira</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="view-admin" class="view-section">
                 <div class="card" style="max-width: 1000px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; color:#f59e0b; text-align: center;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
@@ -560,7 +616,6 @@
         </div> 
     </div>
 
-    <!-- MODAIS OMITIDOS PARA BREVIDADE NESTA PARTE DO CÓDIGO -->
     <div id="modalPerfil" class="modal-overlay">
         <div class="modal-content card">
             <h3 style="margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-user-cog text-accent"></i> Configurações da Conta</h3>
@@ -591,24 +646,18 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT COMPLETAMENTE LIMPO E ESTRUTURADO -->
     <script>
         const firebaseConfig = { apiKey: "AIzaSyChRVEv2hHqryfZdReGN8FeZYpCe5ANZ1Y", authDomain: "bi-delivery-17107.firebaseapp.com", projectId: "bi-delivery-17107", storageBucket: "bi-delivery-17107.firebasestorage.app", messagingSenderId: "636646418661", appId: "1:636646418661:web:b23dd811167221849ecc0c" };
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth(); 
-        const db = firebase.firestore();
-
+        const auth = firebase.auth(); const db = firebase.firestore();
         const MEU_EMAIL_ADMIN = "bno229@gmail.com"; 
 
         let currentUser = null;
-        let bdVendas = [], bdDespesas = [], bdReceitasAvulsas = [], bdProdutos = [], bdMotoboys = [], bdInventarios = [], bdFichas = [], bdEmbalagens = [];
+        let bdVendas = [], bdDespesas = [], bdReceitasAvulsas = [], bdProdutos = [], bdMotoboys = [], bdInventarios = [], bdFichas = [], bdEmbalagens = [], bdFornecedores = [];
         let perfilDados = { nome: 'Usuário', foto: '', statusAcesso: 'ativo', pagamentoEmDia: false };
         
-        let produtosTempVenda = []; 
-        let insumosTempFicha = [];
-        let graficosInstancias = {}; 
-        
-        let editandoIdVenda = null, editandoIdDespesa = null, editandoIdReceita = null, editandoIdMotoboy = null, editandoIdFicha = null, editandoIdEmbalagem = null;
+        let produtosTempVenda = []; let insumosTempFicha = []; let graficosInstancias = {};
+        let editandoIdVenda = null, editandoIdDespesa = null, editandoIdReceita = null, editandoIdMotoboy = null, editandoIdFicha = null, editandoIdEmbalagem = null, editandoIdFornecedor = null;
 
         const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'WhatsApp': '#25D366', 'Site': '#8b5cf6', 'Balcão': '#0ea5e9', 'Instagram': '#ec4899', 'Outras Receitas': '#64748b' };
 
@@ -622,17 +671,17 @@
         document.getElementById('dreFiltroAno').value = String(dHoje.getFullYear());
 
         function formatarMoeda(v) { return `R$ ${(Number(v) || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits:2})}`; }
+        function calcPerc(valor, base) { if(base === 0) return "0,0%"; return ((Math.abs(valor) / base) * 100).toFixed(1) + "%"; }
 
-        // ==========================================
-        // 1. AUTENTICAÇÃO E INICIALIZAÇÃO
-        // ==========================================
+        // ==============================
+        // AUTENTICAÇÃO E INICIALIZAÇÃO
+        // ==============================
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUser = user;
                 db.collection('usuarios').doc(user.uid).get().then(doc => { 
                     if(!doc.exists) db.collection('usuarios').doc(user.uid).set({ email: user.email, nome: "Nova Loja Cadastrada", statusAcesso: "ativo", pagamentoEmDia: false }); 
                 });
-                
                 db.collection('usuarios').doc(user.uid).onSnapshot(doc => {
                     if (doc.exists) {
                         perfilDados = doc.data();
@@ -644,188 +693,177 @@
                         }
                     }
                 });
-                
-                if (user.email === MEU_EMAIL_ADMIN) { document.getElementById('nav-admin').style.display = 'flex'; } 
-                else { document.getElementById('nav-admin').style.display = 'none'; if(document.getElementById('view-admin').classList.contains('active')) switchTab('dashboard', document.querySelectorAll('.nav-item')[0]); }
+                if (user.email === MEU_EMAIL_ADMIN) { document.getElementById('nav-admin').style.display = 'flex'; } else { document.getElementById('nav-admin').style.display = 'none'; if(document.getElementById('view-admin').classList.contains('active')) switchTab('dashboard', document.querySelectorAll('.nav-item')[0]); }
                 applyTheme();
             } else {
                 currentUser = null; document.getElementById('block-wrapper').style.display = 'none'; document.getElementById('login-wrapper').style.display = 'flex'; document.getElementById('sidebar').style.display = 'none'; document.getElementById('mainWrapper').style.display = 'none'; document.getElementById('nav-admin').style.display = 'none';
             }
         });
 
+        function atualizarStatusAssinatura() {
+            const footer = document.getElementById('sidebar-footer');
+            if(!footer || !currentUser || currentUser.email === MEU_EMAIL_ADMIN) { if(footer) footer.innerHTML = ''; return; }
+            if(perfilDados.pagamentoEmDia === true) { footer.innerHTML = `<div style="color: #10b981; font-weight: 600; font-size: 0.85rem;"><i class="fas fa-check-circle"></i> Acesso Pago</div>`; } 
+            else {
+                const diffTime = new Date() - new Date(currentUser.metadata.creationTime); const diasRestantes = 10 - Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                if(diasRestantes > 0) { footer.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;"><i class="fas fa-clock"></i> ${diasRestantes} dias de acesso grátis</div>`; } 
+                else { footer.innerHTML = `<div style="color: #ef4444; font-weight: 600; font-size: 0.75rem; line-height: 1.4;"><i class="fas fa-exclamation-triangle"></i> Seu acesso será bloqueado em breve.<br>Efetue o pagamento para continuar acessando.</div>`; }
+            }
+        }
+
         document.getElementById('formLogin').addEventListener('submit', (e) => { e.preventDefault(); auth.signInWithEmailAndPassword(document.getElementById('authEmail').value, document.getElementById('authPassword').value).catch(err => { document.getElementById('loginError').innerText = err.message; document.getElementById('loginError').style.display = 'block'; }); });
         function criarConta() { const email = document.getElementById('authEmail').value; const pass = document.getElementById('authPassword').value; if(!email || !pass) return alert("Preencha as credenciais."); auth.createUserWithEmailAndPassword(email, pass).then(cred => { alert("Conta SaaS criada e logada com sucesso!"); }).catch(err => { document.getElementById('loginError').innerText = err.message; document.getElementById('loginError').style.display = 'block'; }); }
         function recuperarSenha() { const email = document.getElementById('authEmail').value; if (email) auth.sendPasswordResetEmail(email).then(() => alert("E-mail enviado!")); else alert("Digite seu e-mail no campo correspondente.");}
         function fazerLogout() { auth.signOut(); }
 
-        // ==========================================
-        // 2. BUSCA DE DADOS GERAIS
-        // ==========================================
         function carregarDadosDaNuvem() {
             const uid = currentUser.uid;
             db.collection('vendas').where('userId', '==', uid).onSnapshot(snap => { bdVendas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarDashboard(); renderizarTabelaVendas(); calcularDRE(); });
             db.collection('despesas').where('userId', '==', uid).onSnapshot(snap => { bdDespesas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarDashboard(); renderizarTabelaDespesas(); calcularDRE(); });
             db.collection('receitas').where('userId', '==', uid).onSnapshot(snap => { bdReceitasAvulsas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarDashboard(); renderizarTabelaReceitasAvulsas(); calcularDRE(); });
             db.collection('produtos').where('userId', '==', uid).onSnapshot(snap => { bdProdutos = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderizarBaseProdutos(); atualizarSelectProdutos(); atualizarDashboard(); if(document.getElementById('view-inventario').classList.contains('active')) renderizarTabelaInventario(); calcularDRE(); });
-            db.collection('motoboys').where('userId', '==', uid).onSnapshot(snap => { bdMotoboys = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-motoboy').classList.contains('active')) renderizarHistoricoMotoboys(); });
+            db.collection('motoboys').where('userId', '==', uid).onSnapshot(snap => { bdMotoboys = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-motoboy').classList.contains('active')) renderizarHistoricoMotoboys(); calcularDRE(); });
             db.collection('inventarios').where('userId', '==', uid).onSnapshot(snap => { bdInventarios = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-inventario').classList.contains('active')) renderizarHistoricoInventarios(); });
             db.collection('fichatecnica').where('userId', '==', uid).onSnapshot(snap => { bdFichas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-fichatecnica').classList.contains('active')) renderizarTabelaFichas(); });
-            db.collection('embalagens').where('userId', '==', uid).onSnapshot(snap => { bdEmbalagens = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderizarSelectEmbalagens(); if(document.getElementById('view-embalagens').classList.contains('active')) renderizarTabelaEmbalagens(); });
+            db.collection('embalagens').where('userId', '==', uid).onSnapshot(snap => { bdEmbalagens = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderizarSelectEmbalagens(); if(document.getElementById('view-embalagens').classList.contains('active')) renderizarTabelaEmbalagens(); calcularDRE(); });
+            db.collection('fornecedores').where('userId', '==', uid).onSnapshot(snap => { bdFornecedores = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarSelectFornecedores(); if(document.getElementById('view-fornecedores').classList.contains('active')) renderizarTabelaFornecedores(); });
         }
 
-        // ==========================================
-        // 3. UI, PERFIL E ADMIN
-        // ==========================================
-        function atualizarStatusAssinatura() {
-            const footer = document.getElementById('sidebar-footer');
-            if(!footer || !currentUser || currentUser.email === MEU_EMAIL_ADMIN) { if(footer) footer.innerHTML = ''; return; }
-            if(perfilDados.pagamentoEmDia === true) {
-                footer.innerHTML = `<div style="color: #10b981; font-weight: 600; font-size: 0.85rem;"><i class="fas fa-check-circle"></i> Acesso Pago</div>`;
-            } else {
-                const diffTime = new Date() - new Date(currentUser.metadata.creationTime); 
-                const diasRestantes = 10 - Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                if(diasRestantes > 0) { footer.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;"><i class="fas fa-clock"></i> ${diasRestantes} dias de acesso grátis</div>`; } 
-                else { footer.innerHTML = `<div style="color: #ef4444; font-weight: 600; font-size: 0.75rem; line-height: 1.4;"><i class="fas fa-exclamation-triangle"></i> Seu acesso será bloqueado em breve.<br>Efetue o pagamento para continuar acessando.</div>`; }
-            }
-        }
-
+        // ==============================
+        // PERFIL E ADMIN
+        // ==============================
         function renderizarPerfilUI() { document.getElementById('nomeUsuario').innerText = perfilDados.nome || 'Usuário'; const avatarDiv = document.getElementById('avatarUsuario'); if (perfilDados.foto) { avatarDiv.innerHTML = `<img src="${perfilDados.foto}" alt="Logo" style="width:100%; height:100%; object-fit:cover;">`; avatarDiv.style.background = 'transparent'; } else { avatarDiv.innerHTML = (perfilDados.nome || 'U').charAt(0).toUpperCase(); avatarDiv.style.background = 'var(--accent)'; } }
         function abrirModalPerfil() { document.getElementById('inputNomePerfil').value = perfilDados.nome || ''; document.getElementById('modalPerfil').classList.add('active'); }
         function fecharModalPerfil() { document.getElementById('modalPerfil').classList.remove('active'); }
-
-        document.getElementById('formPerfil').addEventListener('submit', function(e) { 
-            e.preventDefault(); const fileInput = document.getElementById('inputFotoPerfil'); let pacote = { nome: document.getElementById('inputNomePerfil').value.trim() }; 
-            if (fileInput.files && fileInput.files[0]) { const reader = new FileReader(); reader.onload = function(e) { pacote.foto = e.target.result; db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); }; reader.readAsDataURL(fileInput.files[0]); } else { db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); } 
-        });
+        document.getElementById('formPerfil').addEventListener('submit', function(e) { e.preventDefault(); const fileInput = document.getElementById('inputFotoPerfil'); let pacote = { nome: document.getElementById('inputNomePerfil').value.trim() }; if (fileInput.files && fileInput.files[0]) { const reader = new FileReader(); reader.onload = function(e) { pacote.foto = e.target.result; db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); }; reader.readAsDataURL(fileInput.files[0]); } else { db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); } });
 
         async function carregarListaUsuariosAdmin() {
             if(currentUser.email !== MEU_EMAIL_ADMIN) return;
-            try { 
-                const snapshot = await db.collection('usuarios').get(); const tbody = document.querySelector('#tableAdminUsuarios tbody'); tbody.innerHTML = ''; 
-                if(snapshot.empty) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Nenhum cliente encontrado.</td></tr>`; return; } 
-                snapshot.forEach(doc => { 
-                    const u = doc.data(); const corStatus = u.statusAcesso === 'ativo' ? '#10b981' : '#ef4444'; 
-                    const btnPgto = u.pagamentoEmDia ? `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#f59e0b; color:#f59e0b;" onclick="alternarPagamentoConta('${doc.id}', false)"><i class="fas fa-times"></i> Tirar Pago</button>` : `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#3b82f6; color:#3b82f6;" onclick="alternarPagamentoConta('${doc.id}', true)"><i class="fas fa-dollar-sign"></i> Marcar Pago</button>`;
-                    tbody.innerHTML += `<tr><td><b>${u.email}</b></td><td><small>${doc.id}</small></td><td style="color:${corStatus}; font-weight:700; font-size:0.8rem;">${u.statusAcesso ? u.statusAcesso.toUpperCase() : 'ATIVO'}<br><small style="color:${u.pagamentoEmDia ? '#10b981' : '#ef4444'};">${u.pagamentoEmDia ? 'Pagamento OK' : 'Pagamento Pendente'}</small></td><td><div style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;"><button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#10b981; color:#10b981;" onclick="alterarStatusConta('${doc.id}', 'ativo')"><i class="fas fa-check"></i> Ativar</button> <button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#ef4444; color:#ef4444;" onclick="alterarStatusConta('${doc.id}', 'bloqueado')"><i class="fas fa-ban"></i> Bloquear</button> ${btnPgto}</div></td></tr>`; 
-                }); 
-            } catch(e) {}
+            try { const snapshot = await db.collection('usuarios').get(); const tbody = document.querySelector('#tableAdminUsuarios tbody'); tbody.innerHTML = ''; if(snapshot.empty) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Nenhum cliente encontrado.</td></tr>`; return; } 
+            snapshot.forEach(doc => { 
+                const u = doc.data(); const corStatus = u.statusAcesso === 'ativo' ? '#10b981' : '#ef4444'; 
+                const btnPgto = u.pagamentoEmDia ? `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#f59e0b; color:#f59e0b;" onclick="alternarPagamentoConta('${doc.id}', false)"><i class="fas fa-times"></i> Tirar Pago</button>` : `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#3b82f6; color:#3b82f6;" onclick="alternarPagamentoConta('${doc.id}', true)"><i class="fas fa-dollar-sign"></i> Marcar Pago</button>`;
+                tbody.innerHTML += `<tr><td><b>${u.email}</b></td><td><small>${doc.id}</small></td><td style="color:${corStatus}; font-weight:700; font-size:0.8rem;">${u.statusAcesso ? u.statusAcesso.toUpperCase() : 'ATIVO'}<br><small style="color:${u.pagamentoEmDia ? '#10b981' : '#ef4444'};">${u.pagamentoEmDia ? 'Pagamento OK' : 'Pagamento Pendente'}</small></td><td><div style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;"><button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#10b981; color:#10b981;" onclick="alterarStatusConta('${doc.id}', 'ativo')"><i class="fas fa-check"></i> Ativar</button> <button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#ef4444; color:#ef4444;" onclick="alterarStatusConta('${doc.id}', 'bloqueado')"><i class="fas fa-ban"></i> Bloquear</button> ${btnPgto}</div></td></tr>`; 
+            }); } catch(e) {}
         }
         function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status atualizado!'); carregarListaUsuariosAdmin(); }); }
         function alternarPagamentoConta(uid, status) { db.collection('usuarios').doc(uid).update({ pagamentoEmDia: status }).then(() => { alert('Pagamento atualizado!'); carregarListaUsuariosAdmin(); }); }
 
-        // ==========================================
-        // 4. MÓDULO DE VENDAS
-        // ==========================================
+        // ==============================
+        // VENDAS (MÓDULO DE LANÇAMENTO)
+        // ==============================
         function renderizarSelectEmbalagens() {
             const select = document.getElementById('vendaEmbalagemSelect');
-            if(!select) return;
-            select.innerHTML = '<option value="">-- Nenhuma Embalagem --</option>';
+            if(!select) return; select.innerHTML = '<option value="">-- Nenhuma Embalagem --</option>';
             bdEmbalagens.forEach(e => { select.innerHTML += `<option value="${e.id}">${e.descricao} (R$ ${e.preco.toFixed(2)})</option>`; });
         }
-
         function addProdutoVenda() { const v = document.getElementById('produtoSelect').value; if(v) { produtosTempVenda.push(v); renderizarChipsVenda(); } }
         function remProdutoVenda(i) { produtosTempVenda.splice(i, 1); renderizarChipsVenda(); }
         function renderizarChipsVenda() { const d = document.getElementById('listaProdutosVenda'); d.innerHTML = ''; produtosTempVenda.forEach((p, i) => { d.innerHTML += `<div style="background:var(--input-bg); padding:4px; border:1px solid var(--panel-border); margin:2px; border-radius:4px;">${p} <i class="fas fa-times" style="color:red; cursor:pointer;" onclick="remProdutoVenda(${i})"></i></div>`; }); }
 
         document.getElementById('formVendas').addEventListener('submit', function(e) { 
             e.preventDefault(); 
-            const embId = document.getElementById('vendaEmbalagemSelect').value;
-            const embQtd = parseInt(document.getElementById('vendaEmbalagemQtd').value) || 0;
+            const embId = document.getElementById('vendaEmbalagemSelect').value; const embQtd = parseInt(document.getElementById('vendaEmbalagemQtd').value) || 0;
             let embNome = ""; let embCustoTotal = 0;
-            
-            if(embId) {
-                const embalagemEncontrada = bdEmbalagens.find(x => x.id === embId);
-                if(embalagemEncontrada) { embNome = embalagemEncontrada.descricao; embCustoTotal = embalagemEncontrada.preco * embQtd; }
-            }
-
+            if(embId) { const embEncontrada = bdEmbalagens.find(x => x.id === embId); if(embEncontrada) { embNome = embEncontrada.descricao; embCustoTotal = embEncontrada.preco * embQtd; } }
             const venda = { 
-                data: document.getElementById('dataVenda').value, diaSemana: document.getElementById('diaSemanaVenda').value, canal: document.getElementById('canalVenda').value, 
-                qtdPedidos: parseInt(document.getElementById('qtdPedidosVenda').value)||0, qtdItens: parseInt(document.getElementById('qtdItensVenda').value)||0, 
-                faturamento: parseFloat(document.getElementById('faturamentoVenda').value)||0, receitaLiquida: parseFloat(document.getElementById('liquidoVenda').value)||0, 
+                data: document.getElementById('dataVenda').value, 
+                diaSemana: document.getElementById('diaSemanaVenda').value, 
+                canal: document.getElementById('canalVenda').value, 
+                qtdPedidos: 1, // Fixado como 1 pedido por lançamento para facilitar UX
+                qtdItens: parseInt(document.getElementById('qtdItensVenda').value)||0, 
+                faturamento: parseFloat(document.getElementById('faturamentoVenda').value)||0, 
+                receitaLiquida: parseFloat(document.getElementById('liquidoVenda').value)||0, 
                 produtos: [...produtosTempVenda], embalagemNome: embNome, embalagemId: embId, embalagemQtd: embQtd, embalagemCustoTotal: embCustoTotal, userId: currentUser.uid 
             };
-            
             if(editandoIdVenda) { db.collection('vendas').doc(editandoIdVenda).update(venda); editandoIdVenda = null; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-save"></i> Salvar Venda'; } 
             else { db.collection('vendas').add(venda); }
-            
             document.getElementById('formVendas').reset(); document.getElementById('dataVenda').valueAsDate = new Date(); produtosTempVenda = []; renderizarChipsVenda(); 
         });
 
+        function renderizarTabelaVendas() { const tbody = document.querySelector('#tableVendasGeral tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdVendas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal] || '#64748b'}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarLancamentoVenda('${v.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarVenda('${v.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function deletarVenda(id) { if(confirm("Excluir venda?")) db.collection('vendas').doc(id).delete(); }
         function editarLancamentoVenda(id) { 
             const item = bdVendas.find(x => x.id === id); if(!item) return; 
             document.getElementById('dataVenda').value = item.data; document.getElementById('diaSemanaVenda').value = item.diaSemana; document.getElementById('canalVenda').value = item.canal; 
-            document.getElementById('qtdPedidosVenda').value = item.qtdPedidos; document.getElementById('qtdItensVenda').value = item.qtdItens; 
-            document.getElementById('faturamentoVenda').value = item.faturamento; document.getElementById('liquidoVenda').value = item.receitaLiquida; 
-            document.getElementById('vendaEmbalagemSelect').value = item.embalagemId || ''; document.getElementById('vendaEmbalagemQtd').value = item.embalagemQtd || 0;
-            produtosTempVenda = [...(item.produtos || [])]; renderizarChipsVenda(); editandoIdVenda = id; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-edit"></i> Atualizar Venda'; window.scrollTo(0,0); 
-        }
-        function renderizarTabelaVendas() { 
-            const tbody = document.querySelector('#tableVendasGeral tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdVendas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); 
-            ord.forEach(v => { const dataFormatada = v.data ? v.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><span style="color:${coresCanais[v.canal] || '#64748b'}">●</span> ${v.canal}</td><td>${formatarMoeda(v.faturamento)}</td><td style="color:#10b981;">${formatarMoeda(v.receitaLiquida)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarLancamentoVenda('${v.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarVenda('${v.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); 
+            document.getElementById('qtdItensVenda').value = item.qtdItens; document.getElementById('faturamentoVenda').value = item.faturamento; document.getElementById('liquidoVenda').value = item.receitaLiquida; 
+            document.getElementById('vendaEmbalagemSelect').value = item.embalagemId || ''; document.getElementById('vendaEmbalagemQtd').value = item.embalagemQtd || 0; produtosTempVenda = [...(item.produtos || [])]; renderizarChipsVenda(); editandoIdVenda = id; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-edit"></i> Atualizar Venda'; window.scrollTo(0,0); 
         }
 
-        // ==========================================
-        // 5. DESPESAS E RECEITAS AVULSAS
-        // ==========================================
-        document.getElementById('formDespesas').addEventListener('submit', function(e) { 
-            e.preventDefault(); const despesa = { data: document.getElementById('dataDespesa').value, categoria: document.getElementById('categoriaDespesa').value, valor: parseFloat(document.getElementById('valorDespesa').value)||0, descricao: document.getElementById('descDespesa').value, userId: currentUser.uid }; 
-            if(editandoIdDespesa) { db.collection('despesas').doc(editandoIdDespesa).update(despesa); editandoIdDespesa = null; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-plus"></i> Lançar Despesa'; } 
-            else { db.collection('despesas').add(despesa); } document.getElementById('formDespesas').reset(); 
-        });
+        // ==============================
+        // DESPESAS, RECEITAS E FORNECEDORES
+        // ==============================
+        document.getElementById('formDespesas').addEventListener('submit', function(e) { e.preventDefault(); const despesa = { data: document.getElementById('dataDespesa').value, categoria: document.getElementById('categoriaDespesa').value, valor: parseFloat(document.getElementById('valorDespesa').value)||0, descricao: document.getElementById('descDespesa').value, userId: currentUser.uid }; if(editandoIdDespesa) { db.collection('despesas').doc(editandoIdDespesa).update(despesa); editandoIdDespesa = null; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-plus"></i> Lançar Despesa'; } else { db.collection('despesas').add(despesa); } document.getElementById('formDespesas').reset(); document.getElementById('dataDespesa').valueAsDate = new Date(); });
         function deletarDespesa(id) { if(confirm("Excluir despesa?")) db.collection('despesas').doc(id).delete(); }
         function editarDespesa(id) { const item = bdDespesas.find(x => x.id === id); if(!item) return; document.getElementById('dataDespesa').value = item.data; document.getElementById('categoriaDespesa').value = item.categoria; document.getElementById('valorDespesa').value = item.valor; document.getElementById('descDespesa').value = item.descricao; editandoIdDespesa = id; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Despesa'; window.scrollTo(0,0); }
         function renderizarTabelaDespesas() { const tbody = document.querySelector('#tableDespesas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdDespesas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(d => { const dataFormatada = d.data ? d.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${d.categoria}</td><td>${d.descricao}</td><td style="color:#ef4444;">${formatarMoeda(d.valor)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarDespesa('${d.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarDespesa('${d.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
-        document.getElementById('formReceitasAvulsas').addEventListener('submit', function(e) { 
-            e.preventDefault(); const rec = { data: document.getElementById('dataReceitaAvulsa').value, descricao: document.getElementById('descReceitaAvulsa').value, valor: parseFloat(document.getElementById('valorReceitaAvulsa').value)||0, userId: currentUser.uid }; 
-            if(editandoIdReceita) { db.collection('receitas').doc(editandoIdReceita).update(rec); editandoIdReceita = null; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-plus"></i> Lançar Receita'; } 
-            else { db.collection('receitas').add(rec); } document.getElementById('formReceitasAvulsas').reset(); 
-        });
+        document.getElementById('formReceitasAvulsas').addEventListener('submit', function(e) { e.preventDefault(); const rec = { data: document.getElementById('dataReceitaAvulsa').value, descricao: document.getElementById('descReceitaAvulsa').value, valor: parseFloat(document.getElementById('valorReceitaAvulsa').value)||0, userId: currentUser.uid }; if(editandoIdReceita) { db.collection('receitas').doc(editandoIdReceita).update(rec); editandoIdReceita = null; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-plus"></i> Lançar Receita'; } else { db.collection('receitas').add(rec); } document.getElementById('formReceitasAvulsas').reset(); document.getElementById('dataReceitaAvulsa').valueAsDate = new Date(); });
         function deletarReceitaAvulsa(id) { if(confirm("Excluir receita?")) db.collection('receitas').doc(id).delete(); }
         function editarReceitaAvulsa(id) { const item = bdReceitasAvulsas.find(x => x.id === id); if(!item) return; document.getElementById('dataReceitaAvulsa').value = item.data; document.getElementById('descReceitaAvulsa').value = item.descricao; document.getElementById('valorReceitaAvulsa').value = item.valor; editandoIdReceita = id; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Receita'; window.scrollTo(0,0); }
         function renderizarTabelaReceitasAvulsas() { const tbody = document.querySelector('#tableReceitasAvulsas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdReceitasAvulsas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(r => { const dataFormatada = r.data ? r.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${r.descricao}</td><td style="color:#10b981;">${formatarMoeda(r.valor)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarReceitaAvulsa('${r.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarReceitaAvulsa('${r.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
-        // ==========================================
-        // 6. PRODUTOS, EMBALAGENS E INVENTÁRIO
-        // ==========================================
-        function cadastrarProdutoBase() { const n = document.getElementById('novoProdutoNome').value; const c = parseFloat(document.getElementById('novoProdutoCusto').value)||0; const q = parseInt(document.getElementById('novoProdutoQtd').value)||0; if(n) { db.collection('produtos').add({ nome:n, custo:c, estoque:q, userId: currentUser.uid }); document.getElementById('novoProdutoNome').value=''; document.getElementById('novoProdutoCusto').value=''; document.getElementById('novoProdutoQtd').value=''; } }
+        document.getElementById('formFornecedor').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const f = { nome: document.getElementById('nomeFornecedor').value.trim(), cnpj: document.getElementById('cnpjFornecedor').value.trim(), vendedor: document.getElementById('vendedorFornecedor').value.trim(), telefone: document.getElementById('telFornecedor').value.trim(), userId: currentUser.uid };
+            if(editandoIdFornecedor) { db.collection('fornecedores').doc(editandoIdFornecedor).update(f); editandoIdFornecedor = null; document.getElementById('btnSalvarFornecedor').innerHTML = '<i class="fas fa-save"></i> Salvar Fornecedor'; } else { db.collection('fornecedores').add(f); } document.getElementById('formFornecedor').reset();
+        });
+        function atualizarSelectFornecedores() {
+            const select = document.getElementById('novoProdutoFornecedor'); if(!select) return; select.innerHTML = '<option value="">-- Fornecedor (Opcional) --</option>';
+            bdFornecedores.forEach(f => { select.innerHTML += `<option value="${f.nome}">${f.nome}</option>`; });
+        }
+        function renderizarTabelaFornecedores() { const tbody = document.querySelector('#tableFornecedores tbody'); if(!tbody) return; tbody.innerHTML = ''; bdFornecedores.forEach(f => { tbody.innerHTML += `<tr><td><b>${f.nome}</b></td><td>${f.cnpj || '-'}</td><td>${f.vendedor || '-'}</td><td>${f.telefone || '-'}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarFornecedor('${f.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarFornecedor('${f.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
+        function deletarFornecedor(id) { if(confirm("Deseja apagar este fornecedor?")) db.collection('fornecedores').doc(id).delete(); }
+        function editarFornecedor(id) { const f = bdFornecedores.find(x => x.id === id); if(!f) return; document.getElementById('nomeFornecedor').value = f.nome; document.getElementById('cnpjFornecedor').value = f.cnpj || ''; document.getElementById('vendedorFornecedor').value = f.vendedor || ''; document.getElementById('telFornecedor').value = f.telefone || ''; editandoIdFornecedor = id; document.getElementById('btnSalvarFornecedor').innerHTML = '<i class="fas fa-edit"></i> Atualizar Fornecedor'; window.scrollTo(0,0); }
+
+        // ==============================
+        // MÓDULOS DE ESTOQUE, EMBALAGEM E FICHAS
+        // ==============================
+        function cadastrarProdutoBase() { const n = document.getElementById('novoProdutoNome').value; const c = parseFloat(document.getElementById('novoProdutoCusto').value)||0; const q = parseInt(document.getElementById('novoProdutoQtd').value)||0; const fornecedor = document.getElementById('novoProdutoFornecedor').value; if(n) { db.collection('produtos').add({ nome:n, custo:c, estoque:q, fornecedor: fornecedor, userId: currentUser.uid }); document.getElementById('novoProdutoNome').value=''; document.getElementById('novoProdutoCusto').value=''; document.getElementById('novoProdutoQtd').value=''; document.getElementById('novoProdutoFornecedor').value=''; } }
         function deletarProdutoBase(id) { if(confirm("Apagar produto?")) db.collection('produtos').doc(id).delete(); }
-        function renderizarBaseProdutos() { const ul = document.getElementById('listaBaseProdutos'); ul.innerHTML = ''; bdProdutos.forEach(p => { ul.innerHTML += `<li style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--panel-border);"><div><b>${p.nome}</b><br><small>Custo: ${formatarMoeda(p.custo)} | Estoque: ${p.estoque} un.</small></div><button class="btn btn-outline" style="color:red;" onclick="deletarProdutoBase('${p.id}')"><i class="fas fa-trash"></i></button></li>`; }); }
+        function renderizarBaseProdutos() { const ul = document.getElementById('listaBaseProdutos'); ul.innerHTML = ''; bdProdutos.forEach(p => { const forncText = p.fornecedor ? ` | Fornecedor: ${p.fornecedor}` : ''; ul.innerHTML += `<li style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--panel-border);"><div><b>${p.nome}</b><br><small>Custo: ${formatarMoeda(p.custo)} | Estoque: ${p.estoque} un.${forncText}</small></div><button class="btn btn-outline" style="color:red;" onclick="deletarProdutoBase('${p.id}')"><i class="fas fa-trash"></i></button></li>`; }); }
         function atualizarSelectProdutos() { const s = document.getElementById('produtoSelect'); s.innerHTML = '<option value="">-- Vincular Item --</option>'; bdProdutos.forEach(p => { s.innerHTML += `<option value="${p.nome}">${p.nome}</option>`; }); }
 
-        document.getElementById('formEmbalagem').addEventListener('submit', function(e) {
-            e.preventDefault(); const emb = { descricao: document.getElementById('descEmbalagem').value.trim(), preco: parseFloat(document.getElementById('precoEmbalagem').value) || 0, userId: currentUser.uid };
-            if(editandoIdEmbalagem) { db.collection('embalagens').doc(editandoIdEmbalagem).update(emb); editandoIdEmbalagem = null; document.getElementById('btnSalvarEmbalagem').innerHTML = '<i class="fas fa-save"></i> Salvar Embalagem'; } 
-            else { db.collection('embalagens').add(emb); } document.getElementById('formEmbalagem').reset();
-        });
+        document.getElementById('formEmbalagem').addEventListener('submit', function(e) { e.preventDefault(); const emb = { descricao: document.getElementById('descEmbalagem').value.trim(), preco: parseFloat(document.getElementById('precoEmbalagem').value) || 0, userId: currentUser.uid }; if(editandoIdEmbalagem) { db.collection('embalagens').doc(editandoIdEmbalagem).update(emb); editandoIdEmbalagem = null; document.getElementById('btnSalvarEmbalagem').innerHTML = '<i class="fas fa-save"></i> Salvar Embalagem'; } else { db.collection('embalagens').add(emb); } document.getElementById('formEmbalagem').reset(); });
         function renderizarTabelaEmbalagens() { const tbody = document.querySelector('#tableEmbalagens tbody'); if(!tbody) return; tbody.innerHTML = ''; bdEmbalagens.forEach(e => { tbody.innerHTML += `<tr><td><b>${e.descricao}</b></td><td>${formatarMoeda(e.preco)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarEmbalagem('${e.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarEmbalagem('${e.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function deletarEmbalagem(id) { if(confirm("Deseja apagar esta embalagem?")) db.collection('embalagens').doc(id).delete(); }
-        function editarEmbalagem(id) { const e = bdEmbalagens.find(x => x.id === id); if(!e) return; document.getElementById('descEmbalagem').value = e.descricao; document.getElementById('precoEmbalagem').value = e.preco; editandoIdEmbalagem = id; document.getElementById('btnSalvarEmbalagem').innerHTML = '<i class="fas fa-edit"></i> Atualizar Embalagem'; }
+        function editarEmbalagem(id) { const e = bdEmbalagens.find(x => x.id === id); if(!e) return; document.getElementById('descEmbalagem').value = e.descricao; document.getElementById('precoEmbalagem').value = e.preco; editandoIdEmbalagem = id; document.getElementById('btnSalvarEmbalagem').innerHTML = '<i class="fas fa-edit"></i> Atualizar Embalagem'; window.scrollTo(0,0); }
 
         function renderizarTabelaInventario() { const tbody = document.querySelector('#tableRealizarInventario tbody'); tbody.innerHTML = ''; bdProdutos.forEach(p => { tbody.innerHTML += `<tr><td><b>${p.nome}</b></td><td>${p.estoque} un.</td><td><input type="number" class="input-inventario" data-id="${p.id}" data-nome="${p.nome}" data-custo="${p.custo}" data-atual="${p.estoque}" value="${p.estoque}" style="width: 80px; padding: 4px; text-align: center; border-radius: 4px; border: 1px solid var(--panel-border); background: var(--bg-color); color: var(--text-main);"></td></tr>`; }); }
-        function salvarInventario() { const resp = document.getElementById('respInventario').value.trim(); if(!resp) return alert("Por favor, preencha o nome do responsável pelo inventário."); const itens = []; let divergenciaTotalR = 0; const promises = []; document.querySelectorAll('.input-inventario').forEach(input => { const id = input.getAttribute('data-id'); const nome = input.getAttribute('data-nome'); const custo = parseFloat(input.getAttribute('data-custo'))||0; const atual = parseInt(input.getAttribute('data-atual'))||0; const encontrado = parseInt(input.value)||0; if (atual !== encontrado) { const divQtd = encontrado - atual; const divR = divQtd * custo; divergenciaTotalR += divR; itens.push({ id, nome, atual, encontrado, divQtd, divR }); promises.push(db.collection('produtos').doc(id).update({ estoque: encontrado })); } }); if (itens.length > 0) { promises.push(db.collection('inventarios').add({ dataHora: new Date().toLocaleString('pt-BR'), responsavel: resp, divergenciaTotalR, itens, userId: currentUser.uid })); Promise.all(promises).then(() => { alert("Inventário salvo e estoques atualizados na base de produtos!"); document.getElementById('respInventario').value = ''; }); } else { alert("Nenhuma divergência foi detectada. O estoque foi mantido."); document.getElementById('respInventario').value = ''; } }
+        
+        function salvarInventario() { 
+            const resp = document.getElementById('respInventario').value.trim(); 
+            if(!resp) return alert("Por favor, preencha o nome do responsável pelo inventário."); 
+            const itensAuditados = []; let divergenciaTotalR = 0; const promises = []; 
+            
+            document.querySelectorAll('.input-inventario').forEach(input => { 
+                const id = input.getAttribute('data-id'); const nome = input.getAttribute('data-nome'); 
+                const custo = parseFloat(input.getAttribute('data-custo'))||0; const atual = parseInt(input.getAttribute('data-atual'))||0; 
+                const encontrado = parseInt(input.value)||0; 
+                
+                const divQtd = encontrado - atual; 
+                const divR = divQtd * custo; 
+                divergenciaTotalR += divR; 
+                
+                itensAuditados.push({ id, nome, atual, encontrado, divQtd, divR }); 
+                
+                if (atual !== encontrado) { promises.push(db.collection('produtos').doc(id).update({ estoque: encontrado })); } 
+            }); 
+            
+            promises.push(db.collection('inventarios').add({ dataHora: new Date().toLocaleString('pt-BR'), responsavel: resp, divergenciaTotalR: divergenciaTotalR, itens: itensAuditados, userId: currentUser.uid })); 
+            
+            Promise.all(promises).then(() => { alert("Auditoria de Inventário concluída e salva com sucesso!"); document.getElementById('respInventario').value = ''; }).catch(err => alert("Erro ao salvar inventário: " + err)); 
+        }
+
         function renderizarHistoricoInventarios() { const tbody = document.querySelector('#tableHistoricoInventario tbody'); tbody.innerHTML = ''; const ord = [...bdInventarios].sort((a,b) => b.dataHora.localeCompare(a.dataHora)); ord.forEach(inv => { const cor = inv.divergenciaTotalR < 0 ? '#ef4444' : (inv.divergenciaTotalR > 0 ? '#10b981' : 'var(--text-muted)'); const sinal = inv.divergenciaTotalR > 0 ? '+' : ''; tbody.innerHTML += `<tr><td>${inv.dataHora}</td><td style="color: ${cor}; font-weight: bold;">${sinal} ${formatarMoeda(inv.divergenciaTotalR)}</td><td><button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem;" onclick='abrirModalInventario(${JSON.stringify(inv)})'><i class="fas fa-eye"></i> Detalhes</button></td><td><button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="gerarPDFInventario('${inv.id}')"><i class="fas fa-file-pdf"></i></button> <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarInventario('${inv.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function deletarInventario(id) { if(confirm("Deseja mesmo excluir de forma permanente este histórico de inventário?")) db.collection('inventarios').doc(id).delete(); }
-        function abrirModalInventario(invStr) { const inv = typeof invStr === 'string' ? JSON.parse(invStr) : invStr; let html = `<table style="width: 100%;"><thead><tr><th>Produto</th><th>Sistema</th><th>Físico</th><th>Div (R$)</th></tr></thead><tbody>`; inv.itens.forEach(i => { const cor = i.divR < 0 ? '#ef4444' : '#10b981'; html += `<tr><td>${i.nome}</td><td>${i.atual}</td><td>${i.encontrado}</td><td style="color: ${cor};">${i.divR > 0 ? '+' : ''} ${formatarMoeda(i.divR)}</td></tr>`; }); html += `</tbody></table>`; document.getElementById('conteudoModalInventario').innerHTML = html; document.getElementById('modalInventario').classList.add('active'); }
+        function abrirModalInventario(invStr) { const inv = typeof invStr === 'string' ? JSON.parse(invStr) : invStr; let html = `<table style="width: 100%;"><thead><tr><th>Produto</th><th>Sistema</th><th>Físico</th><th>Div (R$)</th></tr></thead><tbody>`; inv.itens.forEach(i => { const cor = i.divR < 0 ? '#ef4444' : (i.divR > 0 ? '#10b981' : 'var(--text-main)'); html += `<tr><td>${i.nome}</td><td>${i.atual}</td><td>${i.encontrado}</td><td style="color: ${cor};">${i.divR > 0 ? '+' : ''} ${formatarMoeda(i.divR)}</td></tr>`; }); html += `</tbody></table>`; document.getElementById('conteudoModalInventario').innerHTML = html; document.getElementById('modalInventario').classList.add('active'); }
         function fecharModalInventario() { document.getElementById('modalInventario').classList.remove('active'); }
-
-        // ==========================================
-        // 7. MOTOBOY E PRECIFICAÇÃO E FICHA TÉCNICA
-        // ==========================================
-        document.getElementById('formMotoboy').addEventListener('submit', function(e) { e.preventDefault(); const diaria = parseFloat(document.getElementById('diariaMotoboy').value) || 0; const extra = parseFloat(document.getElementById('extraMotoboy').value) || 0; const qtd = parseInt(document.getElementById('qtdEntregasMotoboy').value) || 0; const totalPago = diaria + (qtd * extra); const mb = { data: document.getElementById('dataMotoboy').value, nome: document.getElementById('nomeMotoboy').value, cpf: document.getElementById('cpfMotoboy').value, qtdEntregas: qtd, diaria: diaria, extra: extra, total: totalPago, status: document.getElementById('statusMotoboy').value, userId: currentUser.uid }; if(editandoIdMotoboy) { db.collection('motoboys').doc(editandoIdMotoboy).update(mb); editandoIdMotoboy = null; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-plus"></i> Salvar Lançamento'; } else { db.collection('motoboys').add(mb); } document.getElementById('formMotoboy').reset(); document.getElementById('dataMotoboy').valueAsDate = new Date(); document.getElementById('statusMotoboy').value = "Pendente"; });
-        function deletarMotoboy(id) { if(confirm("Excluir lançamento do motoboy?")) db.collection('motoboys').doc(id).delete(); }
-        function editarMotoboy(id) { const item = bdMotoboys.find(x => x.id === id); if(!item) return; document.getElementById('dataMotoboy').value = item.data; document.getElementById('nomeMotoboy').value = item.nome; document.getElementById('cpfMotoboy').value = item.cpf || ''; document.getElementById('qtdEntregasMotoboy').value = item.qtdEntregas; document.getElementById('diariaMotoboy').value = item.diaria; document.getElementById('extraMotoboy').value = item.extra; document.getElementById('statusMotoboy').value = item.status; editandoIdMotoboy = id; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-edit"></i> Atualizar Lançamento'; window.scrollTo(0,0); }
-        function alternarStatusMotoboy(id, statusAtual) { const novoStatus = statusAtual === 'Pago' ? 'Pendente' : 'Pago'; db.collection('motoboys').doc(id).update({ status: novoStatus }); }
-        function renderizarHistoricoMotoboys() { const tbody = document.querySelector('#tableMotoboys tbody'); tbody.innerHTML = ''; const ord = [...bdMotoboys].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(m => { const corStatus = m.status === 'Pago' ? '#10b981' : '#f59e0b'; const dataFormatada = m.data ? m.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><b>${m.nome}</b><br><small style="color:var(--text-muted)">${m.cpf || ''}</small></td><td>${m.qtdEntregas}</td><td><b>${formatarMoeda(m.total)}</b></td><td><span style="color: ${corStatus}; font-weight: bold; cursor: pointer;" onclick="alternarStatusMotoboy('${m.id}', '${m.status}')">${m.status}</span></td><td style="white-space: nowrap;"><button class="btn btn-outline" style="padding: 2px 6px; font-size:0.75rem;" onclick="editarMotoboy('${m.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding: 2px 6px; color: red; border-color: red; font-size:0.75rem;" onclick="deletarMotoboy('${m.id}')"><i class="fas fa-trash"></i></button> <button class="btn btn-primary" style="padding: 2px 6px; font-size:0.75rem;" onclick="generarPDFMotoboy('${m.id}')"><i class="fas fa-file-pdf"></i> PDF</button></td></tr>`; }); }
-
-        function calcularPrecificacao() { const custo = parseFloat(document.getElementById('simCusto').value) || 0; const embalagem = parseFloat(document.getElementById('simEmbalagem').value) || 0; const taxa = parseFloat(document.getElementById('simTaxa').value) || 0; const margem = parseFloat(document.getElementById('simMargem').value) || 0; const aviso = document.getElementById('simAviso'); const res = document.getElementById('simResultado'); const somaPercentuais = (taxa + margem) / 100; if (somaPercentuais >= 1) { aviso.style.display = 'block'; res.innerText = "R$ 0,00"; return; } aviso.style.display = 'none'; const precoVenda = (custo + embalagem) / (1 - somaPercentuais); res.innerText = formatarMoeda(precoVenda); }
-        document.getElementById('simCusto').addEventListener('input', calcularPrecificacao); document.getElementById('simEmbalagem').addEventListener('input', calcularPrecificacao); document.getElementById('simTaxa').addEventListener('input', calcularPrecificacao); document.getElementById('simMargem').addEventListener('input', calcularPrecificacao);
+        function gerarPDFInventario(id) { const inv = bdInventarios.find(x => x.id === id); if(!inv) return; const div = document.createElement('div'); div.style.cssText = "padding:20px; font-family:sans-serif; color:#000; background:#fff; width:100%; font-size:12px;"; let htmlTable = `<table style="width:100%; border-collapse:collapse; text-align:left; margin-top:20px; border:1px solid #000;"><thead><tr style="background:#eee; border-bottom:1px solid #000;"><th style="padding:6px; border-right:1px solid #000;">Produto</th><th style="padding:6px; border-right:1px solid #000;">Estoque Sistema</th><th style="padding:6px; border-right:1px solid #000;">Qtd. Encontrada</th><th style="padding:6px; border-right:1px solid #000;">Div. (Qtd)</th><th style="padding:6px;">Div. (R$)</th></tr></thead><tbody>`; inv.itens.forEach(i => { htmlTable += `<tr style="border-bottom:1px solid #ccc;"><td style="padding:6px; border-right:1px solid #000;">${i.nome}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.atual}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.encontrado}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.divQtd > 0 ? '+'+i.divQtd : i.divQtd}</td><td style="padding:6px;">${formatarMoeda(i.divR)}</td></tr>`; }); htmlTable += `</tbody></table>`; div.innerHTML = `<div style="text-align:center;"><h2 style="margin-bottom:5px;">RELATÓRIO DE INVENTÁRIO (AUDITORIA)</h2><p style="margin:0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="margin:15px 0;"><p><b>Data e Hora da Auditoria:</b> ${inv.dataHora}</p><p><b>Responsável pela Contagem:</b> ${inv.responsavel || 'Não informado'}</p>${htmlTable}<h3 style="text-align:right; margin-top:20px;">Divergência Total Acumulada: ${formatarMoeda(inv.divergenciaTotalR)}</h3><div style="margin-top:60px; text-align:center;"><div style="width:50%; margin:0 auto; border-top:1px solid #000; padding-top:10px;"><b>${inv.responsavel || 'Responsável'}</b><br>Assinatura</div></div>`; html2pdf().set({ margin:10, filename: `Inventario_${inv.dataHora.replace(/[\/\s:]/g,'_')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save(); }
 
         function addInsumoFicha() { const n = document.getElementById('nomeInsumoFicha').value.trim(); const c = parseFloat(document.getElementById('custoInsumoFicha').value) || 0; if(n && c > 0) { insumosTempFicha.push({ nome: n, custo: c }); document.getElementById('nomeInsumoFicha').value = ''; document.getElementById('custoInsumoFicha').value = ''; renderizarInsumosFicha(); } }
         function remInsumoFicha(i) { insumosTempFicha.splice(i, 1); renderizarInsumosFicha(); }
         function renderizarInsumosFicha() { const d = document.getElementById('listaInsumosFicha'); d.innerHTML = ''; let total = 0; insumosTempFicha.forEach((item, i) => { total += item.custo; d.innerHTML += `<div style="display:flex; justify-content:space-between; padding:6px; background:var(--bg-color); border:1px solid var(--panel-border); border-radius:4px;"><span>${item.nome}</span> <div><b>${formatarMoeda(item.custo)}</b> <i class="fas fa-times" style="color:red; cursor:pointer; margin-left:10px;" onclick="remInsumoFicha(${i})"></i></div></div>`; }); document.getElementById('totalFichaCusto').innerText = formatarMoeda(total); }
-        
         document.getElementById('formFicha').addEventListener('submit', function(e) { e.preventDefault(); const nomePrato = document.getElementById('nomePratoFicha').value; if(insumosTempFicha.length === 0) return alert("Adicione pelo menos um insumo."); let total = insumosTempFicha.reduce((acc, curr) => acc + curr.custo, 0); const ficha = { prato: nomePrato, insumos: [...insumosTempFicha], custoTotal: total, userId: currentUser.uid, dataCriacao: new Date().toISOString() }; if(editandoIdFicha) { db.collection('fichatecnica').doc(editandoIdFicha).update(ficha); editandoIdFicha = null; document.getElementById('btnSalvarFicha').innerHTML = '<i class="fas fa-save"></i> Salvar Ficha Técnica'; } else { db.collection('fichatecnica').add(ficha); } document.getElementById('formFicha').reset(); insumosTempFicha = []; renderizarInsumosFicha(); });
         function renderizarTabelaFichas() { const tbody = document.querySelector('#tableFichas tbody'); tbody.innerHTML = ''; const ord = [...bdFichas].sort((a,b) => b.dataCriacao.localeCompare(a.dataCriacao)); ord.forEach(f => { tbody.innerHTML += `<tr><td><b>${f.prato}</b></td><td>${f.insumos.length} itens</td><td style="color: #ef4444; font-weight: bold;">${formatarMoeda(f.custoTotal)}</td><td style="white-space: nowrap;"><button class="btn btn-outline" style="padding: 3px 6px; font-size:0.75rem;" onclick='abrirModalFicha(${JSON.stringify(f)})'><i class="fas fa-eye"></i></button> <button class="btn btn-outline" style="padding: 3px 6px; font-size:0.75rem;" onclick="editarFicha('${f.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding: 3px 6px; color: red; border-color: red; font-size:0.75rem;" onclick="deletarFicha('${f.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function deletarFicha(id) { if(confirm("Excluir esta ficha técnica?")) db.collection('fichatecnica').doc(id).delete(); }
@@ -833,11 +871,23 @@
         function abrirModalFicha(fStr) { const f = typeof fStr === 'string' ? JSON.parse(fStr) : fStr; document.getElementById('tituloModalFicha').innerText = `Ficha Técnica: ${f.prato}`; let html = `<table style="width: 100%; margin-bottom:15px;"><thead><tr><th>Insumo</th><th style="text-align:right;">Custo</th></tr></thead><tbody>`; f.insumos.forEach(i => { html += `<tr><td style="padding:4px 0; border-bottom:1px solid var(--panel-border);">${i.nome}</td><td style="text-align:right; padding:4px 0; border-bottom:1px solid var(--panel-border);">${formatarMoeda(i.custo)}</td></tr>`; }); html += `</tbody></table><h3 style="text-align:right; color: #ef4444; margin-top:10px;">Custo Total: ${formatarMoeda(f.custoTotal)}</h3>`; document.getElementById('conteudoModalFicha').innerHTML = html; document.getElementById('modalFichaView').classList.add('active'); }
         function fecharModalFicha() { document.getElementById('modalFichaView').classList.remove('active'); }
 
-        // ==========================================
-        // 8. D.R.E. GERENCIAL
-        // ==========================================
+        // ==============================
+        // MOTOBOY E PRECIFICAÇÃO
+        // ==============================
+        document.getElementById('formMotoboy').addEventListener('submit', function(e) { e.preventDefault(); const diaria = parseFloat(document.getElementById('diariaMotoboy').value) || 0; const extra = parseFloat(document.getElementById('extraMotoboy').value) || 0; const qtd = parseInt(document.getElementById('qtdEntregasMotoboy').value) || 0; const totalPago = diaria + (qtd * extra); const mb = { data: document.getElementById('dataMotoboy').value, nome: document.getElementById('nomeMotoboy').value, cpf: document.getElementById('cpfMotoboy').value, qtdEntregas: qtd, diaria: diaria, extra: extra, total: totalPago, status: document.getElementById('statusMotoboy').value, userId: currentUser.uid }; if(editandoIdMotoboy) { db.collection('motoboys').doc(editandoIdMotoboy).update(mb); editandoIdMotoboy = null; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-plus"></i> Salvar Lançamento'; } else { db.collection('motoboys').add(mb); } document.getElementById('formMotoboy').reset(); document.getElementById('dataMotoboy').valueAsDate = new Date(); document.getElementById('statusMotoboy').value = "Pendente"; });
+        function deletarMotoboy(id) { if(confirm("Excluir lançamento do motoboy?")) db.collection('motoboys').doc(id).delete(); }
+        function editarMotoboy(id) { const item = bdMotoboys.find(x => x.id === id); if(!item) return; document.getElementById('dataMotoboy').value = item.data; document.getElementById('nomeMotoboy').value = item.nome; document.getElementById('cpfMotoboy').value = item.cpf || ''; document.getElementById('qtdEntregasMotoboy').value = item.qtdEntregas; document.getElementById('diariaMotoboy').value = item.diaria; document.getElementById('extraMotoboy').value = item.extra; document.getElementById('statusMotoboy').value = item.status; editandoIdMotoboy = id; document.getElementById('btnSalvarMotoboy').innerHTML = '<i class="fas fa-edit"></i> Atualizar Lançamento'; window.scrollTo(0,0); }
+        function alternarStatusMotoboy(id, statusAtual) { const novoStatus = statusAtual === 'Pago' ? 'Pendente' : 'Pago'; db.collection('motoboys').doc(id).update({ status: novoStatus }); }
+        function renderizarHistoricoMotoboys() { const tbody = document.querySelector('#tableMotoboys tbody'); tbody.innerHTML = ''; const ord = [...bdMotoboys].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(m => { const corStatus = m.status === 'Pago' ? '#10b981' : '#f59e0b'; const dataFormatada = m.data ? m.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td><b>${m.nome}</b><br><small style="color:var(--text-muted)">${m.cpf || ''}</small></td><td>${m.qtdEntregas}</td><td><b>${formatarMoeda(m.total)}</b></td><td><span style="color: ${corStatus}; font-weight: bold; cursor: pointer;" onclick="alternarStatusMotoboy('${m.id}', '${m.status}')">${m.status}</span></td><td style="white-space: nowrap;"><button class="btn btn-outline" style="padding: 2px 6px; font-size:0.75rem;" onclick="editarMotoboy('${m.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding: 2px 6px; color: red; border-color: red; font-size:0.75rem;" onclick="deletarMotoboy('${m.id}')"><i class="fas fa-trash"></i></button> <button class="btn btn-primary" style="padding: 2px 6px; font-size:0.75rem;" onclick="generarPDFMotoboy('${m.id}')"><i class="fas fa-file-pdf"></i> PDF</button></td></tr>`; }); }
+        function generarPDFMotoboy(id) { const m = bdMotoboys.find(x => x.id === id); if(!m) return; const dataF = m.data.split('-').reverse().join('/'); const div = document.createElement('div'); div.style.cssText = "padding:30px; font-family:sans-serif; color:#000; background:#fff; width:100%;"; div.innerHTML = `<div style="text-align:center; margin-bottom:20px;"><h2 style="margin:0;">RECIBO DE PAGAMENTO DE PRESTAÇÃO DE SERVIÇOS</h2><p style="margin:5px 0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="border:1px solid #ccc; margin-bottom:20px;"><p style="font-size:14px; line-height:1.6;">Recebi(emos) de <b>${perfilDados.nome || 'Delivery BI'}</b> a quantia de <b>${formatarMoeda(m.total)}</b>, referente à prestação de serviços de entregas na data de <b>${dataF}</b>.</p><table style="width:100%; margin-top:20px; border-collapse:collapse; font-size:14px;"><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9; width:40%;"><b>Nome do Entregador:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.nome}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>CPF:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.cpf || 'Não informado'}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Qtd. de Entregas:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.qtdEntregas}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor da Diária:</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.diaria)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor Adicional (Por Entrega):</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.extra)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#eee; font-weight:bold;"><b>Total Geral:</b></td><td style="padding:8px; border:1px solid #ddd; font-weight:bold;">${formatarMoeda(m.total)}</td></tr></table><p style="font-size:12px; margin-top:15px; color:#555;">Por ser verdade, firmo o presente recibo.</p><div style="display:flex; justify-content:space-between; margin-top:80px; text-align:center; font-size:13px;"><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>Responsável pelo Pagamento</b><br>${perfilDados.nome || 'Delivery BI'}</div><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>${m.nome}</b><br>CPF: ${m.cpf || 'Não informado'}</div></div>`; html2pdf().set({ margin:10, filename: `Recibo_${m.nome.replace(/\s+/g,'_')}_${dataF.replace(/\//g,'-')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save(); }
+
+        function calcularPrecificacao() { const custo = parseFloat(document.getElementById('simCusto').value) || 0; const embalagem = parseFloat(document.getElementById('simEmbalagem').value) || 0; const taxa = parseFloat(document.getElementById('simTaxa').value) || 0; const margem = parseFloat(document.getElementById('simMargem').value) || 0; const aviso = document.getElementById('simAviso'); const res = document.getElementById('simResultado'); const somaPercentuais = (taxa + margem) / 100; if (somaPercentuais >= 1) { aviso.style.display = 'block'; res.innerText = "R$ 0,00"; return; } aviso.style.display = 'none'; const precoVenda = (custo + embalagem) / (1 - somaPercentuais); res.innerText = formatarMoeda(precoVenda); }
+        document.getElementById('simCusto').addEventListener('input', calcularPrecificacao); document.getElementById('simEmbalagem').addEventListener('input', calcularPrecificacao); document.getElementById('simTaxa').addEventListener('input', calcularPrecificacao); document.getElementById('simMargem').addEventListener('input', calcularPrecificacao);
+
+        // ==============================
+        // D.R.E. GERENCIAL ATUALIZADA
+        // ==============================
         function calcularDRE() {
-            if(!document.getElementById('view-dre').classList.contains('active')) return;
             const mesSel = document.getElementById('dreFiltroMes').value;
             const anoSel = document.getElementById('dreFiltroAno').value;
             const prefixoCompetencia = `${anoSel}-${mesSel}`;
@@ -845,13 +895,16 @@
             let vendasMes = bdVendas.filter(v => v.data && v.data.startsWith(prefixoCompetencia));
             let despesasMes = bdDespesas.filter(d => d.data && d.data.startsWith(prefixoCompetencia));
             let receitasMes = bdReceitasAvulsas.filter(r => r.data && r.data.startsWith(prefixoCompetencia));
+            
+            // INTEGRAÇÃO MOTOBOY
+            let motoboysMes = bdMotoboys.filter(m => m.data && m.data.startsWith(prefixoCompetencia));
+            let gastoMotoboys = motoboysMes.reduce((acc, m) => acc + (m.total || 0), 0);
 
             let fatVendas = 0, recLiquidaVendas = 0, custoEmbalagens = 0, custoInsumos = 0;
             vendasMes.forEach(v => {
                 fatVendas += v.faturamento || 0;
                 recLiquidaVendas += v.receitaLiquida || 0;
                 custoEmbalagens += v.embalagemCustoTotal || 0;
-                
                 if(v.produtos) {
                     v.produtos.forEach(pNome => {
                         const prod = bdProdutos.find(x => x.nome === pNome);
@@ -868,7 +921,8 @@
             let cmvTotal = custoInsumos + custoEmbalagens;
             let lucroBruto = receitaLiquidaFinal - cmvTotal;
 
-            let despFuncionarios = 0, despImpostos = 0, despEstruturais = 0;
+            // OPEX (Incluindo os Motoboys em Funcionários)
+            let despFuncionarios = gastoMotoboys, despImpostos = 0, despEstruturais = 0;
             despesasMes.forEach(d => {
                 if(d.categoria === 'Funcionários' || d.categoria === 'Salários administrativos' || d.categoria === 'Pró-labore dos sócios' || d.categoria === 'Encargos trabalhistas (INSS, FGTS, etc.)') {
                     despFuncionarios += d.valor || 0;
@@ -897,6 +951,22 @@
             const vLucroFinal = document.getElementById('dreLucroLiquidoFinal');
             vLucroFinal.innerText = formatarMoeda(lucroLiquidoFinal);
             if(lucroLiquidoFinal < 0) { vLucroFinal.className = "dre-value text-vermelho"; } else { vLucroFinal.className = "dre-value text-verde"; }
+
+            document.getElementById('dreFaturamentoBrutoPerc').innerText = calcPerc(fatBrutoTotal, fatBrutoTotal);
+            document.getElementById('dreTaxasPlataformasPerc').innerText = calcPerc(taxasApps, fatBrutoTotal);
+            document.getElementById('dreReceitaLiquidaPerc').innerText = calcPerc(receitaLiquidaFinal, fatBrutoTotal);
+            document.getElementById('dreCmvTotalPerc').innerText = calcPerc(cmvTotal, fatBrutoTotal);
+            document.getElementById('dreCustoInsumosPerc').innerText = calcPerc(custoInsumos, fatBrutoTotal);
+            document.getElementById('dreCustoEmbalagensPerc').innerText = calcPerc(custoEmbalagens, fatBrutoTotal);
+            document.getElementById('dreLucroBrutoPerc').innerText = calcPerc(lucroBruto, fatBrutoTotal);
+            document.getElementById('dreDespesasOpTotalPerc').innerText = calcPerc(opexTotal, fatBrutoTotal);
+            document.getElementById('dreDespesasFuncionariosPerc').innerText = calcPerc(despFuncionarios, fatBrutoTotal);
+            document.getElementById('dreDespesasImpostosPerc').innerText = calcPerc(despImpostos, fatBrutoTotal);
+            document.getElementById('dreDespesasEstruturaisPerc').innerText = calcPerc(despEstruturais, fatBrutoTotal);
+            
+            const vLucroFinalPerc = document.getElementById('dreLucroLiquidoFinalPerc');
+            vLucroFinalPerc.innerText = calcPerc(lucroLiquidoFinal, fatBrutoTotal);
+            if(lucroLiquidoFinal < 0) { vLucroFinalPerc.className = "dre-value text-vermelho"; } else { vLucroFinalPerc.className = "dre-value text-verde"; }
         }
 
         function exportarDREPDF() {
@@ -907,12 +977,12 @@
             html2pdf().set(op).from(element).save();
         }
 
-        // ==========================================
-        // 9. DASHBOARD E CONTROLES GERAIS
-        // ==========================================
+        // ==============================
+        // CONTROLES DE NAVEGAÇÃO E GRÁFICOS
+        // ==============================
         function switchTab(tabId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); document.getElementById('view-' + tabId).classList.add('active'); element.classList.add('active');
-            const titulos = { 'dashboard': 'Visão Geral (Dashboard)', 'vendas': 'Lançamento de Vendas', 'despesas': 'Despesas Operacionais', 'receitas': 'Receitas Avulsas', 'produtos': 'Cadastrar Produtos e Estoque', 'motoboy': 'Pagamento de Motoboys', 'precificacao': 'Simulador de Precificação', 'fichatecnica': 'Ficha Técnica', 'embalagens': 'Cadastrar Embalagens', 'inventario': 'Inventário e Divergências', 'dre': 'D.R.E. Gerencial', 'admin': 'Gestão SaaS Admin' };
+            const titulos = { 'dashboard': 'Visão Geral (Dashboard)', 'vendas': 'Lançamento de Vendas', 'despesas': 'Despesas Operacionais', 'receitas': 'Receitas Avulsas', 'produtos': 'Cadastrar Produtos e Estoque', 'fornecedores': 'Cadastrar Fornecedores', 'motoboy': 'Pagamento de Motoboys', 'precificacao': 'Simulador de Precificação', 'fichatecnica': 'Ficha Técnica', 'embalagens': 'Cadastrar Embalagens', 'inventario': 'Inventário e Divergências', 'dre': 'D.R.E. Gerencial', 'suporte': 'Central de Suporte', 'admin': 'Gestão SaaS Admin' };
             document.getElementById('pageTitle').innerText = titulos[tabId] || 'Painel';
             
             if(tabId === 'admin') carregarListaUsuariosAdmin(); 
@@ -921,6 +991,7 @@
             if(tabId === 'inventario') { renderizarTabelaInventario(); renderizarHistoricoInventarios(); } 
             if(tabId === 'fichatecnica') renderizarTabelaFichas(); 
             if(tabId === 'embalagens') renderizarTabelaEmbalagens(); 
+            if(tabId === 'fornecedores') renderizarTabelaFornecedores();
             if(tabId === 'dre') calcularDRE();
         }
 
@@ -975,12 +1046,8 @@
             if(graficosInstancias['topProductsChart']) graficosInstancias['topProductsChart'].destroy(); let arrayProd = Object.entries(contagemProdutos).sort((a,b) => b[1] - a[1]).slice(0, 10); graficosInstancias['topProductsChart'] = new Chart(document.getElementById('topProductsChart').getContext('2d'), { type: 'bar', data: { labels: arrayProd.map(p => p[0]), datasets: [{ data: arrayProd.map(p => p[1]), backgroundColor: '#10b981' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } } });
             if(graficosInstancias['donutChart']) graficosInstancias['donutChart'].destroy(); graficosInstancias['donutChart'] = new Chart(document.getElementById('donutChart').getContext('2d'), { type: 'doughnut', data: { labels: labelsCanal, datasets: [{ data: labelsCanal.map(l => dadosPorCanal[l].ped), backgroundColor: labelsCanal.map(l => coresCanais[l] || '#64748b'), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } } });
         }
-
-        function generarPDFMotoboy(id) { const m = bdMotoboys.find(x => x.id === id); if(!m) return; const dataF = m.data.split('-').reverse().join('/'); const div = document.createElement('div'); div.style.cssText = "padding:30px; font-family:sans-serif; color:#000; background:#fff; width:100%;"; div.innerHTML = `<div style="text-align:center; margin-bottom:20px;"><h2 style="margin:0;">RECIBO DE PAGAMENTO DE PRESTAÇÃO DE SERVIÇOS</h2><p style="margin:5px 0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="border:1px solid #ccc; margin-bottom:20px;"><p style="font-size:14px; line-height:1.6;">Recebi(emos) de <b>${perfilDados.nome || 'Delivery BI'}</b> a quantia de <b>${formatarMoeda(m.total)}</b>, referente à prestação de serviços de entregas na data de <b>${dataF}</b>.</p><table style="width:100%; margin-top:20px; border-collapse:collapse; font-size:14px;"><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9; width:40%;"><b>Nome do Entregador:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.nome}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>CPF:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.cpf || 'Não informado'}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Qtd. de Entregas:</b></td><td style="padding:8px; border:1px solid #ddd;">${m.qtdEntregas}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor da Diária:</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.diaria)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#f9f9f9;"><b>Valor Adicional (Por Entrega):</b></td><td style="padding:8px; border:1px solid #ddd;">${formatarMoeda(m.extra)}</td></tr><tr><td style="padding:8px; border:1px solid #ddd; background:#eee; font-weight:bold;"><b>Total Geral:</b></td><td style="padding:8px; border:1px solid #ddd; font-weight:bold;">${formatarMoeda(m.total)}</td></tr></table><p style="font-size:12px; margin-top:15px; color:#555;">Por ser verdade, firmo o presente recibo.</p><div style="display:flex; justify-content:space-between; margin-top:80px; text-align:center; font-size:13px;"><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>Responsável pelo Pagamento</b><br>${perfilDados.nome || 'Delivery BI'}</div><div style="width:45%; border-top:1px solid #000; padding-top:10px;"><b>${m.nome}</b><br>CPF: ${m.cpf || 'Não informado'}</div></div>`; html2pdf().set({ margin:10, filename: `Recibo_${m.nome.replace(/\s+/g,'_')}_${dataF.replace(/\//g,'-')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save(); }
-        function gerarPDFInventario(id) { const inv = bdInventarios.find(x => x.id === id); if(!inv) return; const div = document.createElement('div'); div.style.cssText = "padding:20px; font-family:sans-serif; color:#000; background:#fff; width:100%; font-size:12px;"; let htmlTable = `<table style="width:100%; border-collapse:collapse; text-align:left; margin-top:20px; border:1px solid #000;"><thead><tr style="background:#eee; border-bottom:1px solid #000;"><th style="padding:6px; border-right:1px solid #000;">Produto</th><th style="padding:6px; border-right:1px solid #000;">Estoque Sistema</th><th style="padding:6px; border-right:1px solid #000;">Qtd. Encontrada</th><th style="padding:6px; border-right:1px solid #000;">Div. (Qtd)</th><th style="padding:6px;">Div. (R$)</th></tr></thead><tbody>`; inv.itens.forEach(i => { htmlTable += `<tr style="border-bottom:1px solid #ccc;"><td style="padding:6px; border-right:1px solid #000;">${i.nome}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.atual}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.encontrado}</td><td style="padding:6px; border-right:1px solid #000; text-align:center;">${i.divQtd > 0 ? '+'+i.divQtd : i.divQtd}</td><td style="padding:6px;">${formatarMoeda(i.divR)}</td></tr>`; }); htmlTable += `</tbody></table>`; div.innerHTML = `<div style="text-align:center;"><h2 style="margin-bottom:5px;">RELATÓRIO DE INVENTÁRIO (DIVERGÊNCIAS)</h2><p style="margin:0;"><b>${perfilDados.nome || 'Delivery BI'}</b></p></div><hr style="margin:15px 0;"><p><b>Data e Hora da Auditoria:</b> ${inv.dataHora}</p><p><b>Responsável pela Contagem:</b> ${inv.responsavel || 'Não informado'}</p>${htmlTable}<h3 style="text-align:right; margin-top:20px;">Divergência Total Acumulada: ${formatarMoeda(inv.divergenciaTotalR)}</h3><div style="margin-top:60px; text-align:center;"><div style="width:50%; margin:0 auto; border-top:1px solid #000; padding-top:10px;"><b>${inv.responsavel || 'Responsável'}</b><br>Assinatura</div></div>`; html2pdf().set({ margin:10, filename: `Inventario_${inv.dataHora.replace(/[\/\s:]/g,'_')}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} }).from(div).save(); }
         function gerarExcel() { const ws = XLSX.utils.json_to_sheet(bdVendas); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Financeiro"); XLSX.writeFile(wb, "Relatorio_SaaS.xlsx"); }
         function gerarPDF() { html2pdf().set({ margin:5, filename: 'Relatorio_BI.pdf', html2canvas:{scale:2}, jsPDF:{format:'a4', orientation:'landscape'} }).from(document.getElementById('pdfContent')).save(); }
-
     </script>
 </body>
 </html>
