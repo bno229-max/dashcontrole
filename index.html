@@ -87,7 +87,6 @@
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .modal-content { width: 100%; max-width: 400px; padding: 25px; }
         
-        /* RESTAURAÇÃO DO LAYOUT COM ROLAGEM NORMAL E GRÁFICOS AJUSTADOS (ONE-PAGE) */
         .content-container { flex: 1; padding: 15px 20px; overflow-y: auto; background: var(--bg-color); }
         
         .kpi-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; margin-bottom: 10px; }
@@ -117,7 +116,6 @@
             .charts-grid { grid-template-columns: 1fr; }
         }
 
-        /* Estilos da Tabela DRE */
         .dre-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .dre-table tr.dre-total { background: rgba(59, 130, 246, 0.1); font-weight: 700; border-top: 2px solid var(--panel-border); border-bottom: 2px solid var(--panel-border); }
         .dre-table tr.dre-subtotal { background: rgba(16, 185, 129, 0.05); font-weight: 600; }
@@ -252,7 +250,7 @@
                                     <option value="iFood">iFood</option><option value="Keeta">Keeta</option><option value="99 Foods">99 Foods</option><option value="WhatsApp">WhatsApp</option><option value="Site">Site</option><option value="Balcão">Balcão</option><option value="Instagram">Instagram</option><option value="Outras Receitas">Outras Receitas</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label>Qtd. Itens</label><input type="number" id="qtdItensVenda" required min="1"></div>
+                            <div class="form-group"><label>Qtd. Itens no Pedido</label><input type="number" id="qtdItensVenda" required min="1"></div>
                             <div class="form-group"><label>Faturamento (R$)</label><input type="number" id="faturamentoVenda" step="0.01" required></div>
                             <div class="form-group"><label>Líquido (R$)</label><input type="number" id="liquidoVenda" step="0.01" required></div>
                         </div>
@@ -298,6 +296,9 @@
                             <div class="form-group"><label>Data</label><input type="date" id="dataDespesa" required></div>
                             <div class="form-group"><label>Categoria</label>
                                 <select id="categoriaDespesa" required>
+                                    <option value="Outras Despesas">Outras Despesas</option>
+                                    <option value="Gás">Gás</option>
+                                    <option value="Boleto Fornecedor">Boleto Fornecedor</option>
                                     <option value="Impostos">Impostos</option>
                                     <option value="Funcionários">Funcionários</option>
                                     <option value="Aluguel do imóvel">Aluguel do imóvel</option>
@@ -344,6 +345,7 @@
                             <div class="form-group"><label>Data</label><input type="date" id="dataReceitaAvulsa" required></div>
                             <div class="form-group"><label>Descrição</label><input type="text" id="descReceitaAvulsa" required></div>
                             <div class="form-group"><label>Valor (R$)</label><input type="number" id="valorReceitaAvulsa" step="0.01" required></div>
+                            <div class="form-group"><label>Pedidos Avulsos</label><input type="number" id="qtdPedidosReceitaAvulsa" min="0" value="0"></div>
                         </div>
                         <button type="submit" id="btnSalvarReceitaAvulsa" class="btn btn-primary"><i class="fas fa-plus"></i> Lançar Receita</button>
                     </form>
@@ -351,7 +353,7 @@
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top:10px;">
                     <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Histórico de Receitas Extras</h3>
                     <div style="overflow-x: auto; max-height: 300px; overflow-y: auto;">
-                        <table id="tableReceitasAvulsas"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th>Ações</th></tr></thead><tbody></tbody></table>
+                        <table id="tableReceitasAvulsas"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th>Qtd. Pedidos</th><th>Ações</th></tr></thead><tbody></tbody></table>
                     </div>
                 </div>
             </div>
@@ -798,10 +800,22 @@
         function editarDespesa(id) { const item = bdDespesas.find(x => x.id === id); if(!item) return; document.getElementById('dataDespesa').value = item.data; document.getElementById('categoriaDespesa').value = item.categoria; document.getElementById('valorDespesa').value = item.valor; document.getElementById('descDespesa').value = item.descricao; editandoIdDespesa = id; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Despesa'; window.scrollTo(0,0); }
         function renderizarTabelaDespesas() { const tbody = document.querySelector('#tableDespesas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdDespesas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(d => { const dataFormatada = d.data ? d.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${d.categoria}</td><td>${d.descricao}</td><td style="color:#ef4444;">${formatarMoeda(d.valor)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarDespesa('${d.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarDespesa('${d.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
-        document.getElementById('formReceitasAvulsas').addEventListener('submit', function(e) { e.preventDefault(); const rec = { data: document.getElementById('dataReceitaAvulsa').value, descricao: document.getElementById('descReceitaAvulsa').value, valor: parseFloat(document.getElementById('valorReceitaAvulsa').value)||0, userId: currentUser.uid }; if(editandoIdReceita) { db.collection('receitas').doc(editandoIdReceita).update(rec); editandoIdReceita = null; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-plus"></i> Lançar Receita'; } else { db.collection('receitas').add(rec); } document.getElementById('formReceitasAvulsas').reset(); document.getElementById('dataReceitaAvulsa').valueAsDate = new Date(); });
+        document.getElementById('formReceitasAvulsas').addEventListener('submit', function(e) { 
+            e.preventDefault(); 
+            const rec = { 
+                data: document.getElementById('dataReceitaAvulsa').value, 
+                descricao: document.getElementById('descReceitaAvulsa').value, 
+                valor: parseFloat(document.getElementById('valorReceitaAvulsa').value)||0, 
+                qtdPedidos: parseInt(document.getElementById('qtdPedidosReceitaAvulsa').value)||0,
+                userId: currentUser.uid 
+            }; 
+            if(editandoIdReceita) { db.collection('receitas').doc(editandoIdReceita).update(rec); editandoIdReceita = null; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-plus"></i> Lançar Receita'; } 
+            else { db.collection('receitas').add(rec); } 
+            document.getElementById('formReceitasAvulsas').reset(); document.getElementById('dataReceitaAvulsa').valueAsDate = new Date(); 
+        });
         function deletarReceitaAvulsa(id) { if(confirm("Excluir receita?")) db.collection('receitas').doc(id).delete(); }
-        function editarReceitaAvulsa(id) { const item = bdReceitasAvulsas.find(x => x.id === id); if(!item) return; document.getElementById('dataReceitaAvulsa').value = item.data; document.getElementById('descReceitaAvulsa').value = item.descricao; document.getElementById('valorReceitaAvulsa').value = item.valor; editandoIdReceita = id; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Receita'; window.scrollTo(0,0); }
-        function renderizarTabelaReceitasAvulsas() { const tbody = document.querySelector('#tableReceitasAvulsas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdReceitasAvulsas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(r => { const dataFormatada = r.data ? r.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${r.descricao}</td><td style="color:#10b981;">${formatarMoeda(r.valor)}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarReceitaAvulsa('${r.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarReceitaAvulsa('${r.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
+        function editarReceitaAvulsa(id) { const item = bdReceitasAvulsas.find(x => x.id === id); if(!item) return; document.getElementById('dataReceitaAvulsa').value = item.data; document.getElementById('descReceitaAvulsa').value = item.descricao; document.getElementById('valorReceitaAvulsa').value = item.valor; document.getElementById('qtdPedidosReceitaAvulsa').value = item.qtdPedidos || 0; editandoIdReceita = id; document.getElementById('btnSalvarReceitaAvulsa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Receita'; window.scrollTo(0,0); }
+        function renderizarTabelaReceitasAvulsas() { const tbody = document.querySelector('#tableReceitasAvulsas tbody'); if(!tbody) return; tbody.innerHTML = ''; const ord = [...bdReceitasAvulsas].sort((a,b) => new Date(b.data || 0) - new Date(a.data || 0)); ord.forEach(r => { const dataFormatada = r.data ? r.data.split('-').reverse().join('/') : ''; tbody.innerHTML += `<tr><td>${dataFormatada}</td><td>${r.descricao}</td><td style="color:#10b981;">${formatarMoeda(r.valor)}</td><td>${r.qtdPedidos || 0}</td><td><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarReceitaAvulsa('${r.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarReceitaAvulsa('${r.id}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
 
         document.getElementById('formFornecedor').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1019,10 +1033,11 @@
                 if(dadosPorDia[v.diaSemana] !== undefined) dadosPorDia[v.diaSemana] += v.faturamento || 0;
                 if(v.produtos) v.produtos.forEach(p => { contagemProdutos[p] = (contagemProdutos[p] || 0) + 1; });
             });
-            dFiltradas.forEach(d => totalDesp += d.valor || 0); rFiltradas.forEach(r => totalRecAvulsas += r.valor || 0);
+            rFiltradas.forEach(r => { totalRecAvulsas += r.valor || 0; totalPed += r.qtdPedidos || 0; });
+            dFiltradas.forEach(d => totalDesp += d.valor || 0);
 
             const totalFatGlobal = totalFatVendas + totalRecAvulsas; const totalRecGlobal = totalRecVendas + totalRecAvulsas; const lucroL = totalRecGlobal - totalDesp; const margem = totalFatGlobal > 0 ? (lucroL / totalFatGlobal) * 100 : 0;
-            document.getElementById('kpiFaturamento').innerText = formatarMoeda(totalFatGlobal); document.getElementById('kpiReceita').innerText = formatarMoeda(totalRecGlobal); document.getElementById('kpiTaxa').innerText = totalFatVendas > 0 ? `${(((totalFatVendas - totalRecVendas)/totalFatVendas)*100).toFixed(1)}%` : '0%'; document.getElementById('kpiTicket').innerText = totalPed > 0 ? formatarMoeda(totalFatVendas / totalPed) : 'R$ 0,00'; document.getElementById('kpiPedidos').innerText = totalPed; document.getElementById('kpiDespesas').innerText = formatarMoeda(totalDesp); document.getElementById('kpiLucroLiq').innerText = formatarMoeda(lucroL); document.getElementById('kpiMargem').innerText = `${margem.toFixed(1)}%`; 
+            document.getElementById('kpiFaturamento').innerText = formatarMoeda(totalFatGlobal); document.getElementById('kpiReceita').innerText = formatarMoeda(totalRecGlobal); document.getElementById('kpiTaxa').innerText = totalFatVendas > 0 ? `${(((totalFatVendas - totalRecVendas)/totalFatVendas)*100).toFixed(1)}%` : '0%'; document.getElementById('kpiTicket').innerText = totalPed > 0 ? formatarMoeda(totalFatGlobal / totalPed) : 'R$ 0,00'; document.getElementById('kpiPedidos').innerText = totalPed; document.getElementById('kpiDespesas').innerText = formatarMoeda(totalDesp); document.getElementById('kpiLucroLiq').innerText = formatarMoeda(lucroL); document.getElementById('kpiMargem').innerText = `${margem.toFixed(1)}%`; 
             let valorEstoque = bdProdutos.reduce((acc,p) => acc + ((Number(p.custo)||0) * (Number(p.estoque)||0)), 0); document.getElementById('kpiEstoque').innerText = formatarMoeda(valorEstoque);
 
             let htmlFat = '', htmlRec = '', htmlTicket = '', htmlTaxa = '', htmlPedidos = '';
