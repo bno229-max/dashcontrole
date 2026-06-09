@@ -133,6 +133,7 @@
 </head>
 <body class="dark-mode">
 
+    <!-- TELA DE BLOQUEIO -->
     <div id="block-wrapper" style="display: none;">
         <div class="login-box card" style="border-top: 4px solid #ef4444;">
             <h1 style="color: #ef4444;"><i class="fas fa-lock"></i> Acesso Suspenso</h1>
@@ -146,6 +147,7 @@
         </div>
     </div>
 
+    <!-- TELA DE LOGIN -->
     <div id="login-wrapper">
         <div class="login-box card">
             <h1><i class="fas fa-chart-pie"></i> Delivery BI</h1>
@@ -163,6 +165,7 @@
         </div>
     </div>
 
+    <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar" style="display: none;">
         <div class="sidebar-logo"><i class="fas fa-chart-pie"></i><span>Delivery BI</span></div>
         <div class="nav-item active" onclick="switchTab('dashboard', this)"><i class="fas fa-home"></i><span>Visão Geral</span></div>
@@ -183,6 +186,7 @@
         <div id="sidebar-footer"></div>
     </div>
 
+    <!-- MAIN APP -->
     <div class="main-wrapper" id="mainWrapper">
         <div class="top-navbar">
             <div class="navbar-left" style="display: flex; align-items: center; gap: 15px;">
@@ -203,6 +207,7 @@
 
         <div class="content-container" id="pdfContent">
             
+            <!-- ABA 1: DASHBOARD -->
             <div id="view-dashboard" class="view-section active">
                 <div class="card" style="display: flex; gap: 10px; align-items: center; justify-content: center; padding: 8px 15px; margin-bottom: 5px;">
                     <span style="font-weight: 600; font-size: 0.85rem;"><i class="fas fa-filter text-accent"></i> Período Analisado</span>
@@ -234,6 +239,7 @@
                 </div>
             </div>
 
+            <!-- ABA VENDAS -->
             <div id="view-vendas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-dollar-sign text-accent"></i> Lançamento de Vendas</h2>
@@ -288,6 +294,7 @@
                 </div>
             </div>
 
+            <!-- ABA DESPESAS -->
             <div id="view-despesas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-file-invoice-dollar text-accent"></i> Despesas Operacionais</h2>
@@ -337,6 +344,7 @@
                 </div>
             </div>
 
+            <!-- ABA RECEITAS EXTRAS -->
             <div id="view-receitas" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-hand-holding-usd text-accent"></i> Receitas Avulsas</h2>
@@ -358,6 +366,7 @@
                 </div>
             </div>
 
+            <!-- ABA PAGAMENTO MOTOBOY -->
             <div id="view-motoboy" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-helmet-safety text-accent"></i> Pagamento de Motoboys</h2>
@@ -390,6 +399,7 @@
                 </div>
             </div>
 
+            <!-- ABA CADASTRAR PRODUTOS -->
             <div id="view-produtos" class="view-section">
                 <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos e Estoque</h2>
@@ -406,6 +416,7 @@
                 </div>
             </div>
 
+            <!-- NOVA ABA: CADASTRAR FORNECEDORES -->
             <div id="view-fornecedores" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-truck text-accent"></i> Cadastrar Fornecedores</h2>
@@ -430,6 +441,7 @@
                 </div>
             </div>
 
+            <!-- ABA SIMULAÇÃO DE PRECIFICAÇÃO -->
             <div id="view-precificacao" class="view-section">
                 <div class="card" style="max-width: 600px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-calculator text-accent"></i> Simulador de Precificação</h2>
@@ -447,6 +459,7 @@
                 </div>
             </div>
 
+            <!-- ABA FICHA TÉCNICA -->
             <div id="view-fichatecnica" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-receipt text-accent"></i> Engenharia de Cardápio (Ficha Técnica)</h2>
@@ -476,6 +489,7 @@
                 </div>
             </div>
 
+            <!-- NOVA ABA: CADASTRO DE EMBALAGENS -->
             <div id="view-embalagens" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box text-accent"></i> Cadastrar Embalagens</h2>
@@ -498,6 +512,7 @@
                 </div>
             </div>
 
+            <!-- ABA INVENTÁRIO -->
             <div id="view-inventario" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-clipboard-check text-accent"></i> Inventário e Divergências</h2>
@@ -523,6 +538,7 @@
                 </div>
             </div>
 
+            <!-- NOVA ABA: D.R.E. GERENCIAL -->
             <div id="view-dre" class="view-section">
                 <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; text-align: center; flex-shrink: 0;">
                     <span style="font-weight: 600; font-size: 0.85rem; margin-right: 10px;"><i class="fas fa-calendar-alt text-accent"></i> Competência Operacional:</span>
@@ -536,9 +552,11 @@
                 </div>
                 
                 <div class="card" id="dreDocumentoContainer" style="max-width: 900px; margin: 10px auto 0 auto; width: 100%; padding: 25px;">
-                    <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="text-align: center; margin-bottom: 20px; border-bottom: 1px dashed var(--panel-border); padding-bottom: 15px;">
                         <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;">Demonstração de Resultado do Exercício (DRE)</h2>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">Análise Gerencial de Performance Operacional</p>
+                        <h3 id="dreNomeLoja" style="font-size: 1.1rem; color: var(--accent); margin-bottom: 4px;">MEU DELIVERY</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Análise Gerencial de Performance Operacional</p>
+                        <p id="dreDataGeracao" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;"></p>
                     </div>
                     <table class="dre-table">
                         <thead>
@@ -570,6 +588,7 @@
                 </div>
             </div>
 
+            <!-- NOVA ABA: SUPORTE -->
             <div id="view-suporte" class="view-section">
                 <div class="card" style="max-width: 600px; margin: 40px auto; width: 100%; text-align: center; padding: 40px 20px;">
                     <h2 style="margin-bottom: 20px; font-size: 1.5rem; color: var(--accent);"><i class="fas fa-headset"></i> Central de Suporte</h2>
@@ -603,6 +622,7 @@
                 </div>
             </div>
 
+            <!-- ABA ADMIN -->
             <div id="view-admin" class="view-section">
                 <div class="card" style="max-width: 1000px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; color:#f59e0b; text-align: center;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
@@ -618,6 +638,7 @@
         </div> 
     </div>
 
+    <!-- MODAIS DE USO GERAL -->
     <div id="modalPerfil" class="modal-overlay">
         <div class="modal-content card">
             <h3 style="margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-user-cog text-accent"></i> Configurações da Conta</h3>
@@ -648,6 +669,7 @@
         </div>
     </div>
 
+    <!-- SCRIPT GERAL DO SISTEMA -->
     <script>
         const firebaseConfig = { apiKey: "AIzaSyChRVEv2hHqryfZdReGN8FeZYpCe5ANZ1Y", authDomain: "bi-delivery-17107.firebaseapp.com", projectId: "bi-delivery-17107", storageBucket: "bi-delivery-17107.firebasestorage.app", messagingSenderId: "636646418661", appId: "1:636646418661:web:b23dd811167221849ecc0c" };
         firebase.initializeApp(firebaseConfig);
@@ -1019,14 +1041,26 @@
             const vLucroFinalPerc = document.getElementById('dreLucroLiquidoFinalPerc');
             vLucroFinalPerc.innerText = calcPerc(lucroLiquidoFinal, fatBrutoTotal);
             if(lucroLiquidoFinal < 0) { vLucroFinalPerc.className = "dre-value text-vermelho"; } else { vLucroFinalPerc.className = "dre-value text-verde"; }
+            
+            // Cabeçalho da DRE: Nome e Data
+            document.getElementById('dreNomeLoja').innerText = perfilDados.nome && perfilDados.nome !== 'Usuário' ? perfilDados.nome.toUpperCase() : 'MEU DELIVERY';
+            document.getElementById('dreDataGeracao').innerText = `Competência Analisada: ${mesSel}/${anoSel}`;
         }
 
         function exportarDREPDF() {
+            const dataAg = new Date();
+            const elData = document.getElementById('dreDataGeracao');
+            const textoOriginal = elData.innerText;
+            elData.innerText = `${textoOriginal} | Documento emitido em: ${dataAg.toLocaleDateString('pt-BR')} às ${dataAg.toLocaleTimeString('pt-BR')}`;
+            
             const mes = document.getElementById('dreFiltroMes').options[document.getElementById('dreFiltroMes').selectedIndex].text;
             const ano = document.getElementById('dreFiltroAno').value;
             const element = document.getElementById('dreDocumentoContainer');
             const op = { margin: 10, filename: `DRE_Gerencial_${mes}_${ano}.pdf`, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
-            html2pdf().set(op).from(element).save();
+            
+            html2pdf().set(op).from(element).save().then(() => {
+                elData.innerText = textoOriginal;
+            });
         }
 
         // ==============================
