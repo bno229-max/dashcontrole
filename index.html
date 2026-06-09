@@ -57,17 +57,14 @@
         body.dark-mode .sidebar { backdrop-filter: blur(20px); }
         .sidebar.collapsed { width: 60px; min-width: 60px; padding: 15px 5px 0 5px; }
         
-        /* TÉCNICA DE ZOOM NO SVG: LOGIN */
         .login-box .logo-container { height: 90px; overflow: hidden; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; pointer-events: none; }
         .login-box .logo-container img { height: 260px; min-height: 260px; width: auto; max-width: none; }
 
-        /* TÉCNICA DE SLIDE NO SVG: SIDEBAR (Mostra só o ícone quando fechada) */
         .sidebar-logo { height: 55px; overflow: hidden; position: relative; margin-bottom: 20px; pointer-events: none; }
         .sidebar-logo img { height: 220px; min-height: 220px; width: auto; max-width: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: 0.3s all; }
         .sidebar.collapsed .sidebar-logo { height: 50px; margin-top: 5px; }
         .sidebar.collapsed .sidebar-logo img { left: 100%; transform: translate(calc(-100% + 60px), -50%); }
 
-        /* TÉCNICA DE ZOOM NO SVG: NAVBAR DO TOPO */
         .nav-logo-wrapper { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 50px; width: 220px; overflow: hidden; display: flex; justify-content: center; align-items: center; pointer-events: none; }
         .nav-logo-wrapper img { height: 230px; min-height: 230px; width: auto; max-width: none; }
         @media (max-width: 768px) { .nav-logo-wrapper { position: static; transform: none; margin-left: 10px; width: 140px; } }
@@ -160,7 +157,7 @@
     <div id="login-wrapper">
         <div class="login-box card">
             <div class="logo-container">
-                <img src="logo.svg?v=7" alt="MetricsOne">
+                <img src="logo.svg?v=6" alt="MetricsOne">
             </div>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Acesse o seu Controle Financeiro</p>
             <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
@@ -178,18 +175,20 @@
 
     <div class="sidebar" id="sidebar" style="display: none;">
         <div class="sidebar-logo">
-            <img src="logo.svg?v=7" alt="MetricsOne">
+            <img src="logo.svg?v=6" alt="MetricsOne">
         </div>
+        
         <div class="nav-item active" onclick="switchTab('dashboard', this)"><i class="fas fa-home"></i><span>Visão Geral</span></div>
         <div class="nav-item" onclick="switchTab('vendas', this)"><i class="fas fa-dollar-sign"></i><span>Lançar Vendas</span></div>
         <div class="nav-item" onclick="switchTab('despesas', this)"><i class="fas fa-file-invoice-dollar"></i><span>Despesas Op.</span></div>
         <div class="nav-item" onclick="switchTab('receitas', this)"><i class="fas fa-hand-holding-usd"></i><span>Receitas Avulsas</span></div>
         <div class="nav-item" onclick="switchTab('motoboy', this)"><i class="fas fa-helmet-safety"></i><span>Pagamento Motoboy</span></div>
         <div class="nav-item" onclick="switchTab('produtos', this)"><i class="fas fa-box-open"></i><span>Cadastrar Produtos</span></div>
+        <div class="nav-item" onclick="switchTab('categorias', this)"><i class="fas fa-tags"></i><span>Cadastrar Categorias</span></div>
         <div class="nav-item" onclick="switchTab('fornecedores', this)"><i class="fas fa-truck"></i><span>Cad. Fornecedores</span></div>
-        <div class="nav-item" onclick="switchTab('precificacao', this)"><i class="fas fa-calculator"></i><span>Simulador de Preço</span></div>
-        <div class="nav-item" onclick="switchTab('fichatecnica', this)"><i class="fas fa-receipt"></i><span>Ficha Técnica</span></div>
         <div class="nav-item" onclick="switchTab('embalagens', this)"><i class="fas fa-box"></i><span>Cad. Embalagens</span></div>
+        <div class="nav-item" onclick="switchTab('fichatecnica', this)"><i class="fas fa-receipt"></i><span>Ficha Técnica</span></div>
+        <div class="nav-item" onclick="switchTab('precificacao', this)"><i class="fas fa-calculator"></i><span>Simulador de Preço</span></div>
         <div class="nav-item" onclick="switchTab('inventario', this)"><i class="fas fa-clipboard-check"></i><span>Inventário</span></div>
         <div class="nav-item" onclick="switchTab('dre', this)"><i class="fas fa-table"></i><span>D.R.E. Gerencial</span></div>
         <div class="nav-item" onclick="switchTab('suporte', this)"><i class="fas fa-headset"></i><span>Suporte</span></div>
@@ -209,7 +208,7 @@
             </div>
             
             <div class="nav-logo-wrapper">
-                <img src="logo.svg?v=7" alt="MetricsOne">
+                <img src="logo.svg?v=6" alt="MetricsOne">
             </div>
 
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -410,16 +409,48 @@
             <div id="view-produtos" class="view-section">
                 <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%;">
                     <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-box-open text-accent"></i> Cadastrar Produtos e Estoque</h2>
-                    <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
+                    
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" id="pesquisaProduto" placeholder="Pesquisar produto pelo nome..." oninput="renderizarBaseProdutos()" style="width: 100%; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                    </div>
+
+                    <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;" id="formProdutoBase">
                         <input type="text" id="novoProdutoNome" placeholder="Nome do Produto" style="flex: 2; min-width: 150px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
                         <input type="number" id="novoProdutoCusto" placeholder="Custo (R$)" step="0.01" style="flex: 1; min-width: 90px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
                         <input type="number" id="novoProdutoQtd" placeholder="Estoque Inicial" style="flex: 1; min-width: 90px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
-                        <select id="novoProdutoFornecedor" style="flex: 2; min-width: 150px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
-                            <option value="">-- Fornecedor (Opcional) --</option>
+                        
+                        <select id="novoProdutoCategoria" style="flex: 1; min-width: 130px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                            <option value="">-- Categoria --</option>
                         </select>
-                        <button class="btn btn-primary" onclick="cadastrarProdutoBase()"><i class="fas fa-save"></i> Salvar</button>
+                        <select id="novoProdutoFornecedor" style="flex: 1; min-width: 130px; padding: 8px; border-radius: var(--radius-md); border: 1px solid var(--panel-border); background: var(--input-bg); color: var(--text-main);">
+                            <option value="">-- Fornecedor --</option>
+                        </select>
+                        
+                        <button class="btn btn-primary" id="btnSalvarProduto" onclick="cadastrarProdutoBase()"><i class="fas fa-save"></i> Salvar</button>
                     </div>
                     <ul id="listaBaseProdutos" style="list-style: none; padding: 0;"></ul>
+                </div>
+            </div>
+
+            <div id="view-categorias" class="view-section">
+                <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
+                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; text-align: center;"><i class="fas fa-tags text-accent"></i> Cadastrar Categorias</h2>
+                    <form id="formCategoria">
+                        <div class="form-group">
+                            <label>Nome da Categoria</label>
+                            <input type="text" id="nomeCategoria" required placeholder="Ex: Bebidas, Sobremesas, Carnes">
+                        </div>
+                        <button type="submit" id="btnSalvarCategoria" class="btn btn-primary" style="width:100%; margin-top:5px;"><i class="fas fa-save"></i> Salvar Categoria</button>
+                    </form>
+                </div>
+                <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; margin-top: 10px;">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 10px; text-align: center;">Lista de Categorias</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="tableCategorias">
+                            <thead><tr><th>Categoria</th><th style="text-align: right;">Ações</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -674,11 +705,11 @@
         const MEU_EMAIL_ADMIN = "bno229@gmail.com"; 
 
         let currentUser = null;
-        let bdVendas = [], bdDespesas = [], bdReceitasAvulsas = [], bdProdutos = [], bdMotoboys = [], bdInventarios = [], bdFichas = [], bdEmbalagens = [], bdFornecedores = [];
+        let bdVendas = [], bdDespesas = [], bdReceitasAvulsas = [], bdProdutos = [], bdMotoboys = [], bdInventarios = [], bdFichas = [], bdEmbalagens = [], bdFornecedores = [], bdCategorias = [];
         let perfilDados = { nome: 'Usuário', foto: '', statusAcesso: 'ativo', pagamentoEmDia: false };
         
         let produtosTempVenda = []; let insumosTempFicha = []; let graficosInstancias = {};
-        let editandoIdVenda = null, editandoIdDespesa = null, editandoIdReceita = null, editandoIdMotoboy = null, editandoIdFicha = null, editandoIdEmbalagem = null, editandoIdFornecedor = null;
+        let editandoIdVenda = null, editandoIdDespesa = null, editandoIdReceita = null, editandoIdMotoboy = null, editandoIdFicha = null, editandoIdEmbalagem = null, editandoIdFornecedor = null, editandoIdCategoria = null, editandoIdProduto = null;
 
         const coresCanais = { 'iFood': '#ef4444', 'Keeta': '#10b981', '99 Foods': '#f59e0b', 'WhatsApp': '#25D366', 'Site': '#8b5cf6', 'Balcão': '#0ea5e9', 'Instagram': '#ec4899', 'Outras Receitas': '#64748b' };
 
@@ -755,6 +786,7 @@
             db.collection('despesas').where('userId', '==', uid).onSnapshot(snap => { bdDespesas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarDashboard(); renderizarTabelaDespesas(); calcularDRE(); });
             db.collection('receitas').where('userId', '==', uid).onSnapshot(snap => { bdReceitasAvulsas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarDashboard(); renderizarTabelaReceitasAvulsas(); calcularDRE(); });
             db.collection('produtos').where('userId', '==', uid).onSnapshot(snap => { bdProdutos = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderizarBaseProdutos(); atualizarSelectProdutos(); atualizarDashboard(); if(document.getElementById('view-inventario').classList.contains('active')) renderizarTabelaInventario(); calcularDRE(); });
+            db.collection('categorias').where('userId', '==', uid).onSnapshot(snap => { bdCategorias = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); atualizarSelectCategorias(); if(document.getElementById('view-categorias').classList.contains('active')) renderizarTabelaCategorias(); });
             db.collection('motoboys').where('userId', '==', uid).onSnapshot(snap => { bdMotoboys = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-motoboy').classList.contains('active')) renderizarHistoricoMotoboys(); calcularDRE(); });
             db.collection('inventarios').where('userId', '==', uid).onSnapshot(snap => { bdInventarios = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-inventario').classList.contains('active')) renderizarHistoricoInventarios(); });
             db.collection('fichatecnica').where('userId', '==', uid).onSnapshot(snap => { bdFichas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); if(document.getElementById('view-fichatecnica').classList.contains('active')) renderizarTabelaFichas(); });
@@ -779,6 +811,9 @@
         function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status atualizado!'); carregarListaUsuariosAdmin(); }); }
         function alternarPagamentoConta(uid, status) { db.collection('usuarios').doc(uid).update({ pagamentoEmDia: status }).then(() => { alert('Pagamento atualizado!'); carregarListaUsuariosAdmin(); }); }
 
+        // ==============================
+        // VENDAS (MÓDULO DE LANÇAMENTO)
+        // ==============================
         function renderizarSelectEmbalagens() {
             const select = document.getElementById('vendaEmbalagemSelect');
             if(!select) return; select.innerHTML = '<option value="">-- Nenhuma Embalagem --</option>';
@@ -817,6 +852,9 @@
             document.getElementById('vendaEmbalagemSelect').value = item.embalagemId || ''; document.getElementById('vendaEmbalagemQtd').value = item.embalagemQtd || 0; produtosTempVenda = [...(item.produtos || [])]; renderizarChipsVenda(); editandoIdVenda = id; document.getElementById('btnSalvarVenda').innerHTML = '<i class="fas fa-edit"></i> Atualizar Venda'; window.scrollTo(0,0); 
         }
 
+        // ==============================
+        // DESPESAS, RECEITAS E FORNECEDORES
+        // ==============================
         document.getElementById('formDespesas').addEventListener('submit', function(e) { e.preventDefault(); const despesa = { data: document.getElementById('dataDespesa').value, categoria: document.getElementById('categoriaDespesa').value, valor: parseFloat(document.getElementById('valorDespesa').value)||0, descricao: document.getElementById('descDespesa').value, userId: currentUser.uid }; if(editandoIdDespesa) { db.collection('despesas').doc(editandoIdDespesa).update(despesa); editandoIdDespesa = null; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-plus"></i> Lançar Despesa'; } else { db.collection('despesas').add(despesa); } document.getElementById('formDespesas').reset(); document.getElementById('dataDespesa').valueAsDate = new Date(); });
         function deletarDespesa(id) { if(confirm("Excluir despesa?")) db.collection('despesas').doc(id).delete(); }
         function editarDespesa(id) { const item = bdDespesas.find(x => x.id === id); if(!item) return; document.getElementById('dataDespesa').value = item.data; document.getElementById('categoriaDespesa').value = item.categoria; document.getElementById('valorDespesa').value = item.valor; document.getElementById('descDespesa').value = item.descricao; editandoIdDespesa = id; document.getElementById('btnSalvarDespesa').innerHTML = '<i class="fas fa-edit"></i> Atualizar Despesa'; window.scrollTo(0,0); }
@@ -852,15 +890,106 @@
         function deletarFornecedor(id) { if(confirm("Deseja apagar este fornecedor?")) db.collection('fornecedores').doc(id).delete(); }
         function editarFornecedor(id) { const f = bdFornecedores.find(x => x.id === id); if(!f) return; document.getElementById('nomeFornecedor').value = f.nome; document.getElementById('cnpjFornecedor').value = f.cnpj || ''; document.getElementById('vendedorFornecedor').value = f.vendedor || ''; document.getElementById('telFornecedor').value = f.telefone || ''; editandoIdFornecedor = id; document.getElementById('btnSalvarFornecedor').innerHTML = '<i class="fas fa-edit"></i> Atualizar Fornecedor'; window.scrollTo(0,0); }
 
-        function cadastrarProdutoBase() { const n = document.getElementById('novoProdutoNome').value; const c = parseFloat(document.getElementById('novoProdutoCusto').value)||0; const q = parseInt(document.getElementById('novoProdutoQtd').value)||0; const fornecedor = document.getElementById('novoProdutoFornecedor').value; if(n) { db.collection('produtos').add({ nome:n, custo:c, estoque:q, fornecedor: fornecedor, userId: currentUser.uid }); document.getElementById('novoProdutoNome').value=''; document.getElementById('novoProdutoCusto').value=''; document.getElementById('novoProdutoQtd').value=''; document.getElementById('novoProdutoFornecedor').value=''; } }
+        // ==============================
+        // MÓDULO CATEGORIAS
+        // ==============================
+        document.getElementById('formCategoria').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cat = { nome: document.getElementById('nomeCategoria').value.trim(), userId: currentUser.uid };
+            if(editandoIdCategoria) {
+                db.collection('categorias').doc(editandoIdCategoria).update(cat);
+                editandoIdCategoria = null;
+                document.getElementById('btnSalvarCategoria').innerHTML = '<i class="fas fa-save"></i> Salvar Categoria';
+            } else {
+                db.collection('categorias').add(cat);
+            }
+            document.getElementById('formCategoria').reset();
+        });
+
+        function renderizarTabelaCategorias() {
+            const tbody = document.querySelector('#tableCategorias tbody'); if(!tbody) return; tbody.innerHTML = '';
+            bdCategorias.forEach(c => {
+                tbody.innerHTML += `<tr><td><b>${c.nome}</b></td><td style="text-align: right;"><button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="editarCategoria('${c.id}')"><i class="fas fa-edit"></i></button> <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem; color:#ef4444; border-color:#fca5a5;" onclick="deletarCategoria('${c.id}')"><i class="fas fa-trash"></i></button></td></tr>`;
+            });
+        }
+
+        function deletarCategoria(id) { if(confirm("Deseja apagar esta categoria?")) db.collection('categorias').doc(id).delete(); }
+        
+        function editarCategoria(id) {
+            const c = bdCategorias.find(x => x.id === id); if(!c) return;
+            document.getElementById('nomeCategoria').value = c.nome;
+            editandoIdCategoria = id;
+            document.getElementById('btnSalvarCategoria').innerHTML = '<i class="fas fa-edit"></i> Atualizar Categoria';
+            window.scrollTo(0,0);
+        }
+
+        function atualizarSelectCategorias() {
+            const select = document.getElementById('novoProdutoCategoria'); if(!select) return;
+            select.innerHTML = '<option value="">-- Categoria (Opcional) --</option>';
+            bdCategorias.forEach(c => { select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`; });
+        }
+
+        // ==============================
+        // MÓDULOS DE ESTOQUE, PRODUTOS, EMBALAGEM E FICHAS
+        // ==============================
+        function cadastrarProdutoBase() { 
+            const n = document.getElementById('novoProdutoNome').value.trim(); 
+            const c = parseFloat(document.getElementById('novoProdutoCusto').value)||0; 
+            const q = parseInt(document.getElementById('novoProdutoQtd').value)||0; 
+            const fornecedor = document.getElementById('novoProdutoFornecedor').value; 
+            const categoria = document.getElementById('novoProdutoCategoria').value; 
+            
+            if(n) { 
+                const payload = { nome:n, custo:c, estoque:q, fornecedor: fornecedor, categoria: categoria, userId: currentUser.uid };
+                if (editandoIdProduto) {
+                    db.collection('produtos').doc(editandoIdProduto).update(payload);
+                    editandoIdProduto = null;
+                    document.getElementById('btnSalvarProduto').innerHTML = '<i class="fas fa-save"></i> Salvar';
+                } else {
+                    db.collection('produtos').add(payload); 
+                }
+                document.getElementById('novoProdutoNome').value=''; 
+                document.getElementById('novoProdutoCusto').value=''; 
+                document.getElementById('novoProdutoQtd').value=''; 
+                document.getElementById('novoProdutoFornecedor').value=''; 
+                document.getElementById('novoProdutoCategoria').value='';
+            } else {
+                alert("Preencha ao menos o nome do produto.");
+            }
+        }
+
+        function editarProdutoBase(id) {
+            const p = bdProdutos.find(x => x.id === id); if(!p) return;
+            document.getElementById('novoProdutoNome').value = p.nome;
+            document.getElementById('novoProdutoCusto').value = p.custo;
+            document.getElementById('novoProdutoQtd').value = p.estoque;
+            document.getElementById('novoProdutoFornecedor').value = p.fornecedor || '';
+            document.getElementById('novoProdutoCategoria').value = p.categoria || '';
+            editandoIdProduto = id;
+            document.getElementById('btnSalvarProduto').innerHTML = '<i class="fas fa-edit"></i> Atualizar';
+            window.scrollTo(0,0);
+        }
+
         function deletarProdutoBase(id) { if(confirm("Apagar produto?")) db.collection('produtos').doc(id).delete(); }
         
         function renderizarBaseProdutos() { 
-            const ul = document.getElementById('listaBaseProdutos'); ul.innerHTML = ''; 
-            bdProdutos.forEach(p => { 
-                const forncText = p.fornecedor ? ` | Fornecedor: ${p.fornecedor}` : ''; 
+            const ul = document.getElementById('listaBaseProdutos'); if(!ul) return;
+            ul.innerHTML = ''; 
+            const termo = document.getElementById('pesquisaProduto').value.toLowerCase();
+            
+            const filtrados = bdProdutos.filter(p => p.nome.toLowerCase().includes(termo));
+            
+            filtrados.forEach(p => { 
+                const forncText = p.fornecedor ? ` | Forn: ${p.fornecedor}` : ''; 
+                const catText = p.categoria ? ` | Cat: ${p.categoria}` : ''; 
                 const estAtual = getEstoqueAtual(p);
-                ul.innerHTML += `<li style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--panel-border);"><div><b>${p.nome}</b><br><small>Custo: ${formatarMoeda(p.custo)} | Estoque Inicial: ${p.estoque} un.${forncText} | <span style="color:var(--accent); font-weight:600;">Estoque Atual: ${estAtual} un.</span></small></div><button class="btn btn-outline" style="color:red;" onclick="deletarProdutoBase('${p.id}')"><i class="fas fa-trash"></i></button></li>`; 
+                ul.innerHTML += `<li style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid var(--panel-border);">
+                    <div><b>${p.nome}</b><br><small>Custo: ${formatarMoeda(p.custo)} | Estoque Inicial: ${p.estoque} un.${catText}${forncText} | <span style="color:var(--accent); font-weight:600;">Estoque Atual: ${estAtual} un.</span></small></div>
+                    <div style="white-space:nowrap;">
+                        <button class="btn btn-outline" style="padding: 4px 8px; margin-right: 5px;" onclick="editarProdutoBase('${p.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-outline" style="color:red; padding: 4px 8px;" onclick="deletarProdutoBase('${p.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </li>`; 
             }); 
         }
         
@@ -1058,6 +1187,7 @@
             if(tabId === 'fichatecnica') renderizarTabelaFichas(); 
             if(tabId === 'embalagens') renderizarTabelaEmbalagens(); 
             if(tabId === 'fornecedores') renderizarTabelaFornecedores();
+            if(tabId === 'categorias') renderizarTabelaCategorias();
             if(tabId === 'dre') calcularDRE();
         }
 
