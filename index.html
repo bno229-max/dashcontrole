@@ -157,7 +157,7 @@
     <div id="login-wrapper">
         <div class="login-box card">
             <div class="logo-container">
-                <img src="logo.svg?v=6" alt="MetricsOne">
+                <img src="logo.png" alt="MetricsOne">
             </div>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Acesse o seu Controle Financeiro</p>
             <div class="login-error" id="loginError">Usuário ou senha incorretos.</div>
@@ -175,7 +175,7 @@
 
     <div class="sidebar" id="sidebar" style="display: none;">
         <div class="sidebar-logo">
-            <img src="logo.svg?v=6" alt="MetricsOne">
+            <img src="logo.png" alt="MetricsOne">
         </div>
         
         <div class="nav-item active" onclick="switchTab('dashboard', this)"><i class="fas fa-home"></i><span>Visão Geral</span></div>
@@ -208,7 +208,7 @@
             </div>
             
             <div class="nav-logo-wrapper">
-                <img src="logo.svg?v=6" alt="MetricsOne">
+                <img src="logo.png" alt="MetricsOne">
             </div>
 
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -236,8 +236,8 @@
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Taxa Média <i class="fas fa-chevron-down"></i></h3><div class="value text-vermelho" id="kpiTaxa">0%</div><div class="sub-value">Retenção Plataf.</div><div class="kpi-details" id="detTaxa"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Ticket Médio <i class="fas fa-chevron-down"></i></h3><div class="value text-branco" id="kpiTicket">R$ 0,00</div><div class="sub-value">Por Pedido</div><div class="kpi-details" id="detTicket"></div></div>
                     <div class="card kpi-card" onclick="this.classList.toggle('expanded')"><h3>Pedidos <i class="fas fa-chevron-down"></i></h3><div class="value text-branco" id="kpiPedidos">0</div><div class="sub-value">Volume Total</div><div class="kpi-details" id="detPedidos"></div></div>
-                    <div class="card kpi-card"><h3>Despesas</h3><div class="value text-vermelho" id="kpiDespesas">R$ 0,00</div><div class="sub-value">Operacionais</div></div>
-                    <div class="card kpi-card"><h3>Lucro Líquido</h3><div class="value text-verde" id="kpiLucroLiq">R$ 0,00</div><div class="sub-value">Receita - Desp.</div></div>
+                    <div class="card kpi-card"><h3>Despesas Totais</h3><div class="value text-vermelho" id="kpiDespesas">R$ 0,00</div><div class="sub-value">CMV + Operacional</div></div>
+                    <div class="card kpi-card"><h3>Lucro Líquido</h3><div class="value text-verde" id="kpiLucroLiq">R$ 0,00</div><div class="sub-value">Receita - Saídas</div></div>
                     <div class="card kpi-card"><h3>Margem Líq.</h3><div class="value text-branco" id="kpiMargem">0%</div><div class="sub-value">Sobre Faturam.</div></div>
                     <div class="card kpi-card"><h3>Estoque Atual</h3><div class="value text-branco" id="kpiEstoque">R$ 0,00</div><div class="sub-value">Valor de Custo</div></div>
                 </div>
@@ -655,10 +655,13 @@
 
             <div id="view-admin" class="view-section">
                 <div class="card" style="max-width: 1000px; margin: 0 auto; width: 100%;">
-                    <h2 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; color:#f59e0b; text-align: center;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;">
+                        <h2 style="font-size: 1.1rem; color:#f59e0b; margin: 0;"><i class="fas fa-user-shield"></i> Gestão SaaS Admin</h2>
+                        <button class="btn btn-outline" style="color: #10b981; border-color: #10b981;" onclick="exportarUsuariosExcel()"><i class="fas fa-file-excel"></i> Exportar Clientes</button>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table id="tableAdminUsuarios">
-                            <thead><tr><th>E-mail Corporativo</th><th>UID da Loja</th><th>Status da Conta</th><th>Ações de Acesso</th></tr></thead>
+                            <thead><tr><th>E-mail Corporativo</th><th>Nome da Loja</th><th>UID (Firebase)</th><th>Status da Conta</th><th>Ações de Acesso</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -798,18 +801,6 @@
         function abrirModalPerfil() { document.getElementById('inputNomePerfil').value = perfilDados.nome || ''; document.getElementById('modalPerfil').classList.add('active'); }
         function fecharModalPerfil() { document.getElementById('modalPerfil').classList.remove('active'); }
         document.getElementById('formPerfil').addEventListener('submit', function(e) { e.preventDefault(); const fileInput = document.getElementById('inputFotoPerfil'); let pacote = { nome: document.getElementById('inputNomePerfil').value.trim() }; if (fileInput.files && fileInput.files[0]) { const reader = new FileReader(); reader.onload = function(e) { pacote.foto = e.target.result; db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); }; reader.readAsDataURL(fileInput.files[0]); } else { db.collection('usuarios').doc(currentUser.uid).update(pacote).then(fecharModalPerfil); } });
-
-        async function carregarListaUsuariosAdmin() {
-            if(currentUser.email !== MEU_EMAIL_ADMIN) return;
-            try { const snapshot = await db.collection('usuarios').get(); const tbody = document.querySelector('#tableAdminUsuarios tbody'); tbody.innerHTML = ''; if(snapshot.empty) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Nenhum cliente encontrado.</td></tr>`; return; } 
-            snapshot.forEach(doc => { 
-                const u = doc.data(); const corStatus = u.statusAcesso === 'ativo' ? '#10b981' : '#ef4444'; 
-                const btnPgto = u.pagamentoEmDia ? `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#f59e0b; color:#f59e0b;" onclick="alternarPagamentoConta('${doc.id}', false)"><i class="fas fa-times"></i> Tirar Pago</button>` : `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#3b82f6; color:#3b82f6;" onclick="alternarPagamentoConta('${doc.id}', true)"><i class="fas fa-dollar-sign"></i> Marcar Pago</button>`;
-                tbody.innerHTML += `<tr><td><b>${u.email}</b></td><td><small>${doc.id}</small></td><td style="color:${corStatus}; font-weight:700; font-size:0.8rem;">${u.statusAcesso ? u.statusAcesso.toUpperCase() : 'ATIVO'}<br><small style="color:${u.pagamentoEmDia ? '#10b981' : '#ef4444'};">${u.pagamentoEmDia ? 'Pagamento OK' : 'Pagamento Pendente'}</small></td><td><div style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;"><button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#10b981; color:#10b981;" onclick="alterarStatusConta('${doc.id}', 'ativo')"><i class="fas fa-check"></i> Ativar</button> <button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#ef4444; color:#ef4444;" onclick="alterarStatusConta('${doc.id}', 'bloqueado')"><i class="fas fa-ban"></i> Bloquear</button> ${btnPgto}</div></td></tr>`; 
-            }); } catch(e) {}
-        }
-        function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status atualizado!'); carregarListaUsuariosAdmin(); }); }
-        function alternarPagamentoConta(uid, status) { db.collection('usuarios').doc(uid).update({ pagamentoEmDia: status }).then(() => { alert('Pagamento atualizado!'); carregarListaUsuariosAdmin(); }); }
 
         // ==============================
         // VENDAS (MÓDULO DE LANÇAMENTO)
@@ -1172,7 +1163,7 @@
         }
 
         // ==============================
-        // CONTROLES DE NAVEGAÇÃO E GRÁFICOS
+        // CONTROLES DE NAVEGAÇÃO E GRÁFICOS E ADMIN
         // ==============================
         function switchTab(tabId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); 
@@ -1203,26 +1194,56 @@
             let vFiltradas = bdVendas.filter(v => (!fStart || v.data >= fStart) && (!fEnd || v.data <= fEnd));
             let dFiltradas = bdDespesas.filter(d => (!fStart || d.data >= fStart) && (!fEnd || d.data <= fEnd));
             let rFiltradas = bdReceitasAvulsas.filter(r => (!fStart || r.data >= fStart) && (!fEnd || r.data <= fEnd));
+            let mFiltrados = bdMotoboys.filter(m => (!fStart || m.data >= fStart) && (!fEnd || m.data <= fEnd));
             
             let totalFatVendas = 0, totalRecVendas = 0, totalPed = 0, totalDesp = 0, totalRecAvulsas = 0;
+            let custoInsumos = 0, custoEmbalagens = 0, gastoMotoboys = 0;
+            
             let dadosPorCanal = { 'iFood': {fat:0, rec:0, ped:0}, 'Keeta': {fat:0, rec:0, ped:0}, '99 Foods': {fat:0, rec:0, ped:0}, 'WhatsApp': {fat:0, rec:0, ped:0}, 'Site': {fat:0, rec:0, ped:0}, 'Balcão': {fat:0, rec:0, ped:0}, 'Instagram': {fat:0, rec:0, ped:0}, 'Outras Receitas': {fat:0, rec:0, ped:0} };
             let dadosPorDia = { 'Segunda-feira':0, 'Terça-feira':0, 'Quarta-feira':0, 'Quinta-feira':0, 'Sexta-feira':0, 'Sábado':0, 'Domingo':0 };
             let contagemProdutos = {};
 
             vFiltradas.forEach(v => {
                 totalFatVendas += v.faturamento || 0; totalRecVendas += v.receitaLiquida || 0; totalPed += v.qtdPedidos || 0;
+                custoEmbalagens += v.embalagemCustoTotal || 0;
+                
+                if(v.produtos) {
+                    v.produtos.forEach(pNome => { 
+                        contagemProdutos[pNome] = (contagemProdutos[pNome] || 0) + 1; 
+                        const prod = bdProdutos.find(x => x.nome === pNome);
+                        if(prod) custoInsumos += prod.custo || 0;
+                    });
+                }
+
                 if(dadosPorCanal[v.canal]) { dadosPorCanal[v.canal].fat += v.faturamento || 0; dadosPorCanal[v.canal].rec += v.receitaLiquida || 0; dadosPorCanal[v.canal].ped += v.qtdPedidos || 0; }
                 if(dadosPorDia[v.diaSemana] !== undefined) dadosPorDia[v.diaSemana] += v.faturamento || 0;
-                if(v.produtos) v.produtos.forEach(p => { contagemProdutos[p] = (contagemProdutos[p] || 0) + 1; });
             });
+            
             rFiltradas.forEach(r => { totalRecAvulsas += r.valor || 0; totalPed += r.qtdPedidos || 0; });
             dFiltradas.forEach(d => totalDesp += d.valor || 0);
+            mFiltrados.forEach(m => gastoMotoboys += m.total || 0);
 
-            const totalFatGlobal = totalFatVendas + totalRecAvulsas; const totalRecGlobal = totalRecVendas + totalRecAvulsas; const lucroL = totalRecGlobal - totalDesp; const margem = totalFatGlobal > 0 ? (lucroL / totalFatGlobal) * 100 : 0;
+            const totalFatGlobal = totalFatVendas + totalRecAvulsas; 
+            const totalRecGlobal = totalRecVendas + totalRecAvulsas; 
+            
+            const cmvTotal = custoInsumos + custoEmbalagens;
+            const opexTotal = totalDesp + gastoMotoboys;
+            const totalSaidas = cmvTotal + opexTotal;
+            
+            const lucroL = totalRecGlobal - totalSaidas; 
+            const margem = totalFatGlobal > 0 ? (lucroL / totalFatGlobal) * 100 : 0;
             
             let valorEstoque = bdProdutos.reduce((acc,p) => acc + ((Number(p.custo)||0) * getEstoqueAtual(p)), 0); 
             
-            document.getElementById('kpiFaturamento').innerText = formatarMoeda(totalFatGlobal); document.getElementById('kpiReceita').innerText = formatarMoeda(totalRecGlobal); document.getElementById('kpiTaxa').innerText = totalFatVendas > 0 ? `${(((totalFatVendas - totalRecVendas)/totalFatVendas)*100).toFixed(1)}%` : '0%'; document.getElementById('kpiTicket').innerText = totalPed > 0 ? formatarMoeda(totalFatGlobal / totalPed) : 'R$ 0,00'; document.getElementById('kpiPedidos').innerText = totalPed; document.getElementById('kpiDespesas').innerText = formatarMoeda(totalDesp); document.getElementById('kpiLucroLiq').innerText = formatarMoeda(lucroL); document.getElementById('kpiMargem').innerText = `${margem.toFixed(1)}%`; 
+            document.getElementById('kpiFaturamento').innerText = formatarMoeda(totalFatGlobal); 
+            document.getElementById('kpiReceita').innerText = formatarMoeda(totalRecGlobal); 
+            document.getElementById('kpiTaxa').innerText = totalFatVendas > 0 ? `${(((totalFatVendas - totalRecVendas)/totalFatVendas)*100).toFixed(1)}%` : '0%'; 
+            document.getElementById('kpiTicket').innerText = totalPed > 0 ? formatarMoeda(totalFatGlobal / totalPed) : 'R$ 0,00'; 
+            document.getElementById('kpiPedidos').innerText = totalPed; 
+            
+            document.getElementById('kpiDespesas').innerText = formatarMoeda(totalSaidas); 
+            document.getElementById('kpiLucroLiq').innerText = formatarMoeda(lucroL); 
+            document.getElementById('kpiMargem').innerText = `${margem.toFixed(1)}%`; 
             document.getElementById('kpiEstoque').innerText = formatarMoeda(valorEstoque);
 
             let htmlFat = '', htmlRec = '', htmlTicket = '', htmlTaxa = '', htmlPedidos = '';
@@ -1246,8 +1267,63 @@
             if(graficosInstancias['topProductsChart']) graficosInstancias['topProductsChart'].destroy(); let arrayProd = Object.entries(contagemProdutos).sort((a,b) => b[1] - a[1]).slice(0, 10); graficosInstancias['topProductsChart'] = new Chart(document.getElementById('topProductsChart').getContext('2d'), { type: 'bar', data: { labels: arrayProd.map(p => p[0]), datasets: [{ data: arrayProd.map(p => p[1]), backgroundColor: '#10b981' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } } });
             if(graficosInstancias['donutChart']) graficosInstancias['donutChart'].destroy(); graficosInstancias['donutChart'] = new Chart(document.getElementById('donutChart').getContext('2d'), { type: 'doughnut', data: { labels: labelsCanal, datasets: [{ data: labelsCanal.map(l => dadosPorCanal[l].ped), backgroundColor: labelsCanal.map(l => coresCanais[l] || '#64748b'), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } } });
         }
-        function gerarExcel() { const ws = XLSX.utils.json_to_sheet(bdVendas); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Financeiro"); XLSX.writeFile(wb, "Relatorio_MetricsOne.xlsx"); }
-        function gerarPDF() { html2pdf().set({ margin:5, filename: 'Relatorio_MetricsOne.pdf', html2canvas:{scale:2}, jsPDF:{format:'a4', orientation:'landscape'} }).from(document.getElementById('pdfContent')).save(); }
+
+        async function carregarListaUsuariosAdmin() {
+            if(currentUser.email !== MEU_EMAIL_ADMIN) return;
+            try { 
+                const snapshot = await db.collection('usuarios').get(); 
+                const tbody = document.querySelector('#tableAdminUsuarios tbody'); 
+                tbody.innerHTML = ''; 
+                if(snapshot.empty) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum cliente encontrado.</td></tr>`; return; } 
+                
+                snapshot.forEach(doc => { 
+                    const u = doc.data(); const corStatus = u.statusAcesso === 'ativo' ? '#10b981' : '#ef4444'; 
+                    const nomeLoja = u.nome && u.nome !== 'Usuário' ? u.nome : '<span style="color: var(--text-muted); font-style: italic;">Pendente...</span>';
+                    const btnPgto = u.pagamentoEmDia ? `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#f59e0b; color:#f59e0b;" onclick="alternarPagamentoConta('${doc.id}', false)"><i class="fas fa-times"></i> Tirar Pago</button>` : `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#3b82f6; color:#3b82f6;" onclick="alternarPagamentoConta('${doc.id}', true)"><i class="fas fa-dollar-sign"></i> Marcar Pago</button>`;
+                    
+                    const btnAcoes = `<button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#10b981; color:#10b981;" onclick="alterarStatusConta('${doc.id}', 'ativo')"><i class="fas fa-check"></i> Ativar</button> <button class="btn btn-outline" style="padding:2px 4px; font-size:0.65rem; border-color:#ef4444; color:#ef4444;" onclick="alterarStatusConta('${doc.id}', 'bloqueado')"><i class="fas fa-ban"></i> Bloquear</button>`;
+
+                    tbody.innerHTML += `<tr>
+                        <td><b>${u.email}</b></td>
+                        <td>${nomeLoja}</td>
+                        <td><small style="color: var(--text-muted); font-family: monospace;">${doc.id}</small></td>
+                        <td style="color:${corStatus}; font-weight:700; font-size:0.8rem;">${u.statusAcesso ? u.statusAcesso.toUpperCase() : 'ATIVO'}<br><small style="color:${u.pagamentoEmDia ? '#10b981' : '#ef4444'};">${u.pagamentoEmDia ? 'Pagamento OK' : 'Pagamento Pendente'}</small></td>
+                        <td><div style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;">${btnAcoes} ${btnPgto}</div></td>
+                    </tr>`; 
+                }); 
+            } catch(e) { console.error("Erro ao carregar painel admin: ", e); }
+        }
+
+        function alterarStatusConta(uid, novoStatus) { db.collection('usuarios').doc(uid).update({ statusAcesso: novoStatus }).then(() => { alert('Status atualizado!'); carregarListaUsuariosAdmin(); }); }
+        function alternarPagamentoConta(uid, status) { db.collection('usuarios').doc(uid).update({ pagamentoEmDia: status }).then(() => { alert('Pagamento atualizado!'); carregarListaUsuariosAdmin(); }); }
+
+        async function exportarUsuariosExcel() {
+            if(currentUser.email !== MEU_EMAIL_ADMIN) return;
+            try {
+                const snapshot = await db.collection('usuarios').get();
+                if(snapshot.empty) return alert("Nenhum usuário na base para exportar.");
+                
+                let dadosExportacao = [];
+                snapshot.forEach(doc => {
+                    const u = doc.data();
+                    dadosExportacao.push({
+                        "Nome do Negócio / Loja": u.nome || "Não informado",
+                        "E-mail de Cadastro": u.email,
+                        "Status do Sistema": u.statusAcesso ? u.statusAcesso.toUpperCase() : "ATIVO",
+                        "Status Financeiro": u.pagamentoEmDia ? "Em Dia" : "Pendente",
+                        "UID (Identificador Único)": doc.id
+                    });
+                });
+
+                const ws = XLSX.utils.json_to_sheet(dadosExportacao);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Base_Clientes");
+                XLSX.writeFile(wb, "SaaS_Base_Clientes_MetricsOne.xlsx");
+            } catch(e) {
+                console.error(e);
+                alert("Ocorreu um erro ao gerar o arquivo Excel.");
+            }
+        }
     </script>
 </body>
 </html>
